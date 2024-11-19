@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "646462327215",
+    "project_id": "barberly-281a4",
+    "storage_bucket": "barberly-281a4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646462327215:android:f3179acc9ba2a13bd8475a",
+        "android_client_info": {
+          "package_name": "com.arieluni.barberly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646462327215-dsil14m8pdorf5dt4279ctlsnkljscsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvtD3MqNhR87sUzzpujikm_2pbtRErwUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646462327215-dsil14m8pdorf5dt4279ctlsnkljscsm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "646462327215-gb4qqi1lerjuor87nveiqsk8mlh4fegu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.arieluni.barberly"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
