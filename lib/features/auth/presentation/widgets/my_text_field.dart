@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;
+  final String? Function(String?)? validator;
   final String hintText;
   final TextInputType? keyboardType;
   final bool obscureText;
@@ -9,6 +10,7 @@ class MyTextField extends StatelessWidget {
   const MyTextField({
     super.key,
     required this.controller,
+    this.validator,
     required this.hintText,
     this.keyboardType,
     this.obscureText = false,
@@ -18,8 +20,9 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(16);
-    return TextField(
+    return TextFormField(
       controller: controller,
+      validator: validator,
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
@@ -40,6 +43,20 @@ class MyTextField extends StatelessWidget {
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.tertiary,
             width: 1,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: borderRadius,
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 2,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: borderRadius,
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 2,
           ),
         ),
       ),

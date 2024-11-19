@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uni_app/core/themes/dark_theme.dart';
 import 'package:uni_app/core/themes/light_theme.dart';
-import 'package:uni_app/features/auth/presentation/pages/login_or_signup.dart';
+import 'package:uni_app/features/auth/presentation/pages/auth_gate.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,8 +12,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'UniApp',
       theme: lightTheme,
-      themeMode: ThemeMode.light,
-      home: const LoginOrSignup(),
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
+      home: const AuthGate(),
     );
   }
 }

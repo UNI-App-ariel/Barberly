@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svg_flutter/svg.dart';
+import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/widgets/my_text_field.dart';
-import 'package:uni_app/home_page.dart';
+import 'package:uni_app/features/home/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function() toggle;
@@ -15,10 +16,14 @@ class SignUpPage extends StatefulWidget {
 
 class _LoginPageState extends State<SignUpPage> {
   // controllers
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+
+  // Key for the Form widget
+  final _formKey = GlobalKey<FormState>();
 
   Widget _buildLoginWithButton(
       {required String assetPath, required String text}) {
@@ -52,36 +57,21 @@ class _LoginPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocConsumer<AuthBloc, AuthState> (
-          listener:(context, state) {
-            if (state is AuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            } else if (state is Authenticated) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-              );
-            }
-          },
-          builder: (context, state) {
-            return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                },
-                behavior: HitTestBehavior.opaque,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              behavior: HitTestBehavior.opaque,
+              child: Form(
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 80),
-          
+        
                     // logo
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
@@ -93,37 +83,80 @@ class _LoginPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 50),
-          
+        
                     // text fields
+                    MyTextField(
+                      controller: _nameController,
+                      hintText: 'Full Name',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your full name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 10),
                     MyTextField(
                       controller: _emailController,
                       hintText: 'Email',
                       keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        if (!RegExp(
+                                r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 10),
                     MyTextField(
                       controller: _passwordController,
                       hintText: 'Password',
                       obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters long';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 10),
                     MyTextField(
                       controller: _confirmPasswordController,
                       hintText: 'Confirm Password',
                       obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please confirm your password';
+                        }
+                        if (value != _passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
                     ),
-          
+        
                     const SizedBox(height: 20),
-          
+        
                     // login button
-                  GestureDetector(
+                    GestureDetector(
                       onTap: () {
-                      context.read<AuthBloc>().add(
-                            SignUpWithEmailAndPassword(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            ),
-                          );
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(
+                                SignUpWithEmailAndPassword(
+                                  name: _nameController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                ),
+                              );
+                        }
                       },
                       child: Container(
                         width: double.infinity,
@@ -142,7 +175,7 @@ class _LoginPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-          
+        
                     // sign up
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -165,14 +198,14 @@ class _LoginPageState extends State<SignUpPage> {
                         ),
                       ],
                     ),
-          
+        
                     // divider
                     Divider(
                       color: Theme.of(context).colorScheme.secondary,
                       height: 20,
                       thickness: 1,
                     ),
-          
+        
                     // google and facebook login
                     Row(
                       children: [
@@ -195,9 +228,7 @@ class _LoginPageState extends State<SignUpPage> {
                 ),
               ),
             ),
-          );
-          },
-
+          ),
         ),
       ),
     );
