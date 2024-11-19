@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/features/auth/data/datasources/auth_datasource.dart';
 import 'package:uni_app/features/auth/data/repositories/auth_repo_impl.dart';
-import 'package:uni_app/features/auth/domain/usecases/singin_with_email.dart';
+import 'package:uni_app/features/auth/domain/usecases/signin_with_email.dart';
+import 'package:uni_app/features/auth/domain/usecases/signup_with_email.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/my_app.dart';
 
@@ -21,7 +22,12 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(
-            singinWithEmailUsecase: SinginWithEmailUsecase(
+            singinWithEmailUsecase: SignInWithEmailUseCase(
+              AuthRepoImpl(
+                AuthDatasourceImpl(FirebaseAuth.instance),
+              ),
+            ),
+            signupWithEmailUsecase: SignupWithEmail(
               AuthRepoImpl(
                 AuthDatasourceImpl(FirebaseAuth.instance),
               ),

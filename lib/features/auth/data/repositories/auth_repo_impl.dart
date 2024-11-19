@@ -41,10 +41,10 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, void>> registerWithEmail(
+  Future<Either<Failure, void>> signUpWithEmail(
       String email, String password) async {
     try {
-      await _authDatasource.registerWithEmail(email, password);
+      await _authDatasource.signUpWithEmail(email, password);
       return const Right(null);
     } on ServerException catch (e) {
       return Left(Failure(e.message));

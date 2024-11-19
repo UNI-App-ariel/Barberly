@@ -3,10 +3,10 @@ import 'package:uni_app/core/errors/failures.dart';
 import 'package:uni_app/core/usecase/usecase.dart';
 import 'package:uni_app/features/auth/domain/repositories/auth_repo.dart';
 
-class SinginWithEmailUsecase implements UseCase<void, SinginWithEmailParams> {
+class SignInWithEmailUseCase implements UseCase<void, SinginWithEmailParams> {
   final AuthRepo _authRepo;
 
-  SinginWithEmailUsecase(this._authRepo);
+  SignInWithEmailUseCase(this._authRepo);
 
   @override
   Future<Either<Failure, void>> call(SinginWithEmailParams params) async {

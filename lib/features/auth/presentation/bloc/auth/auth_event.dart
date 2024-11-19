@@ -14,12 +14,12 @@ class SignInWithEmailAndPassword extends AuthEvent {
   });
 }
 
-// register with email and password
-class RegisterWithEmailAndPassword extends AuthEvent {
+// sign up with email and password
+class SignUpWithEmailAndPassword extends AuthEvent {
   final String email;
   final String password;
 
-  RegisterWithEmailAndPassword({
+  SignUpWithEmailAndPassword({
     required this.email,
     required this.password,
   });
