@@ -1,16 +1,21 @@
-# uni_app
+# Barberly
 
-A new Flutter project.
+Barberly is a user-friendly app designed for managing barber shop appointments and shop administration. It provides a seamless experience for customers to book appointments and allows barber shops to efficiently manage their operations.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+### For Customers
+- **Book Appointments**: Easily find and book appointments at your favorite barber shops.
+- **Explore Shops**: Browse barber shops with details such as services, ratings, and availability.
+- **Manage Appointments**: View and manage upcoming and past appointments.
 
-A few resources to get you started if this is your first Flutter project:
+### For Barber Shops
+- **Shop Management**: Update shop details such as services offered, operating hours, and availability.
+- **Appointment Management**: View, accept, or decline appointments in real-time.
+- **Customer Interaction**: Keep track of customer preferences and provide better services.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies Used
+- **Flutter**: For building a cross-platform mobile application.
+- **Firebase**: Used for authentication, database, and cloud storage.
+- **Clean Architecture**: To maintain a scalable and modular codebase by separating features into distinct layers.
+- **Bloc Architecture**: For state management, ensuring a clean and maintainable codebase.
