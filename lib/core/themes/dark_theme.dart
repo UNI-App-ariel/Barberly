@@ -11,7 +11,7 @@ final darkTheme = ThemeData.dark().copyWith(
     tertiary: Colors.grey.shade600, // Slightly lighter tertiary color
   ),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xFF1E1E1E), // Matches the dark surface color
+    backgroundColor: Color(0xFF121212), // Matches the dark surface color
     elevation: 0,
     iconTheme: IconThemeData(
       color: Colors.white,

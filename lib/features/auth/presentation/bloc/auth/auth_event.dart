@@ -3,6 +3,9 @@ part of 'auth_bloc.dart';
 @immutable
 sealed class AuthEvent {}
 
+// check if user is authenticated
+class CheckAuth extends AuthEvent {}
+
 // sign in with email and password
 class SignInWithEmailAndPassword extends AuthEvent {
   final String email;
@@ -14,13 +17,21 @@ class SignInWithEmailAndPassword extends AuthEvent {
   });
 }
 
-// register with email and password
-class RegisterWithEmailAndPassword extends AuthEvent {
+// sign up with email and password
+class SignUpWithEmailAndPassword extends AuthEvent {
+  final String name;
   final String email;
   final String password;
 
-  RegisterWithEmailAndPassword({
+  SignUpWithEmailAndPassword({
+    required this.name,
     required this.email,
     required this.password,
   });
 }
+
+// log out
+class AuthLogOut extends AuthEvent {}
+
+// sign in with google
+class SignInWithGoogle extends AuthEvent {}

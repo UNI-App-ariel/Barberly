@@ -11,8 +11,9 @@ final lightTheme = ThemeData.light().copyWith(
     tertiary: Colors.grey.shade400,
   ),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.white,
+    backgroundColor: Color(0xFFf4f4f4),
     elevation: 0,
+    scrolledUnderElevation: 0,
     iconTheme: IconThemeData(
       color: Colors.black,
     ),
