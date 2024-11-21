@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uni_app/core/common/bloc/cubit/theme_cubit.dart';
 import 'package:uni_app/features/auth/data/datasources/auth_datasource.dart';
 import 'package:uni_app/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:uni_app/features/auth/domain/repositories/auth_repo.dart';
