@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData.light().copyWith(
   primaryColor: Colors.blue,
-  scaffoldBackgroundColor: const Color(0xFFf4f4f4),
+  scaffoldBackgroundColor: const Color(0xFFf8f8f8),
   colorScheme: ColorScheme.light(
     surface: Colors.white,
     primary: Colors.blue,

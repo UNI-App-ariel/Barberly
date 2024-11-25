@@ -3,6 +3,7 @@ part of 'init_dependencies.g.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
+  _initCore();
   _initAuth();
 
   // initialize Firebase
@@ -23,6 +24,13 @@ Future<void> initDependencies() async {
   // initialize Firebase storage
   final storage = FirebaseStorage.instance;
   serviceLocator.registerLazySingleton(() => storage);
+}
+
+void _initCore() {
+  // cubit
+  serviceLocator.registerLazySingleton<ThemeCubit>(
+    () => ThemeCubit(),
+  );
 }
 
 void _initAuth() {
