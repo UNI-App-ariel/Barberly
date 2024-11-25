@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/widgets/my_text_field.dart';
-import 'package:uni_app/features/home/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function() toggle;
@@ -71,7 +69,7 @@ class _LoginPageState extends State<SignUpPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 80),
-        
+
                     // logo
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
@@ -83,7 +81,7 @@ class _LoginPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 50),
-        
+
                     // text fields
                     MyTextField(
                       controller: _nameController,
@@ -142,9 +140,9 @@ class _LoginPageState extends State<SignUpPage> {
                         return null;
                       },
                     ),
-        
+
                     const SizedBox(height: 20),
-        
+
                     // login button
                     GestureDetector(
                       onTap: () {
@@ -175,7 +173,7 @@ class _LoginPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-        
+
                     // sign up
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -198,14 +196,14 @@ class _LoginPageState extends State<SignUpPage> {
                         ),
                       ],
                     ),
-        
+
                     // divider
                     Divider(
                       color: Theme.of(context).colorScheme.secondary,
                       height: 20,
                       thickness: 1,
                     ),
-        
+
                     // google and facebook login
                     Row(
                       children: [

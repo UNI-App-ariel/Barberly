@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/login_or_signup.dart';
-import 'package:uni_app/features/home/home_page.dart';
+import 'package:uni_app/features/home/navigation_bar_page.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -24,7 +24,7 @@ class AuthGate extends StatelessWidget {
             ),
           );
         } else if (state is Authenticated) {
-          return const HomePage();
+          return const NavigationBarPage();
         } else {
           return const LoginOrSignup();
         }
