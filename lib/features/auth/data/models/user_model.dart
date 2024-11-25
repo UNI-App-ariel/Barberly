@@ -8,7 +8,7 @@ class MyUserModel extends MyUser {
     super.photoUrl,
   });
 
-  // to map
+  // from map
   factory MyUserModel.fromMap(Map<String, dynamic> map) {
     return MyUserModel(
       id: map['id'],
@@ -18,7 +18,7 @@ class MyUserModel extends MyUser {
     );
   }
 
-  // from map
+  // to map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
