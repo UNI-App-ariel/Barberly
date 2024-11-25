@@ -14,6 +14,7 @@ final darkTheme = ThemeData.dark().copyWith(
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.black, // Matches the dark surface color
     elevation: 0,
+    scrolledUnderElevation: 0,
     iconTheme: IconThemeData(
       color: Colors.white,
     ),

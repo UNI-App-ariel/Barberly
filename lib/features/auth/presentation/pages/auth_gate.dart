@@ -4,6 +4,7 @@ import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/login_or_signup.dart';
 import 'package:uni_app/features/home/home_page.dart';
+import 'package:uni_app/features/profile/presentation/pages/profile_page.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -17,14 +18,14 @@ class AuthGate extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is AuthLoading) {
+        if (state is AuthLoading || state is AuthInitial) {
           return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else if (state is Authenticated) {
-          return const HomePage();
+          return const ProfilePage();
         } else {
           return const LoginOrSignup();
         }

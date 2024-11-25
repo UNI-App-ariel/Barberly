@@ -5,7 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "uni_app (noDebug)",
+      "name": "Barberly (release)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "args": ["--release"]
+    },
+    {
+      "name": "Barberly (noDebug)",
       "type": "dart",
       "request": "launch",
       "program": "lib/main.dart",

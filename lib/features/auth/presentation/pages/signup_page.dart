@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:svg_flutter/svg.dart';
-import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/widgets/my_text_field.dart';
-import 'package:uni_app/features/home/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function() toggle;
