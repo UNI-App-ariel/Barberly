@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:uni_app/core/common/bloc/cubit/theme_cubit.dart';
+import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';
+import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -121,7 +122,10 @@ class ProfilePage extends StatelessWidget {
                         color: Colors.white,
                         size: 18,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        // logout
+                        context.read<AuthBloc>().add(AuthLogOut());
+                      },
                     ),
                   ],
                   dividerIndent: 60, // Customize indent if needed

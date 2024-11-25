@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/bloc/cubit/theme_cubit.dart';
+import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
+import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/utils/bloc_observer.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/init_dependencies.g.dart';
@@ -20,10 +21,10 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => serviceLocator<AuthBloc>()..add(CheckAuth())),
-            BlocProvider(create: (context) => serviceLocator<ThemeCubit>()),
-          
+        BlocProvider(create: (context) => serviceLocator<AuthBloc>()..add(CheckAuth())),
+        BlocProvider(create: (context) => serviceLocator<ThemeCubit>()),
+        BlocProvider(create: (context) => serviceLocator<BarbershopBloc>()),
+     
       ],
       child: const MyApp(),
     ),
