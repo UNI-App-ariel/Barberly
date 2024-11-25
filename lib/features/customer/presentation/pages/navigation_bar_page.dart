@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uni_app/features/home/home_page.dart';
-import 'package:uni_app/features/auth/presentation/pages/favorites_page.dart';
-import 'package:uni_app/features/auth/presentation/pages/appointments_page.dart';
-import 'package:uni_app/features/auth/presentation/pages/profile_page.dart';
+import 'package:uni_app/features/customer/presentation/pages/home/home_page.dart';
+import 'package:uni_app/features/customer/presentation/pages/favorites/favorites_page.dart';
+import 'package:uni_app/features/customer/presentation/pages/appointemets/appointments_page.dart';
+import 'package:uni_app/features/profile/presentation/pages/profile_page.dart';
 
 class NavigationBarPage extends StatefulWidget {
   const NavigationBarPage({super.key});
@@ -46,8 +46,8 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
         },
         backgroundColor: theme.bottomNavigationBarTheme.backgroundColor ??
             theme.scaffoldBackgroundColor, // Dynamic background
-        selectedItemColor:
-            theme.bottomNavigationBarTheme.selectedItemColor ?? theme.primaryColor,
+        selectedItemColor: theme.bottomNavigationBarTheme.selectedItemColor ??
+            theme.primaryColor,
         unselectedItemColor:
             theme.bottomNavigationBarTheme.unselectedItemColor ?? Colors.grey,
         items: const [

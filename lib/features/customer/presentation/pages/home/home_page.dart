@@ -50,6 +50,7 @@ class HomePage extends StatelessWidget {
             title: shop["title"]!,
             type: shop["type"]!,
             description: shop["description"]!,
+            context: context,
           );
         },
       ),
@@ -62,11 +63,12 @@ class HomePage extends StatelessWidget {
     required String title,
     required String type,
     required String description,
+    required BuildContext context,
   }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -104,7 +106,6 @@ class HomePage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -121,7 +122,6 @@ class HomePage extends StatelessWidget {
                     description,
                     style: const TextStyle(
                       fontSize: 14,
-                      color: Colors.grey,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

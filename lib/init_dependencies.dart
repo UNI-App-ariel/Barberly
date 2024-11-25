@@ -5,6 +5,7 @@ final serviceLocator = GetIt.instance;
 Future<void> initDependencies() async {
   _initCore();
   _initAuth();
+  _initShops();
 
   // initialize Firebase
   if (Firebase.apps.isEmpty) {
@@ -24,6 +25,67 @@ Future<void> initDependencies() async {
   // initialize Firebase storage
   final storage = FirebaseStorage.instance;
   serviceLocator.registerLazySingleton(() => storage);
+}
+
+void _initShops() {
+  // datasource
+
+  serviceLocator.registerLazySingleton<BarbershopDataSource>(
+    () => BarbershopDataSourceImpl(
+      firestore: serviceLocator(),
+    ),
+  );
+
+  // repository
+
+  serviceLocator.registerLazySingleton<BarbershopRepo>(
+    () => BarbershopRepoImpl(
+      barbershopDataSource: serviceLocator(),
+    ),
+  );
+
+  // usecases
+
+  serviceLocator.registerLazySingleton(
+    () => AddBarberShopUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => DeleteBarberShopUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => GetBarberShopUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => GetAllBarberShopsUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => UpdateBarberShopUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  // bloc
+
+  serviceLocator.registerFactory(
+    () => BarbershopBloc(
+      addBarberShopUseCase: serviceLocator(),
+      deleteBarbershopUseCase: serviceLocator(),
+      updateBarberShopUseCase: serviceLocator(),
+      getAllBarbershopsUseCase: serviceLocator(),
+    ),
+  );
 }
 
 void _initCore() {
