@@ -4,6 +4,7 @@ import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/login_or_signup.dart';
 import 'package:uni_app/features/customer/presentation/pages/navigation_bar_page.dart';
+import 'package:uni_app/features/owner/presentation/pages/owner_nav_bar.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -24,15 +25,20 @@ class AuthGate extends StatelessWidget {
             ),
           );
         } else if (state is Authenticated) {
-          return const NavigationBarPage();
+          if (state.user.role == 'customer') {
+            return const NavigationBarPage();
+          } else if (state.user.role == 'owner') {
+            return const OwnerNavigationBar();
+          } else {
+            return const NavigationBarPage();
+          }
         } else if (state is AuthInitial) {
           return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } 
-        else {
+        } else {
           return const LoginOrSignup();
         }
       },

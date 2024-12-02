@@ -39,7 +39,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GNav(
             selectedIndex: _currentIndex,
             onTabChange: (index) {

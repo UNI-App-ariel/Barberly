@@ -26,6 +26,8 @@ class FavoritesDataSourceImpl implements FavoritesDataSource {
 
       final favoriteShops = user.favoriteShops;
 
+      if (favoriteShops.isEmpty) { return [];}
+
       final favoriteShopsSnapshot = await firestore
           .collection('barbershops')
           .where('id', whereIn: favoriteShops)
