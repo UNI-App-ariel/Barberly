@@ -29,3 +29,17 @@ class DeleteBarbershopEvent extends BarbershopEvent {
 
   DeleteBarbershopEvent(this.id);
 }
+
+class FavoriteShopEvent extends BarbershopEvent {
+  final String userId;
+  final String barbershopId;
+
+  FavoriteShopEvent(this.userId, this.barbershopId);
+}
+
+class UnFavoriteShopEvent extends BarbershopEvent {
+  final String userId;
+  final String barbershopId;
+
+  UnFavoriteShopEvent(this.userId, this.barbershopId);
+}

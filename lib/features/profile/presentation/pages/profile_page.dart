@@ -7,12 +7,15 @@ import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:uni_app/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:uni_app/features/profile/presentation/pages/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<AuthBloc>().currentUser;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -21,24 +24,33 @@ class ProfilePage extends StatelessWidget {
             child: Column(
               children: [
                 // profile picture
-                const CircleAvatar(
-                  radius: 50,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
+                GestureDetector(
+                  onTap: () {
+                    // show the image in a dialog
+                    _showImageDialog(context);
+                  },
+                  child: const Hero(
+                    tag: 'profile_image',
+                    child: CircleAvatar(
+                      radius: 50,
+                      child: Icon(
+                        Icons.person,
+                        size: 50,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
 
                 // name
-                const Text(
-                  'John Doe',
-                  style: TextStyle(fontSize: 20),
+                Text(
+                  user?.name ?? '',
+                  style: const TextStyle(fontSize: 20),
                 ),
 
                 // email
                 Text(
-                  'example@gmail.com',
+                  user?.email ?? '',
                   style: TextStyle(
                     fontSize: 14,
                     color: Theme.of(context).colorScheme.tertiary,
@@ -54,7 +66,14 @@ class ProfilePage extends StatelessWidget {
                       Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigate to edit profile page
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfilePage(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Edit Profile',
                     style: TextStyle(
@@ -88,6 +107,7 @@ class ProfilePage extends StatelessWidget {
                 // container
                 SettingsListContainer(
                   tiles: [
+                    // settings
                     MySettingsTile(
                       title: 'Settings',
                       leading: const FaIcon(
@@ -98,12 +118,21 @@ class ProfilePage extends StatelessWidget {
                         CupertinoIcons.chevron_right,
                         size: 20,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        // Navigate to settings page
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsPage(),
+                          ),
+                        );
+                      },
                     ),
+
+                    // dark mode
                     MySettingsTile(
                       title: 'Dark Mode',
                       leading: const FaIcon(
-                        FontAwesomeIcons.moon,
+                        FontAwesomeIcons.solidMoon,
                         size: 18,
                       ),
                       trailing: Switch.adaptive(
@@ -113,12 +142,14 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                     ),
+
+                    // logout
                     MySettingsTile(
                       title: 'Logout',
                       titleColor: Colors.red,
                       leadingBackgroundColor: Colors.red,
                       leading: const FaIcon(
-                        FontAwesomeIcons.rightFromBracket,
+                        Icons.logout,
                         color: Colors.white,
                         size: 18,
                       ),
@@ -135,6 +166,24 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showImageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          backgroundColor: Colors.transparent,
+          content: CircleAvatar(
+            radius: 100,
+            child: Icon(
+              Icons.person,
+              size: 100,
+            ),
+          ),
+        );
+      },
     );
   }
 }

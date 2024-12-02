@@ -50,7 +50,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _onSignUpWithEmailAndPassword); // sign up with email and password
     on<AuthLogOut>(_onLogOut); // log out
     on<SignInWithGoogle>(_onSignInWithGoogle); // sign in with google
-
   }
 
   Future<void> _onCheckAuth(CheckAuth event, Emitter<AuthState> emit) async {
@@ -69,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onSignInWithEmailAndPassword(
       SignInWithEmailAndPassword event, Emitter<AuthState> emit) async {
-        emit(AuthLoading());
+    emit(AuthLoading());
     final result = await _signinWithEmailUsecase(
       SinginWithEmailParams(
         email: event.email,
@@ -90,7 +89,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onSignUpWithEmailAndPassword(
       SignUpWithEmailAndPassword event, Emitter<AuthState> emit) async {
-        emit(AuthLoading());
+    emit(AuthLoading());
     final result = await _signupWithEmailUsecase(
       SignupWithEmailParams(
         name: event.name,
@@ -111,6 +110,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLogOut(AuthLogOut event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
     final result = await _logOutUseCase(NoParams());
 
     result.fold(
@@ -127,6 +127,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignInWithGoogle(
       SignInWithGoogle event, Emitter<AuthState> emit) async {
     final result = await _signinWithGoogleUseCase(NoParams());
+    emit(AuthLoading());
 
     result.fold(
       (failure) {

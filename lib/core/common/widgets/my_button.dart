@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyButton extends StatelessWidget {
   final Widget child;
@@ -27,7 +28,10 @@ class MyButton extends StatelessWidget {
       child: Material(
         color: backgroundColor ?? Theme.of(context).colorScheme.primary,
         child: InkWell(
-          onTap: onPressed,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            onPressed();
+          },
           borderRadius: BorderRadius.circular(borderRadius ?? 10),
           child: Container(
             height: height,
