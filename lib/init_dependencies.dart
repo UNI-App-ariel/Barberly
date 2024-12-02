@@ -36,11 +36,23 @@ void _initShops() {
     ),
   );
 
+  serviceLocator.registerLazySingleton<FavoritesDataSource>(
+    () => FavoritesDataSourceImpl(
+      firestore: serviceLocator(),
+    ),
+  );
+
   // repository
 
   serviceLocator.registerLazySingleton<BarbershopRepo>(
     () => BarbershopRepoImpl(
       barbershopDataSource: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton<FavoritesRepo>(
+    () => FavoritesRepoImpl(
+      dataSource: serviceLocator(),
     ),
   );
 
@@ -76,6 +88,24 @@ void _initShops() {
     ),
   );
 
+  serviceLocator.registerLazySingleton(
+    () => FavoriteShopUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => UnFavoriteShopUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => GetFavoriteShopsUseCase(
+      favoritesRepo: serviceLocator(),
+    ),
+  );
+
   // bloc
 
   serviceLocator.registerFactory(
@@ -84,6 +114,14 @@ void _initShops() {
       deleteBarbershopUseCase: serviceLocator(),
       updateBarberShopUseCase: serviceLocator(),
       getAllBarbershopsUseCase: serviceLocator(),
+      favoriteShopUseCase: serviceLocator(),
+      unFavoriteShopUseCase: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => FavoriteShopsBloc(
+      getFavoriteShopsUseCase: serviceLocator(),
     ),
   );
 }

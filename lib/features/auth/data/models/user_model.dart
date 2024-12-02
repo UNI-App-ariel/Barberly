@@ -6,6 +6,7 @@ class MyUserModel extends MyUser {
     required super.email,
     required super.name,
     super.photoUrl,
+    super.favoriteShops = const [],
   });
 
   // from map
@@ -15,6 +16,7 @@ class MyUserModel extends MyUser {
       email: map['email'],
       name: map['name'],
       photoUrl: map['photoUrl'],
+      favoriteShops: List<String>.from(map['favoriteShops']),
     );
   }
 
@@ -25,6 +27,7 @@ class MyUserModel extends MyUser {
       'email': email,
       'name': name,
       'photoUrl': photoUrl,
+      'favoriteShops': favoriteShops,
     };
   }
 }

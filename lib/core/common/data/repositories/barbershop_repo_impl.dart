@@ -59,4 +59,24 @@ class BarbershopRepoImpl implements BarbershopRepo {
       return Left(Failure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> favoriteBarbershop(String userId, String barbershopId) async {
+    try{
+      final result = await barbershopDataSource.favoriteBarbershop(userId, barbershopId);
+      return Right(result);
+    } catch(e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, void>> unfavoriteBarbershop(String userId, String barbershopId) async {
+    try{
+      final result = await barbershopDataSource.unfavoriteBarbershop(userId, barbershopId);
+      return Right(result);
+    } catch(e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 }

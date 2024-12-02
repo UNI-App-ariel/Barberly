@@ -4,12 +4,14 @@ class MyUser {
   final String email;
   final String name;
   final String? photoUrl;
+  final List<String> favoriteShops;
 
   MyUser({
     required this.id,
     required this.email,
     required this.name,
     this.photoUrl,
+    this.favoriteShops = const [],
   });
 
   MyUser copyWith({

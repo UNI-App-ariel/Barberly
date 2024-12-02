@@ -8,6 +8,8 @@ abstract interface class BarbershopDataSource {
   Future<void> addBarbershop(BarbershopModel barbershop);
   Future<void> updateBarbershop(BarbershopModel barbershop);
   Future<void> deleteBarbershop(String id);
+  Future<void> favoriteBarbershop(String userId, String barbershopId);
+  Future<void> unfavoriteBarbershop(String userId, String barbershopId);
 }
 
 class BarbershopDataSourceImpl implements BarbershopDataSource {
@@ -70,6 +72,32 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
           .collection('barbershops')
           .doc(barbershop.id)
           .update(barbershop.toMap());
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message ?? e.toString());
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+  
+  @override
+  Future<void> favoriteBarbershop(String userId, String barbershopId)  async{
+    try {
+      await firestore.collection('users').doc(userId).update({
+        'favoriteShops': FieldValue.arrayUnion([barbershopId])
+      });
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message ?? e.toString());
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+  
+  @override
+  Future<void> unfavoriteBarbershop(String userId, String barbershopId) async {
+    try {
+      await firestore.collection('users').doc(userId).update({
+        'favoriteShops': FieldValue.arrayRemove([barbershopId])
+      });
     } on FirebaseException catch (e) {
       throw ServerException(e.message ?? e.toString());
     } catch (e) {

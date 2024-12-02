@@ -8,4 +8,6 @@ abstract interface class BarbershopRepo {
   Future<Either<Failure,void>> addBarbershop(Barbershop barbershop);
   Future<Either<Failure,void>> updateBarbershop(Barbershop barbershop);
   Future<Either<Failure,void>> deleteBarbershop(String id);
+  Future<Either<Failure,void>> favoriteBarbershop(String userId, String barbershopId);
+  Future<Either<Failure,void>> unfavoriteBarbershop(String userId, String barbershopId);
 }
