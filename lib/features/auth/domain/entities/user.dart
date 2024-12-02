@@ -3,6 +3,7 @@ class MyUser {
   final String id;
   final String email;
   final String name;
+  final String? shopId;
   final String? photoUrl;
   final List<String> favoriteShops;
   final String role;
@@ -11,6 +12,7 @@ class MyUser {
     required this.id,
     required this.email,
     required this.name,
+    this.shopId,
     this.photoUrl,
     this.favoriteShops = const [],
     this.role = 'customer',
@@ -20,6 +22,7 @@ class MyUser {
     String? id,
     String? email,
     String? name,
+    String? shopId,
     String? photoUrl,
     List<String>? favoriteShops,
     String? role,
@@ -28,6 +31,7 @@ class MyUser {
       id: id ?? this.id,
       email: email ?? this.email,
       name: name ?? this.name,
+      shopId: shopId ?? this.shopId,
       photoUrl: photoUrl ?? this.photoUrl,
       favoriteShops: favoriteShops ?? this.favoriteShops,
       role: role ?? this.role,

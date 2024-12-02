@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
+import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/customer/presentation/widgets/booking_sheet.dart';
 import 'package:uni_app/features/customer/presentation/widgets/shop_details_chip.dart';
 
@@ -17,10 +21,17 @@ class ShopDetailsPage extends StatefulWidget {
 
 class _ShopDetailsPageState extends State<ShopDetailsPage> {
   int selectedChipIndex = 0;
-  MyUser ? user;
-  DateTime ? _selectedDate;
-  String ? _selectedTimeSlot;
+  MyUser? user;
+  DateTime? _selectedDate;
+  TimeSlot? _selectedTimeSlot;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // get user
+    user = context.read<AuthBloc>().currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +49,9 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
               icon: _buildBackButton(context),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            // bottom: PreferredSize(
-            //   preferredSize: const Size.fromHeight(110),
-            //   // child: _buildInfoContainer(widget.shop),
-            // ),
             actions: [
-              _buildFavoriteButton(true),
+              _buildFavoriteButton(
+                  user?.favoriteShops.contains(widget.shop.id) ?? false),
             ],
           ),
           SliverToBoxAdapter(
@@ -116,14 +124,17 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
         ),
       ),
       onPressed: () {
+        if (user == null) {
+          return;
+        }
         setState(() {
-          // isFavorite
-          //     ? context
-          //         .read<FavoritesBloc>()
-          //         .add(RemoveFavoritesEvent(user!.uid, widget.shop.id))
-          //     : context
-          //         .read<FavoritesBloc>()
-          //         .add(AddFavoritesEvent(user!.uid, widget.shop.id));
+          isFavorite
+              ? context
+                  .read<BarbershopBloc>()
+                  .add(UnFavoriteShopEvent(user!.id, widget.shop.id))
+              : context
+                  .read<BarbershopBloc>()
+                  .add(FavoriteShopEvent(user!.id, widget.shop.id));
         });
       },
     );
@@ -170,7 +181,8 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
             required selectedTimeSlot,
           }) {
             setState(() {
-             
+              _selectedDate = _selectedDate;
+              _selectedTimeSlot = _selectedTimeSlot;
             });
           },
         );

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
+import 'package:uni_app/core/common/widgets/date_time_line_picker.dart';
+import 'package:uni_app/core/common/widgets/loader.dart';
+import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 
 enum BookingButtonState {
@@ -49,7 +56,7 @@ class _BookingSheetState extends State<BookingSheet> {
           _firstDate = availabilityData.keys.firstOrNull;
         } else if (state is ShopAvailabilityError) {
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            showErrorSnackBar(context, state.message);
+            MyUtils.showErrorSnackBar(context, state.message);
           });
           // showErrorSnackBar(context, state.message);
         } else if (state is ShopAvailabilityLoading) {
@@ -70,17 +77,17 @@ class _BookingSheetState extends State<BookingSheet> {
                   buttonState: _buttonState,
                 );
               });
-              showMyBottomSheet(
-                context: context,
-                isPage: true,
-                isScrollControlled: true,
-                isDismissible: false,
-                enableDrag: false,
-                child: SuccessBottomSheet(
-                  appointment: state.appointment,
-                  shop: widget.shop,
-                ),
-              );
+              // showMyBottomSheet(
+              //   context: context,
+              //   isPage: true,
+              //   isScrollControlled: true,
+              //   isDismissible: false,
+              //   enableDrag: false,
+              //   child: SuccessBottomSheet(
+              //     appointment: state.appointment,
+              //     shop: widget.shop,
+              //   ),
+              // );
             } else if (state is AppointmentFailure) {
               setState(() {
                 _buttonState = BookingButtonState.error;
@@ -151,7 +158,7 @@ class _BookingSheetState extends State<BookingSheet> {
       initialDate: _selectedDate ?? _firstDate ?? DateTime.now(),
       dates: availabilityData.keys.toList(),
       padding: 20,
-      backgroundColor: Colors.amberAccent
+      backgroundColor: Colors.amberAccent,
       foregroundColor: Colors.white,
       borderColor: Colors.amberAccent,
       showTodayButton: false,
@@ -182,7 +189,7 @@ class _BookingSheetState extends State<BookingSheet> {
           child: Row(
             children: [
               Text(
-                S.of(context).bookingSheetPicker_time,
+                'Time',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -197,10 +204,10 @@ class _BookingSheetState extends State<BookingSheet> {
           height: 45,
           child: availabilityData.isNotEmpty
               ? timeSlots.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Text(
-                        S.of(context).bookingSheet_noTimeSlotsAvailable,
-                        style: const TextStyle(
+                        'No available time slots',
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
@@ -219,7 +226,6 @@ class _BookingSheetState extends State<BookingSheet> {
                         bool isSelected = _selectedTimeSlot == slot;
                         return GestureDetector(
                           onTap: () {
-                            HapticFeedback.lightImpact();
                             setState(() {
                               _selectedTimeSlot = slot;
                               _buttonState = BookingButtonState.readyToBook;
@@ -236,12 +242,12 @@ class _BookingSheetState extends State<BookingSheet> {
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? Theme.of(context).colorScheme.primary
-                                  : AppColors.onDarkBackground,
+                                  : Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Center(
                               child: Text(
-                                MyDateFormat('HH:mm').format(slot.startTime),
+                                DateFormat('HH:mm').format(slot.startTime),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,

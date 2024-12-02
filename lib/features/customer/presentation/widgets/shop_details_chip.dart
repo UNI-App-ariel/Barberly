@@ -19,12 +19,17 @@ class MyChip extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           height: 40,
           decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Colors.transparent,
             borderRadius: BorderRadius.circular(16),
+            color: isSelected
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
             border: isSelected
-                ? null
+                ? Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 1,
+                  )
                 : Border.all(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.secondary,
                     width: 1,
                   ),
           ),
@@ -32,7 +37,9 @@ class MyChip extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.black : Colors.white,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSurface,
                 fontSize: 14,
               ),
             ),

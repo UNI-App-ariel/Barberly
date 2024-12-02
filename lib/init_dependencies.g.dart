@@ -12,7 +12,9 @@ import 'package:uni_app/core/common/domian/usecases/favorite_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/get_all_barber_shops.dart';
 import 'package:uni_app/core/common/domian/usecases/get_barber_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/update_barber_shop.dart';
+import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/features/auth/data/datasources/auth_datasource.dart';
 import 'package:uni_app/features/auth/data/repositories/auth_repo_impl.dart';
@@ -28,5 +30,12 @@ import 'package:uni_app/features/customer/data/repositories/favorites_repo_impl.
 import 'package:uni_app/features/customer/domain/repsitories/favorites_repo.dart';
 import 'package:uni_app/features/customer/domain/usecases/get_favorite_shops.dart';
 import 'package:uni_app/features/customer/presentation/bloc/favorite_shops/favorite_shops_bloc.dart';
+import 'package:uni_app/features/owner/data/datasources/owner_shop_datasource.dart';
+import 'package:uni_app/features/owner/data/repositories/owner_shop_repo_impl.dart';
+import 'package:uni_app/features/owner/domain/repositories/owner_shop_repo.dart';
+import 'package:uni_app/features/owner/domain/usecases/delete_shop.dart';
+import 'package:uni_app/features/owner/domain/usecases/get_shop.dart';
+import 'package:uni_app/features/owner/domain/usecases/update_shop.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 
 part 'init_dependencies.dart';

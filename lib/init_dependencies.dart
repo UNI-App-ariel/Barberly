@@ -6,6 +6,7 @@ Future<void> initDependencies() async {
   _initCore();
   _initAuth();
   _initShops();
+  _iniOwner();
 
   // initialize Firebase
   if (Firebase.apps.isEmpty) {
@@ -25,6 +26,50 @@ Future<void> initDependencies() async {
   // initialize Firebase storage
   final storage = FirebaseStorage.instance;
   serviceLocator.registerLazySingleton(() => storage);
+}
+
+void _iniOwner() {
+  // datasource
+  serviceLocator.registerLazySingleton<OwnerShopDatasource>(
+    () => OwnerShopDatasourceImpl(
+      firestore: serviceLocator(),
+    ),
+  );
+
+  // repository
+  serviceLocator.registerLazySingleton<OwnerShopRepo>(
+    () => OwnerShopRepoImpl(
+      datasource: serviceLocator(),
+    ),
+  );
+
+  // usecases
+  serviceLocator.registerLazySingleton(
+    () => GetOwnerShopUseCase(
+      serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => UpdateOwnerShopUseCase(
+      serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => DeleteOwnerShopUseCase(
+      serviceLocator(),
+    ),
+  );
+
+  // bloc
+  serviceLocator.registerFactory(
+    () => OwnerShopBloc(
+      getShopUseCase: serviceLocator(),
+      updateShopUseCase: serviceLocator(),
+      deleteShopUseCase: serviceLocator(),
+    ),
+  );
 }
 
 void _initShops() {
@@ -130,6 +175,15 @@ void _initCore() {
   // cubit
   serviceLocator.registerLazySingleton<ThemeCubit>(
     () => ThemeCubit(),
+  );
+
+  // blocs
+  serviceLocator.registerFactory(
+    () => ShopAvailabilityBloc(),
+  );
+
+  serviceLocator.registerFactory(
+    () => AppointmentBloc(),
   );
 }
 

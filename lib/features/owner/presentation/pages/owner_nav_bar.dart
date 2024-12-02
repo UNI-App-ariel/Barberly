@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
+import 'package:uni_app/features/owner/presentation/pages/home/owner_home_page.dart';
+import 'package:uni_app/features/owner/presentation/pages/shop/owner_shop_page.dart';
 import 'package:uni_app/features/profile/presentation/pages/profile_page.dart';
 
 class OwnerNavigationBar extends StatefulWidget {
@@ -19,10 +24,12 @@ class _OwnerNavigationBarState extends State<OwnerNavigationBar> {
   void initState() {
     super.initState();
     _pages = [
-      const ProfilePage(),
-      const ProfilePage(),
+      const OwnerHomePage(),
+      const OwnerShopPage(),
       const ProfilePage(),
     ];
+
+    _initDependencies();
   }
 
   @override
@@ -71,5 +78,19 @@ class _OwnerNavigationBarState extends State<OwnerNavigationBar> {
         ),
       ),
     );
+  }
+
+  void _initDependencies() {
+    // get user
+    final user = context.read<AuthBloc>().currentUser;
+
+    if (user == null) {
+      return;
+    }
+
+    if (user.shopId != null) {
+      // get shop
+      context.read<OwnerShopBloc>().add(GetShopEvent(user.shopId!));
+    }
   }
 }
