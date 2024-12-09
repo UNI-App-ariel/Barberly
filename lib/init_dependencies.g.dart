@@ -11,6 +11,7 @@ import 'package:uni_app/core/common/domian/usecases/delete_barber_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/favorite_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/get_all_barber_shops.dart';
 import 'package:uni_app/core/common/domian/usecases/get_barber_shop.dart';
+import 'package:uni_app/core/common/domian/usecases/stream_availability.dart';
 import 'package:uni_app/core/common/domian/usecases/update_barber_shop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';

@@ -177,9 +177,14 @@ void _initCore() {
     () => ThemeCubit(),
   );
 
+  // usecases
+  serviceLocator.registerLazySingleton<StreamAvailabilityUseCase>(
+    () => StreamAvailabilityUseCase(serviceLocator()),
+  );
+
   // blocs
   serviceLocator.registerFactory(
-    () => ShopAvailabilityBloc(),
+    () => ShopAvailabilityBloc(streamAvailabilityUseCase: serviceLocator()),
   );
 
   serviceLocator.registerFactory(

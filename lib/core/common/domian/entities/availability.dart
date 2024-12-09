@@ -63,19 +63,6 @@ class TimeSlot {
     this.isBooked = false,
   });
 
-  // // == operator
-  // @override
-  // bool operator ==(Object other) {
-  //   if (identical(this, other)) return true;
-
-  //   return other is TimeSlot &&
-  //       MyDateUtils.isSameTime(startTime, other.startTime) &&
-  //       MyDateUtils.isSameTime(endTime, other.endTime);
-  // }
-
-  // Override hashCode
-  // @override
-  // int get hashCode => startTime.hashCode ^ endTime.hashCode;
 
   int compareTo(TimeSlot b) {
     if (startTime.hour < b.startTime.hour) {

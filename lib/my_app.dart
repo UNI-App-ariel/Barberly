@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       builder: (context, themeMode) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'UniApp',
+          title: 'Barberly',
           theme: lightTheme, // Light theme
           darkTheme: darkTheme, // Dark theme
           themeMode: themeMode, // Controlled by ThemeCubit

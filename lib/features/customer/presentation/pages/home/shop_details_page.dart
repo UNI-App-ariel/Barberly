@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/customer/presentation/widgets/booking_sheet.dart';
@@ -31,6 +32,18 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
 
     // get user
     user = context.read<AuthBloc>().currentUser;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _fetchAvailability();
+  }
+
+  void _fetchAvailability() {
+    context
+        .read<ShopAvailabilityBloc>()
+        .add(StreamAvailabilityEvent(widget.shop.id));
   }
 
   @override

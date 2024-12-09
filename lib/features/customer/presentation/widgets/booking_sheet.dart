@@ -44,7 +44,6 @@ class _BookingSheetState extends State<BookingSheet> {
   TimeSlot? _selectedTimeSlot;
   DateTime? _firstDate;
   BookingButtonState _buttonState = BookingButtonState.readyToBook;
-  late bool isRtl;
 
   @override
   Widget build(BuildContext context) {
@@ -105,12 +104,11 @@ class _BookingSheetState extends State<BookingSheet> {
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
-
             }
           },
           child: availabilityData.isEmpty
               ? Text(
-                "No availability",
+                  'No available time slots',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Theme.of(context).colorScheme.inverseSurface,
                       ),
@@ -159,7 +157,6 @@ class _BookingSheetState extends State<BookingSheet> {
       dates: availabilityData.keys.toList(),
       padding: 20,
       backgroundColor: Colors.amberAccent,
-      foregroundColor: Colors.white,
       borderColor: Colors.amberAccent,
       showTodayButton: false,
       onDateSelected: (date) {
@@ -184,8 +181,8 @@ class _BookingSheetState extends State<BookingSheet> {
     }
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25),
           child: Row(
             children: [
               Text(
@@ -193,7 +190,6 @@ class _BookingSheetState extends State<BookingSheet> {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
               ),
             ],
@@ -210,15 +206,11 @@ class _BookingSheetState extends State<BookingSheet> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
                         ),
                       ),
                     )
                   : ListView.builder(
-                      padding: EdgeInsets.only(
-                        left: isRtl ? 0 : 20,
-                        right: isRtl ? 20 : 0,
-                      ),
+                      padding: const EdgeInsets.only(left: 20),
                       scrollDirection: Axis.horizontal,
                       itemCount: timeSlots.length,
                       itemBuilder: (context, index) {
@@ -248,8 +240,10 @@ class _BookingSheetState extends State<BookingSheet> {
                             child: Center(
                               child: Text(
                                 DateFormat('HH:mm').format(slot.startTime),
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: isSelected
+                                      ? Theme.of(context).colorScheme.onPrimary
+                                      : Theme.of(context).colorScheme.onSurface,
                                   fontSize: 15,
                                 ),
                               ),
@@ -271,5 +265,4 @@ class _BookingSheetState extends State<BookingSheet> {
       return [];
     }
   }
-
 }

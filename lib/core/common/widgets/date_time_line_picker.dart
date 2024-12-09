@@ -34,7 +34,6 @@ class DateTimelinePicker extends StatefulWidget {
 class _DateTimelinePickerState extends State<DateTimelinePicker> {
   late DateTime _selectedDate;
   final ScrollController _scrollController = ScrollController();
-  late bool isRtl;
 
   @override
   void initState() {
@@ -93,8 +92,7 @@ class _DateTimelinePickerState extends State<DateTimelinePicker> {
           child: ListView.builder(
             controller: _scrollController,
             padding: EdgeInsets.only(
-              left: isRtl ? 0 : widget.padding,
-              right: isRtl ? widget.padding : 0,
+              left: widget.padding,
             ),
             scrollDirection: Axis.horizontal, // Horizontal scrolling
             itemCount: widget.dates?.length ?? widget.numberOfDays,
