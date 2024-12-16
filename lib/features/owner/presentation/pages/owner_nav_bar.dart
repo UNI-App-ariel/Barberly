@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 import 'package:uni_app/features/owner/presentation/pages/home/owner_home_page.dart';
 import 'package:uni_app/features/owner/presentation/pages/shop/owner_shop_page.dart';
@@ -91,6 +92,9 @@ class _OwnerNavigationBarState extends State<OwnerNavigationBar> {
     if (user.shopId != null) {
       // get shop
       context.read<OwnerShopBloc>().add(GetShopEvent(user.shopId!));
+      context
+          .read<OwnerAppointmentsBloc>()
+          .add(GetOwnerAppointemntsEvent(user.shopId!));
     }
   }
 }

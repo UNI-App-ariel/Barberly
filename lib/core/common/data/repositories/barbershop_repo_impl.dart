@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_app/core/common/data/datasources/barbershop_data_source.dart';
 import 'package:uni_app/core/common/data/models/barbershop_model.dart';
+import 'package:uni_app/core/common/domian/entities/appointment.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 import 'package:uni_app/core/common/domian/repositories/barbershop_repo.dart';
@@ -104,5 +105,23 @@ class BarbershopRepoImpl implements BarbershopRepo {
     } on ServerException catch (e) {
       yield Left(Failure(e.message));
     }
+  }
+
+  @override
+  Stream<Either<Failure, List<Appointment>>> getAppointmentsStream(String shopId) async*{
+    try {
+      // if (!await networkInfo.isConnected) {
+      //   yield Left(Failure('No internet connection'));
+      //   return;
+      // }
+
+      final stream = barbershopDataSource.getAppointmentsStream(shopId);
+      await for (final appointmentModel in stream) {
+        yield Right(appointmentModel);
+      }
+    } on ServerException catch (e) {
+      yield Left(Failure(e.message));
+    }
+
   }
 }

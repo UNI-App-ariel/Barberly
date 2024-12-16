@@ -9,6 +9,7 @@ final darkTheme = ThemeData.dark().copyWith(
     primary: Colors.blue,
     onPrimary: Colors.white,
     secondary: Colors.grey.shade900, // Darker secondary color
+    onSecondary: Colors.white,
     tertiary: Colors.grey.shade600, // Slightly lighter tertiary color
   ),
   appBarTheme: const AppBarTheme(

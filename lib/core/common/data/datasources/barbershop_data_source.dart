@@ -15,6 +15,7 @@ abstract interface class BarbershopDataSource {
   Future<void> favoriteBarbershop(String userId, String barbershopId);
   Future<void> unfavoriteBarbershop(String userId, String barbershopId);
   Stream<AvailabilityModel> getMergedAvailabilityStream(String shopId);
+  Stream<List<AppointmentModel>> getAppointmentsStream(String shopId);
 }
 
 class BarbershopDataSourceImpl implements BarbershopDataSource {
@@ -225,5 +226,26 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
     });
 
     return availability;
+  }
+
+  @override
+  Stream<List<AppointmentModel>> getAppointmentsStream(String shopId) async* {
+    try {
+      yield* firestore
+          .collection('appointments')
+          .where('shop_id', isEqualTo: shopId)
+          .where('date',
+              isGreaterThanOrEqualTo:
+                  DateTime.now().subtract(const Duration(days: 1)))
+          .where('status', whereNotIn: ['cancelled', 'rejected'])
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((doc) => AppointmentModel.fromMap(doc))
+              .toList());  
+    } on FirebaseException catch (e) {
+      throw ServerException(e.toString());
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 }

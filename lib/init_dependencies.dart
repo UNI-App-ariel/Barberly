@@ -62,6 +62,12 @@ void _iniOwner() {
     ),
   );
 
+  serviceLocator.registerLazySingleton(
+    () => GetOwnerAppointmentsStreamsUseCase(
+      barbershopRepo: serviceLocator(),
+    ),
+  );
+
   // bloc
   serviceLocator.registerFactory(
     () => OwnerShopBloc(
@@ -70,6 +76,13 @@ void _iniOwner() {
       deleteShopUseCase: serviceLocator(),
     ),
   );
+
+  serviceLocator.registerFactory(
+    () => OwnerAppointmentsBloc(
+      getOwnerAppointmentsUseCase: serviceLocator(),
+    ),
+  );
+
 }
 
 void _initShops() {

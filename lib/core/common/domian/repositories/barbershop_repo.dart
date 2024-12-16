@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:uni_app/core/common/domian/entities/appointment.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 import 'package:uni_app/core/errors/failures.dart';
@@ -12,4 +13,5 @@ abstract interface class BarbershopRepo {
   Future<Either<Failure,void>> favoriteBarbershop(String userId, String barbershopId);
   Future<Either<Failure,void>> unfavoriteBarbershop(String userId, String barbershopId);
   Stream<Either<Failure, Availability>> streamAvailabilty(String shopId);
+  Stream<Either<Failure, List<Appointment>>> getAppointmentsStream(String shopId);
 }
