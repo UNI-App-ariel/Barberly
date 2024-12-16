@@ -182,13 +182,46 @@ void _initCore() {
     () => StreamAvailabilityUseCase(serviceLocator()),
   );
 
+  serviceLocator.registerLazySingleton<AppointmentsDataSource>(
+    () => AppointmentsDataSourceImpl(
+      firestore: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton<AppointmentsRepo>(
+    () => AppointmentsRepoIml(
+      appointmentsDataSource: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton<CancelAppointmentUseCase>(
+    () => CancelAppointmentUseCase(
+      appointmentsRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton<BookAppointmentUseCase>(
+    () => BookAppointmentUseCase(
+      appointmentRepo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton<GetAppointmentsUseCase>(
+    () => GetAppointmentsUseCase(
+      appointmentRepo: serviceLocator(),
+    ),
+  );
+
   // blocs
   serviceLocator.registerFactory(
     () => ShopAvailabilityBloc(streamAvailabilityUseCase: serviceLocator()),
   );
 
   serviceLocator.registerFactory(
-    () => AppointmentBloc(),
+    () => AppointmentBloc(
+      cancelAppointmentUseCase: serviceLocator(),
+      bookAppointmentUseCase: serviceLocator(),
+    ),
   );
 }
 

@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -11,7 +9,7 @@ class AppointmentModel extends Appointment {
     required super.shopId,
     required super.userId,
     required super.customerName,
-    required super.customerNumber,
+    required super.customerEmail,
     required super.customerImageURL,
     required super.serviceId,
     required super.date,
@@ -29,7 +27,7 @@ class AppointmentModel extends Appointment {
       shopId: data['shop_id'] ?? '',
       userId: data['user_id'] ?? '',
       customerName: data['customer_name'] ?? '',
-      customerNumber: data['customer_number'] ?? '',
+      customerEmail: data['customer_Email'] ?? '',
       customerImageURL: data['customer_image_url'],
       serviceId: data['service_id'] ?? '',
       date: (data['date'] != null)
@@ -52,7 +50,7 @@ class AppointmentModel extends Appointment {
       'shop_id': shopId,
       'user_id': userId,
       'customer_name': customerName,
-      'customer_number': customerNumber,
+      'customer_Email': customerEmail,
       'customer_image_url': customerImageURL,
       'service_id': serviceId,
       'date':
@@ -63,5 +61,41 @@ class AppointmentModel extends Appointment {
       'status': status,
       'created_at': Timestamp.fromDate(createdAt),
     };
+  }
+
+  // Method to convert AppointmentModel to Appointment
+  Appointment toEntity() {
+    return Appointment(
+      id: id,
+      shopId: shopId,
+      userId: userId,
+      customerName: customerName,
+      customerEmail: customerEmail,
+      customerImageURL: customerImageURL,
+      serviceId: serviceId,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+      status: status,
+      createdAt: createdAt,
+    );
+  }
+
+  // Method to convert Appointment to AppointmentModel
+  factory AppointmentModel.fromEntity(Appointment appointment) {
+    return AppointmentModel(
+      id: appointment.id,
+      shopId: appointment.shopId,
+      userId: appointment.userId,
+      customerName: appointment.customerName,
+      customerEmail: appointment.customerEmail,
+      customerImageURL: appointment.customerImageURL,
+      serviceId: appointment.serviceId,
+      date: appointment.date,
+      startTime: appointment.startTime,
+      endTime: appointment.endTime,
+      status: appointment.status,
+      createdAt: appointment.createdAt,
+    );
   }
 }

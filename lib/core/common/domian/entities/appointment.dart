@@ -1,13 +1,11 @@
-
-
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 
-class Appointment  {
+class Appointment {
   final String id;
   final String shopId;
   final String userId;
   final String customerName;
-  final String customerNumber;
+  final String customerEmail;
   final String? customerImageURL;
   final String serviceId;
   final DateTime date;
@@ -22,7 +20,7 @@ class Appointment  {
     required this.shopId,
     required this.userId,
     required this.customerName,
-    required this.customerNumber,
+    required this.customerEmail,
     required this.customerImageURL,
     required this.serviceId,
     required this.date,
@@ -54,7 +52,7 @@ class Appointment  {
       shopId: shopId ?? this.shopId,
       userId: userId ?? this.userId,
       customerName: customerName ?? this.customerName,
-      customerNumber: customerNumber ?? this.customerNumber,
+      customerEmail: customerNumber ?? this.customerEmail,
       customerImageURL: customerImageURL ?? this.customerImageURL,
       serviceId: serviceId ?? this.serviceId,
       date: date ?? this.date,
@@ -65,5 +63,4 @@ class Appointment  {
       shop: shop ?? this.shop,
     );
   }
-
 }
