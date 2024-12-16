@@ -33,11 +33,17 @@ class MyButton extends StatelessWidget {
             onPressed();
           },
           borderRadius: BorderRadius.circular(borderRadius ?? 10),
-          child: Container(
-            height: height,
-            width: width,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: child,
+          child: IntrinsicHeight(
+            child: IntrinsicWidth(
+              child: Container(
+                height: height,
+                width: width,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                alignment: Alignment.center,
+                child: child,
+              ),
+            ),
           ),
         ),
       ),
