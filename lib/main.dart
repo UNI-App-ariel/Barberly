@@ -9,7 +9,6 @@ import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/customer/presentation/bloc/favorite_shops/favorite_shops_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
-import 'package:uni_app/features/owner/presentation/widgets/owner_appointment_tile.dart';
 import 'package:uni_app/init_dependencies.g.dart';
 import 'package:uni_app/my_app.dart';
 
