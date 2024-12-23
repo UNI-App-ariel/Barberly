@@ -80,8 +80,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
               _buildShopDetails(shop),
               _buildEditShopButton(shop),
               _buildTabs(shop),
-              _buildAvailability(shop),
-              // _buildGallery(shop),
+              _buildTabPages(shop),
             ],
           ),
         ),
@@ -154,7 +153,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
 
   _buildEditShopButton(Barbershop shop) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: MyButton(
         borderRadius: 15,
         backgroundColor: Colors.blue,
@@ -162,9 +161,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
           // Navigate to edit profile page
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => EditShopDetailPage(
-                shop: shop,
-              ),
+              builder: (context) => const EditShopDetailPage(),
             ),
           );
         },
@@ -181,7 +178,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
 
   _buildTabs(Barbershop shop) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
       child: Row(
         children: [
           Expanded(
@@ -236,10 +233,9 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
     );
   }
 
-  _buildAvailability(Barbershop shop) {
-    return Visibility(
-      visible: selectedTabIndex == 0,
-      child: Padding(
+  _buildTabPages(Barbershop shop) {
+    if (selectedTabIndex == 0) {
+      return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -324,8 +320,8 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
                                 MyDateUtils.toTime(
                                     timeSlot.value[index].startTime),
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
                                 ),
                               ),
                             ),
@@ -341,7 +337,9 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
                 )
               ],
             ),
-          )),
-    );
+          ));
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }

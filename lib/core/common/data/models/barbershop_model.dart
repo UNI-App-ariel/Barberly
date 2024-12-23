@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 
 final class BarbershopModel extends Barbershop {
@@ -11,6 +13,7 @@ final class BarbershopModel extends Barbershop {
     required super.reviewCount,
     required super.services,
     required super.barbers,
+    super.imgaeFile,
   });
 
 
@@ -73,5 +76,7 @@ final class BarbershopModel extends Barbershop {
       barbers: barbers,
     );
   }
+
+  
 
 }

@@ -6,7 +6,8 @@ abstract interface class AppointmentsDataSource {
   Stream<List<AppointmentModel>> getAppointments(String userId);
   Future<void> bookAppointment(AppointmentModel appointment);
   Future<void> cancelAppointment(String appointmentId);
-}
+  Future<void> updateAppointment(AppointmentModel appointment);
+  }
 
 
 class AppointmentsDataSourceImpl implements AppointmentsDataSource {
@@ -48,5 +49,16 @@ class AppointmentsDataSourceImpl implements AppointmentsDataSource {
       throw ServerException(e.toString());
     }
 
+  }
+  
+  @override
+  Future<void> updateAppointment(AppointmentModel appointment) async {
+    try {
+      await firestore.collection('appointments').doc(appointment.id).update(appointment.toMap());
+    } on FirebaseException catch(e) {
+      throw ServerException(e.message?? 'An error occurred');
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 }

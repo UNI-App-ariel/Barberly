@@ -32,12 +32,6 @@ class AuthGate extends StatelessWidget {
           } else {
             return const NavigationBarPage();
           }
-        } else if (state is AuthInitial) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
         } else {
           return const LoginOrSignup();
         }

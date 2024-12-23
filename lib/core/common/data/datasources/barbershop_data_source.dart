@@ -164,7 +164,6 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
       AvailabilityModel availability) {
     Map<DateTime, List<TimeSlotModel>> mergedTimeSlots = {};
 
-    print('availability: ${availability.defaultTimeSlots}');
 
     DateTime now = DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0);

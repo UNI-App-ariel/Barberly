@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/usecase/usecase.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/auth/domain/usecases/get_current_user.dart';
@@ -14,6 +15,9 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  // bloc
+  final AppUserBloc appUserBloc;
+
   // usecase
   final GetCurrentUserUseCase _getCurrentUserUsecase;
   final SignUpWithEmailUseCase _signupWithEmailUsecase;
@@ -33,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required SignUpWithEmailUseCase signupWithEmailUsecase,
     required LogOutUseCase logOutUseCase,
     required SigninWithGoogleUseCase signinWithGoogleUseCase,
+    required this.appUserBloc,
   })  : _getCurrentUserUsecase = getCurrentUserUsecase,
         _signinWithEmailUsecase = singinWithEmailUsecase,
         _signupWithEmailUsecase = signupWithEmailUsecase,
@@ -61,7 +66,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (user) {
         _currentUser = user;
-        user != null ? emit(Authenticated(user)) : emit(Unauthenticated());
+        if (user != null) {
+          emit(Authenticated(user));
+          appUserBloc.add(StreamUserEvent(user.id));
+        } else {
+          emit(Unauthenticated());
+        }
       },
     );
   }
@@ -82,7 +92,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (user) {
         _currentUser = user;
-        user != null ? emit(Authenticated(user)) : emit(Unauthenticated());
+        if (user != null) {
+          emit(Authenticated(user));
+          appUserBloc.add(StreamUserEvent(user.id));
+        } else {
+          emit(Unauthenticated());
+        }
       },
     );
   }
@@ -104,7 +119,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (user) {
         _currentUser = user;
-        user != null ? emit(Authenticated(user)) : emit(Unauthenticated());
+        if (user != null) {
+          emit(Authenticated(user));
+          appUserBloc.add(StreamUserEvent(user.id));
+        } else {
+          emit(Unauthenticated());
+        }
       },
     );
   }
@@ -120,6 +140,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (_) {
         _currentUser = null;
         emit(Unauthenticated());
+        appUserBloc.add(LogoutEvent());
       },
     );
   }
@@ -135,7 +156,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (user) {
         _currentUser = user;
-        user != null ? emit(Authenticated(user)) : emit(Unauthenticated());
+        if (user != null) {
+          emit(Authenticated(user));
+          appUserBloc.add(StreamUserEvent(user.id));
+        } else {
+          emit(Unauthenticated());
+        }
       },
     );
   }

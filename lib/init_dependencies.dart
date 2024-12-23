@@ -82,7 +82,6 @@ void _iniOwner() {
       getOwnerAppointmentsUseCase: serviceLocator(),
     ),
   );
-
 }
 
 void _initShops() {
@@ -190,6 +189,20 @@ void _initCore() {
     () => ThemeCubit(),
   );
 
+  // datasource
+  serviceLocator.registerLazySingleton<AppUserDatasource>(
+    () => AppUserDatasourceImpl(
+      firestore: serviceLocator(),
+    ),
+  );
+
+  // repository
+  serviceLocator.registerLazySingleton<AppUserRepo>(
+    () => AppUserRepoImpl(
+      datasource: serviceLocator(),
+    ),
+  );
+
   // usecases
   serviceLocator.registerLazySingleton<StreamAvailabilityUseCase>(
     () => StreamAvailabilityUseCase(serviceLocator()),
@@ -219,21 +232,46 @@ void _initCore() {
     ),
   );
 
+  serviceLocator.registerLazySingleton(
+    () => UpdateAppointmentUseCase(
+      serviceLocator(),
+    ),
+  );
+
   serviceLocator.registerLazySingleton<GetAppointmentsUseCase>(
     () => GetAppointmentsUseCase(
       appointmentRepo: serviceLocator(),
     ),
   );
 
+  serviceLocator.registerLazySingleton(
+    () => StreamAppUserUseCase(
+      repo: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => UpdateAppUserUseCase(
+      repo: serviceLocator(),
+    ),
+  );
+
   // blocs
-  serviceLocator.registerFactory(
+  serviceLocator.registerLazySingleton(
     () => ShopAvailabilityBloc(streamAvailabilityUseCase: serviceLocator()),
   );
 
-  serviceLocator.registerFactory(
+  serviceLocator.registerLazySingleton(
     () => AppointmentBloc(
       cancelAppointmentUseCase: serviceLocator(),
       bookAppointmentUseCase: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => AppUserBloc(
+      streamAppUserUseCase: serviceLocator(),
+      updateAppUserUseCase: serviceLocator(),
     ),
   );
 }
@@ -297,6 +335,7 @@ void _initAuth() {
       signupWithEmailUsecase: serviceLocator(),
       logOutUseCase: serviceLocator(),
       signinWithGoogleUseCase: serviceLocator(),
+      appUserBloc: serviceLocator(),
     ),
   );
 }

@@ -41,4 +41,15 @@ class AppointmentsRepoIml implements AppointmentsRepo {
       return Left(Failure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> updateAppointment(Appointment appointment) async {
+    try {
+      await appointmentsDataSource
+          .updateAppointment(AppointmentModel.fromEntity(appointment));
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 }

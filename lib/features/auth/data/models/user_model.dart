@@ -36,4 +36,16 @@ class MyUserModel extends MyUser {
       'role': role,
     };
   }
+
+  static MyUserModel fromEntity(MyUser user) {
+    return MyUserModel(
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      shopId: user.shopId,
+      photoUrl: user.photoUrl,
+      favoriteShops: user.favoriteShops,
+      role: user.role,
+    );
+  }
 }

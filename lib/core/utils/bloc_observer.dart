@@ -22,11 +22,11 @@ class AppBlocObserver extends BlocObserver {
     log('Error: $error in Bloc: $bloc');
   }
 
-  // @override
-  // void onChange(BlocBase bloc, Change change) {
-  //   super.onChange(bloc, change);
-  //   log('Change: $change in Bloc: $bloc');
-  // }
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    log('Change: $change in Bloc: $bloc');
+  }
 
   @override
   void onClose(BlocBase bloc) {

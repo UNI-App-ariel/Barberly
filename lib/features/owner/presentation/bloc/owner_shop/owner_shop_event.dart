@@ -21,4 +21,8 @@ class DeleteShopEvent extends OwnerShopEvent {
   DeleteShopEvent(this.shopId);
 }
 
+// pick shop image
+class PickShopImageEvent extends OwnerShopEvent {
+}
+
 

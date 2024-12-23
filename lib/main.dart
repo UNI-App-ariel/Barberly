@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
@@ -27,7 +28,8 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => serviceLocator<AuthBloc>()..add(CheckAuth())),
+            create: (context) => serviceLocator<AuthBloc>()),
+            BlocProvider(create: (context) => serviceLocator<AppUserBloc>()),
         BlocProvider(create: (context) => serviceLocator<ThemeCubit>()),
         BlocProvider(create: (context) => serviceLocator<BarbershopBloc>()),
         BlocProvider(create: (context) => serviceLocator<FavoriteShopsBloc>()),

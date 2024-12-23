@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uni_app/core/common/data/models/barbershop_model.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 
@@ -10,6 +11,7 @@ abstract interface class OwnerShopDatasource {
 
 class OwnerShopDatasourceImpl implements OwnerShopDatasource {
   final FirebaseFirestore firestore;
+  final firebaseStorage = FirebaseStorage.instance;
 
   OwnerShopDatasourceImpl({required this.firestore});
 
@@ -27,13 +29,25 @@ class OwnerShopDatasourceImpl implements OwnerShopDatasource {
     } on FirebaseException catch (e) {
       throw ServerException(e.message ?? 'Server error');
     } catch (e) {
-      throw  ServerException(e.toString());
+      throw ServerException(e.toString());
     }
   }
 
   @override
   Future<BarbershopModel> updateOwnerShop(BarbershopModel ownerShop) async {
     try {
+      // if image file is not null, upload it to firebase storage
+      // if (ownerShop.imgaeFile != null) { // TODO: implement firebase storage (needs billing plan)
+      //   final ref = firebaseStorage
+      //       .ref()
+      //       .child('barbershops/${ownerShop.id}/profileImage');
+      //   final uploadTask = ref.putFile(ownerShop.imgaeFile!);
+      //   final snapshot = await uploadTask.whenComplete(() => null);
+      //   final imageUrl = await snapshot.ref.getDownloadURL();
+      //   ownerShop =
+      //       BarbershopModel.fromEntity(ownerShop.copyWith(imageUrl: imageUrl));
+      // }
+
       await firestore
           .collection('barbershops')
           .doc(ownerShop.id)
@@ -42,7 +56,7 @@ class OwnerShopDatasourceImpl implements OwnerShopDatasource {
     } on FirebaseException catch (e) {
       throw ServerException(e.message ?? 'Server error');
     } catch (e) {
-      throw  ServerException(e.toString());
+      throw ServerException(e.toString());
     }
   }
 
@@ -53,7 +67,7 @@ class OwnerShopDatasourceImpl implements OwnerShopDatasource {
     } on FirebaseException catch (e) {
       throw ServerException(e.message ?? 'Server error');
     } catch (e) {
-      throw  ServerException(e.toString());
+      throw ServerException(e.toString());
     }
   }
 }

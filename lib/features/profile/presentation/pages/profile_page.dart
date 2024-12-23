@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';
+import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:uni_app/features/profile/presentation/pages/settings_page.dart';
@@ -15,7 +17,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.read<AuthBloc>().currentUser;
+    final user = context.watch<AppUserBloc>().currentUser;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -136,7 +138,8 @@ class ProfilePage extends StatelessWidget {
                         size: 18,
                       ),
                       trailing: Switch.adaptive(
-                        value: Theme.of(context).brightness == Brightness.dark,
+                        value:
+                            context.watch<ThemeCubit>().state == ThemeMode.dark,
                         onChanged: (value) {
                           context.read<ThemeCubit>().toggleTheme();
                         },
@@ -155,7 +158,14 @@ class ProfilePage extends StatelessWidget {
                       ),
                       onTap: () {
                         // logout
-                        context.read<AuthBloc>().add(AuthLogOut());
+                        MyUtils.showConfirmationDialog(
+                          context: context,
+                          title: 'Logout',
+                          message: 'Are you sure you want to logout?',
+                          onConfirm: () {
+                            context.read<AuthBloc>().add(AuthLogOut());
+                          },
+                        );
                       },
                     ),
                   ],

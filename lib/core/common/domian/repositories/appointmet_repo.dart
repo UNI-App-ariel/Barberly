@@ -6,4 +6,5 @@ abstract interface class AppointmentsRepo {
   Stream<Either<Failure, List<Appointment>>> getAppointments(String userId);
   Future<Either<Failure, void>> bookAppointment(Appointment appointment);
   Future<Either<Failure, void>> cancelAppointment(String appointmentId);
+  Future<Either<Failure, void>> updateAppointment(Appointment appointment);
 }

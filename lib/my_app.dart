@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/themes/dark_theme.dart';
 import 'package:uni_app/core/themes/light_theme.dart';
+import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/auth_gate.dart';
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -14,7 +14,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<AuthBloc>().add(CheckAuth());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocSelector<ThemeCubit, ThemeMode, ThemeMode>(

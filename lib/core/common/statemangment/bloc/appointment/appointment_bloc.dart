@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/domian/entities/appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/book_appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/cancel_appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/get_appointments.dart';
+import 'package:uni_app/core/common/domian/usecases/appointment/book_appointment.dart';
+import 'package:uni_app/core/common/domian/usecases/appointment/cancel_appointment.dart';
 
 part 'appointment_event.dart';
 part 'appointment_state.dart';
@@ -17,7 +16,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     required this.bookAppointmentUseCase,
   }) : super(AppointmentInitial()) {
     on<AppointmentEvent>((event, emit) {
-      // TODO: implement event handler
+
     });
 
     on<BookAppointmentEvent>((event, emit) async {
