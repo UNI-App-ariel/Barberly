@@ -1,0 +1,26 @@
+@startuml activity_diagram
+start
+
+:User logs in;
+:User selects a Barbershop;
+:User views available Time Slots;
+
+if (Is Time Slot Available?) then (Yes)
+    :User selects a Time Slot;
+    :User requests an Appointment;
+    :System creates a Pending Appointment;
+
+    :Owner receives notification of the requested appointment;
+    if (Owner Accepts Appointment?) then (Yes)
+        :System updates Appointment to "Confirmed";
+        :User receives confirmation;
+    else (No)
+        :System updates Appointment to "Rejected";
+        :User receives rejection notification;
+    endif
+else (No)
+    :System displays "No Time Slots Available";
+endif
+
+stop
+@enduml

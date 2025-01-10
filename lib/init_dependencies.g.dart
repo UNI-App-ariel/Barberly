@@ -21,7 +21,7 @@ import 'package:uni_app/core/common/domian/usecases/appointment/update_appointme
 import 'package:uni_app/core/common/domian/usecases/delete_barber_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/favorite_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/get_all_barber_shops.dart';
-import 'package:uni_app/core/common/domian/usecases/get_appointments.dart';
+import 'package:uni_app/core/common/domian/usecases/appointment/get_appointments.dart';
 import 'package:uni_app/core/common/domian/usecases/get_barber_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/get_owner_appointments_streams.dart';
 import 'package:uni_app/core/common/domian/usecases/stream_availability.dart';
@@ -29,6 +29,7 @@ import 'package:uni_app/core/common/domian/usecases/update_barber_shop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booked_appointments_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/features/auth/data/datasources/auth_datasource.dart';

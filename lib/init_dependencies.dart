@@ -274,6 +274,12 @@ void _initCore() {
       updateAppUserUseCase: serviceLocator(),
     ),
   );
+
+  serviceLocator.registerLazySingleton(
+    () => BookedAppointmentsBloc(
+      getAppointmentsUseCase: serviceLocator(),
+    ),
+  );
 }
 
 void _initAuth() {

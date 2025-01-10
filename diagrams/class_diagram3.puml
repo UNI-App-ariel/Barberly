@@ -1,0 +1,74 @@
+
+@startuml class_diagram3
+skinparam classAttributeIconSize 0
+
+
+class Appointment {
+    + id: String
+    + shopId: String
+    +  userId: String
+    +  customerName: String
+    +  customerEmail: String
+    +  customerImageURL: String
+    +  serviceId: String
+    +  date: DateTime
+    +  startTime: DateTime
+    +  endTime: DateTime
+    +  status: String
+    +  createdAt: DateTime
+    +  shop: Barbershop
+}
+class AppointmentModel {
+    + id: String
+    + shopId: String
+    +  userId: String
+    +  customerName: String
+    +  customerEmail: String
+    +  customerImageURL: String
+    +  serviceId: String
+    +  date: DateTime
+    +  startTime: DateTime
+    +  endTime: DateTime
+    +  status: String
+    +  createdAt: DateTime
+    +  shop: BarbershopModel
+    + fromMap(Map<String, dynamic> map): AppointmentModel
+    + toMap(): Map<String, dynamic>
+}
+
+
+class AppointmentsDataSource {
+    + getAppointments(userId: String): List<AppointmentModel>
+    + bookAppointment(appointment: AppointmentModel): void
+    + updateAppointment(appointment: AppointmentModel): void
+    + cancelAppointment(appointment: AppointmentModel): void
+}
+class AppointmentsDataSourceImpl {
+    + firestore: FirebaseFirestore
+    + getAppointments(userId: String): List<AppointmentModel>
+    + bookAppointment(appointment: AppointmentModel): void
+    + updateAppointment(appointment: AppointmentModel): void
+    + cancelAppointment(appointment: AppointmentModel): void
+}
+
+class AppointmentsRepo {
+    + getAppointments(userId: String): List<AppointmentModel>
+    + bookAppointment(appointment: AppointmentModel): void
+    + updateAppointment(appointment: AppointmentModel): void
+    + cancelAppointment(appointment: AppointmentModel): void
+}
+class AppointmentsRepoIml {
+    + datasource: AppointmentsDataSource
+    + getAppointments(userId: String): List<AppointmentModel>
+    + bookAppointment(appointment: AppointmentModel): void
+    + updateAppointment(appointment: AppointmentModel): void
+    + cancelAppointment(appointment: AppointmentModel): void
+}
+
+' Appointment Relationships
+AppointmentModel --|> Appointment
+AppointmentsDataSourceImpl ..|> AppointmentsDataSource
+AppointmentsRepoIml ..|> AppointmentsRepo
+AppointmentsRepoIml o-- AppointmentsDataSourceImpl
+
+@enduml

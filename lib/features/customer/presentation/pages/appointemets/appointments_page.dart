@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booked_appointments_bloc.dart';
+import 'package:uni_app/core/utils/my_date_utils.dart';
+import 'package:uni_app/core/utils/my_utils.dart';
+import 'package:uni_app/features/auth/domain/entities/user.dart';
+import 'package:uni_app/features/customer/presentation/widgets/customer_appointment_tile.dart';
 
-class AppointmentsPage extends StatelessWidget {
+class AppointmentsPage extends StatefulWidget {
   const AppointmentsPage({super.key});
+
+  @override
+  State<AppointmentsPage> createState() => _AppointmentsPageState();
+}
+
+class _AppointmentsPageState extends State<AppointmentsPage> {
+  late MyUser? user;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    user = context.watch<AppUserBloc>().currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,47 +30,41 @@ class AppointmentsPage extends StatelessWidget {
         title: const Text("Appointments"),
         centerTitle: true,
       ),
-      body: Center(
-        child: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance
-              .authStateChanges(), // Listen to auth state changes
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(); // Show loading while waiting for auth state
-            }
-
-            final user = snapshot.data; // Get the current user
-
-            if (user != null) {
-              return _buildLoggedInView();
-            } else {
-              return _buildLoggedOutView(context);
-            }
-          },
-        ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child:
+            user != null ? _buildLoggedInView() : _buildLoggedOutView(context),
       ),
     );
   }
 
   Widget _buildLoggedInView() {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.calendar_today,
-          size: 80,
-          color: Colors.grey,
-        ),
-        SizedBox(height: 20),
-        Text(
-          "You have no upcoming appointments.",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: Colors.black87,
-          ),
-        ),
-      ],
+    return BlocConsumer<BookedAppointmentsBloc, BookedAppointmentsState>(
+      listener: (context, state) {
+        if (state is BookedAppointmentsError) {
+          MyUtils.showErrorSnackBar(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        if (state is BookedAppointmentsLoaded) {
+          if (state.appointments.isEmpty) {
+            return const Center(
+              child: Text("No appointments booked yet"),
+            );
+          }
+          return ListView.builder(
+            itemCount: state.appointments.length,
+            itemBuilder: (context, index) {
+              final appointment = state.appointments[index];
+              return CustomerAppointmentTile(
+                appointment: appointment,
+              );
+            },
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
     );
   }
 

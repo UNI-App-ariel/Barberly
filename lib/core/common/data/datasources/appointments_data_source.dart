@@ -7,8 +7,7 @@ abstract interface class AppointmentsDataSource {
   Future<void> bookAppointment(AppointmentModel appointment);
   Future<void> cancelAppointment(String appointmentId);
   Future<void> updateAppointment(AppointmentModel appointment);
-  }
-
+}
 
 class AppointmentsDataSourceImpl implements AppointmentsDataSource {
   final FirebaseFirestore firestore;
@@ -17,11 +16,15 @@ class AppointmentsDataSourceImpl implements AppointmentsDataSource {
 
   @override
   Stream<List<AppointmentModel>> getAppointments(String userId) async* {
-    try{ 
-      final appointments = firestore.collection('appointments').where('userId', isEqualTo: userId).snapshots();
-      yield* appointments.map((snapshot) => snapshot.docs.map((doc) => AppointmentModel.fromMap(doc)).toList());
-    } on FirebaseException catch(e) {
-      throw ServerException(e.message?? 'An error occurred');
+    try {
+      final appointments = firestore
+          .collection('appointments')
+          .where('user_id', isEqualTo: userId)
+          .snapshots();
+      yield* appointments.map((snapshot) =>
+          snapshot.docs.map((doc) => AppointmentModel.fromMap(doc)).toList());
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message ?? 'An error occurred');
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -30,9 +33,12 @@ class AppointmentsDataSourceImpl implements AppointmentsDataSource {
   @override
   Future<void> bookAppointment(AppointmentModel appointment) async {
     try {
-      await firestore.collection('appointments').doc(appointment.id).set(appointment.toMap());
-    } on FirebaseException catch(e) {
-      throw ServerException(e.message?? 'An error occurred');
+      await firestore
+          .collection('appointments')
+          .doc(appointment.id)
+          .set(appointment.toMap());
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message ?? 'An error occurred');
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -40,23 +46,24 @@ class AppointmentsDataSourceImpl implements AppointmentsDataSource {
 
   @override
   Future<void> cancelAppointment(String appointmentId) async {
-    try
-    {
+    try {
       await firestore.collection('appointments').doc(appointmentId).delete();
-    } on FirebaseException catch(e) {
-      throw ServerException(e.message?? 'An error occurred');
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message ?? 'An error occurred');
     } catch (e) {
       throw ServerException(e.toString());
     }
-
   }
-  
+
   @override
   Future<void> updateAppointment(AppointmentModel appointment) async {
     try {
-      await firestore.collection('appointments').doc(appointment.id).update(appointment.toMap());
-    } on FirebaseException catch(e) {
-      throw ServerException(e.message?? 'An error occurred');
+      await firestore
+          .collection('appointments')
+          .doc(appointment.id)
+          .update(appointment.toMap());
+    } on FirebaseException catch (e) {
+      throw ServerException(e.message ?? 'An error occurred');
     } catch (e) {
       throw ServerException(e.toString());
     }

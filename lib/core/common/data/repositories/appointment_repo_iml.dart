@@ -15,7 +15,10 @@ class AppointmentsRepoIml implements AppointmentsRepo {
       String userId) async* {
     try {
       final appointments = appointmentsDataSource.getAppointments(userId);
-      yield Right(appointments as List<Appointment>);
+      // map the stream of List<AppointmentModel> to List<Appointment>
+      yield* appointments.map((appointments) {
+        return Right(appointments.map((e) => e.toEntity()).toList());
+      });
     } catch (e) {
       yield Left(Failure(e.toString()));
     }
@@ -41,9 +44,10 @@ class AppointmentsRepoIml implements AppointmentsRepo {
       return Left(Failure(e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<Failure, void>> updateAppointment(Appointment appointment) async {
+  Future<Either<Failure, void>> updateAppointment(
+      Appointment appointment) async {
     try {
       await appointmentsDataSource
           .updateAppointment(AppointmentModel.fromEntity(appointment));

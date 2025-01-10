@@ -1,0 +1,87 @@
+
+@startuml class_diagram2
+skinparam classAttributeIconSize 0
+
+
+class Barbershop {
+    + id: String
+    + name: String
+    + address: String
+    + phoneNumber: String
+    + email: String
+    + imageURL: String
+    + rating: double
+    + reviewCount: int
+    + services: List<String>
+}
+class BarbershopModel {
+    + id: String
+    + name: String
+    + address: String
+    + phoneNumber: String
+    + email: String
+    + imageURL: String
+    + rating: double
+    + reviewCount: int
+    + services: List<String>
+    + fromMap(Map<String, dynamic> map): BarbershopModel
+    + toMap(): Map<String, dynamic>
+}
+
+class BarbershopDataSource {
+    + getBarbershops(): List<BarbershopModel>
+    + getBarbershop(id: String): BarbershopModel
+    + addBarbershop(shop: BarbershopModel): void
+    + updateBarbershop(shop: BarbershopModel): void
+    + deleteBarbershop(id: String): void
+    + favoriteBarbershop(id: String): void
+    + unfavoriteBarbershop(id: String): void
+    + getAvailability(id: String): AvailabilityModel
+    + getShopAppointments(id: String): List<AppointmentModel>
+
+}
+class BarbershopDataSourceImpl {
+    + firestore: FirebaseFirestore
+    + getBarbershops(): List<BarbershopModel>
+    + getBarbershop(id: String): BarbershopModel
+    + addBarbershop(shop: BarbershopModel): void
+    + updateBarbershop(shop: BarbershopModel): void
+    + deleteBarbershop(id: String): void
+    + favoriteBarbershop(id: String): void
+    + unfavoriteBarbershop(id: String): void
+    + getAvailability(id: String): AvailabilityModel
+    + getShopAppointments(id: String): List<AppointmentModel>
+}
+
+class BarbershopRepo {
+    + getBarbershops(): List<BarbershopModel>
+    + getBarbershop(id: String): BarbershopModel
+    + addBarbershop(shop: BarbershopModel): void
+    + updateBarbershop(shop: BarbershopModel): void
+    + deleteBarbershop(id: String): void
+    + favoriteBarbershop(id: String): void
+    + unfavoriteBarbershop(id: String): void
+    + getAvailability(id: String): AvailabilityModel
+    + getShopAppointments(id: String): List<AppointmentModel>
+}
+class BarbershopRepoImpl {
+    + datasource: BarbershopDataSource
+    + getBarbershops(): List<BarbershopModel>
+    + getBarbershop(id: String): BarbershopModel
+    + addBarbershop(shop: BarbershopModel): void
+    + updateBarbershop(shop: BarbershopModel): void
+    + deleteBarbershop(id: String): void
+    + favoriteBarbershop(id: String): void
+    + unfavoriteBarbershop(id: String): void
+    + getAvailability(id: String): AvailabilityModel
+    + getShopAppointments(id: String): List<AppointmentModel>
+}
+
+
+' Barbershop Relationships
+BarbershopDataSourceImpl ..|> BarbershopDataSource
+BarbershopModel --|> Barbershop
+BarbershopRepoImpl ..|> BarbershopRepo
+BarbershopRepoImpl o-- BarbershopDataSourceImpl
+
+@enduml

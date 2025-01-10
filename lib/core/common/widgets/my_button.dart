@@ -24,7 +24,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius ?? 10),
+      borderRadius: BorderRadius.circular(borderRadius ?? 12),
       child: Material(
         color: backgroundColor ?? Theme.of(context).colorScheme.primary,
         child: InkWell(
@@ -32,7 +32,7 @@ class MyButton extends StatelessWidget {
             HapticFeedback.lightImpact();
             onPressed();
           },
-          borderRadius: BorderRadius.circular(borderRadius ?? 10),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           child: IntrinsicHeight(
             child: IntrinsicWidth(
               child: Container(

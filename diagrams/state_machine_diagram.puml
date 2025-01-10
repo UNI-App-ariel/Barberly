@@ -1,0 +1,18 @@
+@startuml state_machine_diagram
+
+state "Appointment Created" as Created
+state "Pending Confirmation" as Pending
+state "Confirmed" as Confirmed
+state "Cancelled" as Cancelled
+state "Completed" as Completed
+
+[*] --> Created
+Created --> Pending : Appointment Requested
+Pending --> Confirmed : Owner Accepts
+Pending --> Cancelled : User Cancels
+Confirmed --> Cancelled : User Cancels
+Confirmed --> Completed : Appointment Time Reached
+Cancelled --> [*]
+Completed --> [*]
+
+@enduml

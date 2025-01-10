@@ -27,6 +27,11 @@ class OwnerHomePage extends StatelessWidget {
               child: Loader(),
             );
           } else if (state is OwnerAppointmentsLoaded) {
+            if (state.appointments.isEmpty) {
+              return const Center(
+                child: Text('No appointments found'),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: ListView.builder(

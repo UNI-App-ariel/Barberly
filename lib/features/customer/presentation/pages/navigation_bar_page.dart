@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booked_appointments_bloc.dart';
+import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/customer/presentation/pages/home/home_page.dart';
 import 'package:uni_app/features/customer/presentation/pages/favorites/favorites_page.dart';
 import 'package:uni_app/features/customer/presentation/pages/appointemets/appointments_page.dart';
@@ -15,6 +19,7 @@ class NavigationBarPage extends StatefulWidget {
 }
 
 class _NavigationBarPageState extends State<NavigationBarPage> {
+  late MyUser? user;
   int _currentIndex = 0;
 
   late final List<Widget> _pages;
@@ -28,6 +33,12 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
       const AppointmentsPage(),
       const ProfilePage(),
     ];
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _initDependencies();
   }
 
   @override
@@ -82,6 +93,14 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
         ),
       ),
     );
+  }
+
+  void _initDependencies() {
+    user = context.watch<AppUserBloc>().currentUser;
+    if (user == null) {
+      return;
+    }
+    context.read<BookedAppointmentsBloc>().add(GetBookedAppointments(user!.id));
   }
 }
 

@@ -1,0 +1,69 @@
+@startuml erd
+
+entity User {
+    * id: String [PK]
+    --
+    email: String
+    name: String
+    imageURL: String
+    role: String
+    shopId: String [FK]
+}
+
+entity Barbershop {
+    * id: String [PK]
+    --
+    name: String
+    address: String
+    phoneNumber: String
+    email: String
+    imageURL: String
+    rating: Double
+    reviewCount: Int
+}
+
+entity Appointment {
+    * id: String [PK]
+    --
+    userId: String [FK]
+    shopId: String [FK]
+    serviceId: String
+    date: DateTime
+    startTime: DateTime
+    endTime: DateTime
+    status: String
+    createdAt: DateTime
+}
+
+entity Availability {
+    * id: String [PK]
+    --
+    shopId: String [FK]
+    availabilityWindow: Int
+}
+
+entity TimeSlot {
+    * id: String [PK]
+    --
+    availabilityId: String [FK]
+    startTime: DateTime
+    endTime: DateTime
+    isBooked: Boolean
+}
+
+entity Service {
+    * id: String [PK]
+    --
+    name: String
+    description: String
+    price: Double
+}
+
+' Relationships
+User ||--o{ Appointment : "books"
+Barbershop ||--o{ Appointment : "has appointments"
+Barbershop ||--o{ Availability : "has availability"
+Availability ||--o{ TimeSlot : "defines"
+Barbershop ||--o{ Service : "offers"
+
+@enduml

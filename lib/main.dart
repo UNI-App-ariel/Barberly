@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
+import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booked_appointments_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/utils/bloc_observer.dart';
@@ -37,8 +38,9 @@ void main() async {
             create: (context) => serviceLocator<ShopAvailabilityBloc>()),
         BlocProvider(create: (context) => serviceLocator<AppointmentBloc>()),
         BlocProvider(create: (context) => serviceLocator<OwnerShopBloc>()),
-        BlocProvider(
-            create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
+        BlocProvider(create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
+        BlocProvider(create: (context) => serviceLocator<BookedAppointmentsBloc>()),
+            
       ],
       child: const MyApp(),
     ),

@@ -1,0 +1,84 @@
+@startuml object_diagram
+skinparam classAttributeIconSize 0
+
+object Appointment {
+    id = "A1"
+    shopId = "S1"
+    userId = "U1"
+    customerName = "John Doe"
+    customerEmail = "john.doe@example.com"
+    customerImageURL = "https://example.com/john_doe.jpg"
+    serviceId = "Service123"
+    date = "2024-12-31"
+    startTime = "10:00 AM"
+    endTime = "11:00 AM"
+    status = "Confirmed"
+    createdAt = "2024-12-01"
+}
+
+object MyUser {
+    id = "U1"
+    email = "john.doe@example.com"
+    name = "John Doe"
+    imageURL = "https://example.com/john_doe.jpg"
+    shopId = "S1"
+    favoriteShops = ["S2", "S3"]
+    role = "Customer"
+}
+
+object Barbershop {
+    id = "S1"
+    name = "Elegant Cuts"
+    address = "123 Barber Lane, Style City"
+    phoneNumber = "123-456-7890"
+    email = "info@elegantcuts.com"
+    imageURL = "https://example.com/elegantcuts.jpg"
+    rating = 4.8
+    reviewCount = 150
+    services = ["Haircut", "Shave", "Beard Trim"]
+    availability = Availability
+}
+
+object Availability {
+    id = "A1"
+    availabilityWindow = 30
+    defaultTimeSlots = [
+        "sunday": TimeSlot1,
+        "monday": TimeSlot2
+    ]
+    customTimeSlots = [
+        "2024-12-29": TimeSlot3,
+        "2024-12-29": TimeSlot4
+    ]
+}
+
+object TimeSlot1 {
+    startTime = "09:00"
+    endTime = "09:30"
+    isBooked = false
+}
+object TimeSlot2 {
+    startTime = "09:30"
+    endTime = "10:00"
+    isBooked = false
+}
+object TimeSlot3 {
+    startTime = "11:00"
+    endTime = "11:30"
+    isBooked = true
+}
+object TimeSlot4 {
+    startTime = "11:30"
+    endTime = "12:00"
+    isBooked = true
+}
+
+' Connections between objects
+Appointment --> MyUser : customer
+Appointment --> Barbershop : shop
+Barbershop --> Availability : has availability
+Availability *-- TimeSlot1
+Availability *-- TimeSlot2
+Availability *-- TimeSlot3
+Availability *-- TimeSlot4
+@enduml

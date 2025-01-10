@@ -29,7 +29,7 @@ class MyUtils {
   // show confirmation dialog
   static void showConfirmationDialog({
     required BuildContext context,
-    required String title,
+     String? title,
     required String message,
     required Function onConfirm,
   }) {
@@ -50,6 +50,9 @@ class MyUtils {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // title
+                title == null
+                    ? const SizedBox.shrink()
+                    :
                 Text(
                   title,
                   style: const TextStyle(

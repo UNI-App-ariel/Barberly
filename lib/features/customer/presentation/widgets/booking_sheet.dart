@@ -129,36 +129,27 @@ class _BookingSheetState extends State<BookingSheet> {
         const SizedBox(height: 20),
         _buildTimeSlots(),
         const SizedBox(height: 20),
-        // const Spacer(),
-        // Visibility(
-        //   visible: _getBookButtonVisibility(),
-        //   child: BookingButton(
-        //     selectedDate: _selectedDate,
-        //     selectedTime: _selectedTimeSlot?.startTime,
-        //     onPressed: () => _bookAppointment(context),
-        //     state: _buttonState,
-        //   ),
+        // MyButton(
+        //   child: const Text("book Appointment"),
+        //   onPressed: () => context.read<AppointmentBloc>().add(
+        //         BookAppointmentEvent(
+        //           Appointment(
+        //             id: const Uuid().v1(),
+        //             userId: widget.user!.id,
+        //             customerName: widget.user!.name,
+        //             customerEmail: widget.user!.email,
+        //             customerImageURL: widget.user!.photoUrl,
+        //             serviceId: '0',
+        //             startTime: _selectedTimeSlot!.startTime,
+        //             endTime: _selectedTimeSlot!.endTime,
+        //             status: 'pending',
+        //             createdAt: DateTime.now(),
+        //             shopId: widget.shop.id,
+        //             date: _selectedDate!,
+        //           ),
+        //         ),
+        //       ),
         // ),
-        MyButton(
-            child: const Text("book Appointment"),
-            onPressed: () => context.read<AppointmentBloc>().add(
-                  BookAppointmentEvent(
-                    Appointment(
-                      id: const Uuid().v1(),
-                      userId: widget.user!.id,
-                      customerName: widget.user!.name,
-                      customerEmail: widget.user!.email,
-                      customerImageURL: widget.user!.photoUrl,
-                      serviceId: '0',
-                      startTime: _selectedTimeSlot!.startTime,
-                      endTime: _selectedTimeSlot!.endTime,
-                      status: 'pending',
-                      createdAt: DateTime.now(),
-                      shopId: widget.shop.id,
-                      date: _selectedDate!,
-                    ),
-                  ),
-                )),
       ],
     );
   }
@@ -179,8 +170,8 @@ class _BookingSheetState extends State<BookingSheet> {
       initialDate: _selectedDate ?? _firstDate ?? DateTime.now(),
       dates: availabilityData.keys.toList(),
       padding: 20,
-      backgroundColor: Colors.amberAccent,
-      borderColor: Colors.amberAccent,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      borderColor: Theme.of(context).colorScheme.secondary,
       showTodayButton: false,
       onDateSelected: (date) {
         setState(() {

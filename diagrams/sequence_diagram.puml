@@ -1,0 +1,21 @@
+@startuml sequence_diagram
+
+actor User
+participant "App" as A
+participant "Auth System" as AS
+participant "Database" as DB
+
+User -> A : Open Registration Page
+A -> AS : Submit Registration Details
+AS -> DB : Save User Data
+DB --> AS : Confirm Data Saved
+AS --> A : Registration Successful
+
+User -> A : Open Login Page
+A -> AS : Submit Login Credentials
+AS -> DB : Verify Credentials
+DB --> AS : Return User Data
+AS --> A : Login Successful
+A --> User : Welcome Message
+
+@enduml
