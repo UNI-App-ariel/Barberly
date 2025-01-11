@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/core/common/widgets/date_time_line_picker.dart';
 import 'package:uni_app/core/common/widgets/loader.dart';
-import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
-import 'package:uuid/uuid.dart';
 
 enum BookingButtonState {
   readyToBook,

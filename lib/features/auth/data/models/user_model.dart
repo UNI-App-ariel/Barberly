@@ -9,6 +9,7 @@ class MyUserModel extends MyUser {
     super.photoUrl,
     super.favoriteShops = const [],
     super.role = 'customer',
+    super.accountType = 'email',
   });
 
   // from map
@@ -21,6 +22,7 @@ class MyUserModel extends MyUser {
       photoUrl: map['photoUrl'],
       favoriteShops: List<String>.from(map['favoriteShops']),
       role: map['role'],
+      accountType: map['accountType'] ?? 'email'
     );
   }
 
@@ -34,6 +36,7 @@ class MyUserModel extends MyUser {
       'photoUrl': photoUrl,
       'favoriteShops': favoriteShops,
       'role': role,
+      'accountType': accountType,
     };
   }
 
@@ -46,6 +49,7 @@ class MyUserModel extends MyUser {
       photoUrl: user.photoUrl,
       favoriteShops: user.favoriteShops,
       role: user.role,
+      accountType: user.accountType,
     );
   }
 }

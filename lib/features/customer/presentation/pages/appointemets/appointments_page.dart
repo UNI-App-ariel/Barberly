@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booked_appointments_bloc.dart';
-import 'package:uni_app/core/utils/my_date_utils.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/customer/presentation/widgets/customer_appointment_tile.dart';

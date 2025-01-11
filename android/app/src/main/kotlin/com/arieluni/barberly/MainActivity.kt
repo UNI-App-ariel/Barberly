@@ -1,5 +1,6 @@
-package com.example.uni_app
+package com.arieluni.barberly
 
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity: FlutterActivity()
+

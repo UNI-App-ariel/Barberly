@@ -7,6 +7,7 @@ class MyUser {
   final String? photoUrl;
   final List<String> favoriteShops;
   final String role;
+  final String accountType;
 
   MyUser({
     required this.id,
@@ -16,6 +17,7 @@ class MyUser {
     this.photoUrl,
     this.favoriteShops = const [],
     this.role = 'customer',
+    this.accountType = 'email',
   });
 
   MyUser copyWith({
@@ -26,6 +28,7 @@ class MyUser {
     String? photoUrl,
     List<String>? favoriteShops,
     String? role,
+    String? accountType,
   }) {
     return MyUser(
       id: id ?? this.id,
@@ -35,6 +38,7 @@ class MyUser {
       photoUrl: photoUrl ?? this.photoUrl,
       favoriteShops: favoriteShops ?? this.favoriteShops,
       role: role ?? this.role,
+      accountType: accountType ?? this.accountType,
     );
   }
 }

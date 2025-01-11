@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
@@ -118,14 +119,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: Column(
         children: [
           // profile image
-          const Hero(
+          Hero(
             tag: 'profile_image',
             child: CircleAvatar(
               radius: 50,
-              child: Icon(
-                Icons.person,
-                size: 50,
-              ),
+              backgroundImage: user != null && user!.photoUrl != null
+                  ? CachedNetworkImageProvider(user!.photoUrl!)
+                  : null,
+              child: user == null || user?.photoUrl == null
+                  ? const Icon(
+                      Icons.person,
+                      size: 50,
+                    )
+                  : null,
             ),
           ),
 

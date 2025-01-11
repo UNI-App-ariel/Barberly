@@ -38,6 +38,7 @@ import 'package:uni_app/features/auth/domain/repositories/auth_repo.dart';
 import 'package:uni_app/features/auth/domain/usecases/get_current_user.dart';
 import 'package:uni_app/features/auth/domain/usecases/logout.dart';
 import 'package:uni_app/features/auth/domain/usecases/signin_with_email.dart';
+import 'package:uni_app/features/auth/domain/usecases/signin_with_facbook.dart';
 import 'package:uni_app/features/auth/domain/usecases/signin_with_google.dart';
 import 'package:uni_app/features/auth/domain/usecases/signup_with_email.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';

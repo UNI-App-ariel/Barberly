@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
@@ -24,13 +25,15 @@ void main() async {
   // init bloc observer
   Bloc.observer = AppBlocObserver();
 
+  // set system ui mode
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
   // run app
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => serviceLocator<AuthBloc>()),
-            BlocProvider(create: (context) => serviceLocator<AppUserBloc>()),
+        BlocProvider(create: (context) => serviceLocator<AuthBloc>()),
+        BlocProvider(create: (context) => serviceLocator<AppUserBloc>()),
         BlocProvider(create: (context) => serviceLocator<ThemeCubit>()),
         BlocProvider(create: (context) => serviceLocator<BarbershopBloc>()),
         BlocProvider(create: (context) => serviceLocator<FavoriteShopsBloc>()),
@@ -38,9 +41,10 @@ void main() async {
             create: (context) => serviceLocator<ShopAvailabilityBloc>()),
         BlocProvider(create: (context) => serviceLocator<AppointmentBloc>()),
         BlocProvider(create: (context) => serviceLocator<OwnerShopBloc>()),
-        BlocProvider(create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
-        BlocProvider(create: (context) => serviceLocator<BookedAppointmentsBloc>()),
-            
+        BlocProvider(
+            create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
+        BlocProvider(
+            create: (context) => serviceLocator<BookedAppointmentsBloc>()),
       ],
       child: const MyApp(),
     ),

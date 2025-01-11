@@ -173,7 +173,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onSignInWithFacebook(
       SignInWithFacebook event, Emitter<AuthState> emit) async {
-    final result = await _onSignInWithFacebook(NoParams());
+    final result = await _signInWithFacebookUseCase(NoParams());
     emit(AuthLoading());
 
     result.fold(

@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>uni_app</string>
+	<string>Barberly</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -23,11 +23,6 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
-	<key>FacebookAppID</key>
-<string>1147549996866433</string>
-<key>FacebookClientToken</key>
-<string>d1980fc7e96b0ad157d0ac1207f0cf40</string>
-
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -35,8 +30,20 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.646462327215-gb4qqi1lerjuor87nveiqsk8mlh4fegu</string>
+				<string>fb1147549996866433</string>
 			</array>
 		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1147549996866433</string>
+	<key>FacebookDisplayName</key>
+	<string>Barberly</string>
+	<key>FacebookClientToken</key>
+	<string>d1980fc7e96b0ad157d0ac1207f0cf40</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>

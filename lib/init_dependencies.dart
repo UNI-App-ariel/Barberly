@@ -332,6 +332,12 @@ void _initAuth() {
     ),
   );
 
+  serviceLocator.registerLazySingleton(
+    () => SignInWithFacebookUseCase(
+      serviceLocator(),
+    ),
+  );
+
   // bloc
 
   serviceLocator.registerFactory(
@@ -342,6 +348,7 @@ void _initAuth() {
       logOutUseCase: serviceLocator(),
       signinWithGoogleUseCase: serviceLocator(),
       appUserBloc: serviceLocator(),
+      signInWithFacebookUseCase: serviceLocator(),
     ),
   );
 }

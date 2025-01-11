@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
+import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:uni_app/features/profile/presentation/pages/settings_page.dart';
@@ -28,17 +30,23 @@ class ProfilePage extends StatelessWidget {
                 // profile picture
                 GestureDetector(
                   onTap: () {
+                    if (user == null || user.photoUrl == null) return;
                     // show the image in a dialog
-                    _showImageDialog(context);
+                    _showImageDialog(context, user);
                   },
-                  child: const Hero(
+                  child: Hero(
                     tag: 'profile_image',
                     child: CircleAvatar(
                       radius: 50,
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                      ),
+                      backgroundImage: user != null && user.photoUrl != null
+                          ? CachedNetworkImageProvider(user.photoUrl!)
+                          : null,
+                      child: user == null || user.photoUrl == null
+                          ? const Icon(
+                              Icons.person,
+                              size: 50,
+                            )
+                          : null,
                     ),
                   ),
                 ),
@@ -179,18 +187,15 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  void _showImageDialog(BuildContext context) {
+  void _showImageDialog(BuildContext context, MyUser user) {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog(
+        return AlertDialog(
           backgroundColor: Colors.transparent,
           content: CircleAvatar(
             radius: 100,
-            child: Icon(
-              Icons.person,
-              size: 100,
-            ),
+            backgroundImage: CachedNetworkImageProvider(user.photoUrl!),
           ),
         );
       },

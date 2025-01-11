@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/features/auth/data/models/user_model.dart';
@@ -48,23 +49,21 @@ class AuthDatasourceImpl implements AuthDatasource {
   @override
   Future<MyUserModel?> loginWithEmail(String email, String password) async {
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
+    UserCredential userCredential =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
 
-      // get user from firestore
-      final userDoc = await firestore
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .get();
-      if (userDoc.exists) {
-        return MyUserModel.fromMap(userDoc.data()!);
-      } else {
-        return MyUserModel(
-          id: userCredential.user!.uid,
-          email: email,
-          name: '',
-        );
-      }
+    // get user from firestore
+    final userDoc =
+        await firestore.collection('users').doc(userCredential.user!.uid).get();
+    if (userDoc.exists) {
+      return MyUserModel.fromMap(userDoc.data()!);
+    } else {
+      return MyUserModel(
+        id: userCredential.user!.uid,
+        email: email,
+        name: '',
+      );
+    }
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -90,6 +89,7 @@ class AuthDatasourceImpl implements AuthDatasource {
         id: userCredential.user!.uid,
         email: email,
         name: name,
+        accountType: 'email',
       );
 
       // save user to firestore
@@ -132,32 +132,86 @@ class AuthDatasourceImpl implements AuthDatasource {
           .get();
 
       if (userDoc.exists) {
+        // update user info
+        await userDoc.reference.update({
+          'name': userCredential.user!.displayName,
+          'photoUrl': userCredential.user!.photoURL,
+        });
+
         return MyUserModel.fromMap(userDoc.data()!);
       } else {
         // save user to firestore
-        await firestore
-            .collection('users')
-            .doc(userCredential.user!.uid)
-            .set(MyUserModel(
-              id: userCredential.user!.uid,
-              email: userCredential.user!.email!,
-              name: userCredential.user!.displayName!,
-            ).toMap());
+        await firestore.collection('users').doc(userCredential.user!.uid).set(
+              MyUserModel(
+                id: userCredential.user!.uid,
+                email: userCredential.user!.email!,
+                name: userCredential.user!.displayName!,
+                photoUrl: userCredential.user!.photoURL,
+                accountType: 'google',
+              ).toMap(),
+            );
         return MyUserModel(
           id: userCredential.user!.uid,
           email: userCredential.user!.email!,
           name: userCredential.user!.displayName!,
+          photoUrl: userCredential.user!.photoURL,
+          accountType: 'google',
         );
       }
     } catch (e) {
       throw ServerException(e.toString());
     }
   }
-  
-  @override
-  Future<MyUserModel?> signInWithFacebook() {
-    
 
-    
+  @override
+  Future<MyUserModel?> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final OAuthCredential credential =
+            FacebookAuthProvider.credential(result.accessToken!.tokenString);
+
+        // sign in to firebase
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        // get user from firestore
+        final userDoc = await firestore
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .get();
+
+        if (userDoc.exists) {
+          // update user info
+          await userDoc.reference.update({
+            'name': userCredential.user!.displayName,
+            'photoUrl': userCredential.user!.photoURL,
+          });
+          return MyUserModel.fromMap(userDoc.data()!);
+        } else {
+          // save user to firestore
+          await firestore.collection('users').doc(userCredential.user!.uid).set(
+                MyUserModel(
+                  id: userCredential.user!.uid,
+                  email: userCredential.user!.email!,
+                  name: userCredential.user!.displayName!,
+                  photoUrl: userCredential.user!.photoURL,
+                  accountType: 'facebook',
+                ).toMap(),
+              );
+          return MyUserModel(
+            id: userCredential.user!.uid,
+            email: userCredential.user!.email!,
+            name: userCredential.user!.displayName!,
+            photoUrl: userCredential.user!.photoURL,
+            accountType: 'facebook',
+          );
+        }
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 }
