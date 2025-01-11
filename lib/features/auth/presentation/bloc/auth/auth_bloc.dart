@@ -8,6 +8,7 @@ import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/auth/domain/usecases/get_current_user.dart';
 import 'package:uni_app/features/auth/domain/usecases/logout.dart';
 import 'package:uni_app/features/auth/domain/usecases/signin_with_email.dart';
+import 'package:uni_app/features/auth/domain/usecases/signin_with_facbook.dart';
 import 'package:uni_app/features/auth/domain/usecases/signin_with_google.dart';
 import 'package:uni_app/features/auth/domain/usecases/signup_with_email.dart';
 
@@ -24,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithEmailUseCase _signinWithEmailUsecase;
   final LogOutUseCase _logOutUseCase;
   final SigninWithGoogleUseCase _signinWithGoogleUseCase;
+  final SignInWithFacebookUseCase _signInWithFacebookUseCase;
 
   // fields
   MyUser? _currentUser;
@@ -37,11 +39,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required SignUpWithEmailUseCase signupWithEmailUsecase,
     required LogOutUseCase logOutUseCase,
     required SigninWithGoogleUseCase signinWithGoogleUseCase,
+    required SignInWithFacebookUseCase signInWithFacebookUseCase,
     required this.appUserBloc,
   })  : _getCurrentUserUsecase = getCurrentUserUsecase,
         _signinWithEmailUsecase = singinWithEmailUsecase,
         _signupWithEmailUsecase = signupWithEmailUsecase,
         _signinWithGoogleUseCase = signinWithGoogleUseCase,
+        _signInWithFacebookUseCase = signInWithFacebookUseCase,
         _logOutUseCase = logOutUseCase,
         super(AuthInitial()) {
     on<AuthEvent>((event, emit) {
@@ -55,6 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _onSignUpWithEmailAndPassword); // sign up with email and password
     on<AuthLogOut>(_onLogOut); // log out
     on<SignInWithGoogle>(_onSignInWithGoogle); // sign in with google
+    on<SignInWithFacebook>(_onSignInWithFacebook); // sign in with facebook
   }
 
   Future<void> _onCheckAuth(CheckAuth event, Emitter<AuthState> emit) async {
@@ -165,4 +170,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
     );
   }
+
+  Future<void> _onSignInWithFacebook(
+      SignInWithFacebook event, Emitter<AuthState> emit) async {
+    final result = await _onSignInWithFacebook(NoParams());
+    emit(AuthLoading());
+
+    result.fold(
+      (failure) {
+        emit(AuthError(failure.message));
+      },
+      (user) {
+        _currentUser = user;
+        if (user != null) {
+          emit(Authenticated(user));
+          appUserBloc.add(StreamUserEvent(user.id));
+        } else {
+          emit(Unauthenticated());
+        }
+      },
+    );
+  }
+
+
 }

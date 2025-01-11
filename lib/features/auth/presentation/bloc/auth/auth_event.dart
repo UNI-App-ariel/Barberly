@@ -35,3 +35,6 @@ class AuthLogOut extends AuthEvent {}
 
 // sign in with google
 class SignInWithGoogle extends AuthEvent {}
+
+// sign in with facebook
+class SignInWithFacebook extends AuthEvent {}

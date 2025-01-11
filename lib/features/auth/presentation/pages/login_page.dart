@@ -207,9 +207,15 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(width: 10),
                         Expanded(
-                          child: _buildLoginWithButton(
-                            assetPath: 'assets/icons/facebook.svg',
-                            text: 'Facebook',
+                          child: GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(SignInWithFacebook());
+                            },
+                            child: _buildLoginWithButton(
+                              assetPath: 'assets/icons/facebook.svg',
+                              text: 'Facebook',
+                            ),
                           ),
                         ),
                       ],

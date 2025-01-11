@@ -11,6 +11,7 @@ abstract interface class AuthDatasource {
   Future<void> logout();
   Future<MyUserModel?> getCurrentUser();
   Future<MyUserModel?> signInWithGoogle();
+  Future<MyUserModel?> signInWithFacebook();
 }
 
 class AuthDatasourceImpl implements AuthDatasource {
@@ -151,5 +152,12 @@ class AuthDatasourceImpl implements AuthDatasource {
     } catch (e) {
       throw ServerException(e.toString());
     }
+  }
+  
+  @override
+  Future<MyUserModel?> signInWithFacebook() {
+    
+
+    
   }
 }
