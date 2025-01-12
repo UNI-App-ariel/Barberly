@@ -100,6 +100,7 @@ class _DateTimelinePickerState extends State<DateTimelinePicker> {
               DateTime date = widget.dates?[index] ??
                   widget.startDate.add(Duration(days: index));
               return GestureDetector(
+                key: const Key('date_picker'),
                 onTap: () {
                   HapticFeedback.lightImpact();
                   setState(() {

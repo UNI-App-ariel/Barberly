@@ -228,6 +228,7 @@ class _BookingSheetState extends State<BookingSheet> {
                         TimeSlot slot = timeSlots[index];
                         bool isSelected = _selectedTimeSlot == slot;
                         return GestureDetector(
+                          key: const Key('time_slot'),
                           onTap: () {
                             setState(() {
                               _selectedTimeSlot = slot;

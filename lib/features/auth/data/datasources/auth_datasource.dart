@@ -1,7 +1,14 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+import 'dart:math' as math;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/features/auth/data/models/user_model.dart';
 
@@ -49,21 +56,23 @@ class AuthDatasourceImpl implements AuthDatasource {
   @override
   Future<MyUserModel?> loginWithEmail(String email, String password) async {
     try {
-    UserCredential userCredential =
-        await auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
 
-    // get user from firestore
-    final userDoc =
-        await firestore.collection('users').doc(userCredential.user!.uid).get();
-    if (userDoc.exists) {
-      return MyUserModel.fromMap(userDoc.data()!);
-    } else {
-      return MyUserModel(
-        id: userCredential.user!.uid,
-        email: email,
-        name: '',
-      );
-    }
+      // get user from firestore
+      final userDoc = await firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+      if (userDoc.exists) {
+        return MyUserModel.fromMap(userDoc.data()!);
+      } else {
+        return MyUserModel(
+          id: userCredential.user!.uid,
+          email: email,
+          name: '',
+        );
+      }
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -163,13 +172,46 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
   }
 
+  String generateNonce([int length = 32]) {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = math.Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  // Function to generate the SHA256 hash of the raw nonce
+  String hashNonce(String rawNonce) {
+    final bytes = utf8.encode(rawNonce); // Convert the raw nonce to bytes
+    final digest = sha256.convert(bytes); // Compute SHA256 hash
+    return digest.toString(); // Return the hash as a string
+  }
+
   @override
   Future<MyUserModel?> signInWithFacebook() async {
     try {
-      final LoginResult result = await FacebookAuth.instance.login();
+      final rawNonce = generateNonce();
+      final LoginResult result = await FacebookAuth.instance.login(
+        loginTracking: LoginTracking.limited,
+        nonce: hashNonce(rawNonce),
+      );
       if (result.status == LoginStatus.success) {
-        final OAuthCredential credential =
-            FacebookAuthProvider.credential(result.accessToken!.tokenString);
+        log('------> ${result.accessToken!.tokenString}-----');
+        log('Facebook Login Status: ${result.status}');
+        if (result.accessToken != null) {
+          log('Access Token: ${result.accessToken!.tokenString}');
+          log('Token Type: ${result.accessToken!.type}');
+        }
+        final OAuthCredential credential;
+        if (Platform.isIOS) {
+          credential = OAuthProvider('facebook.com').credential(
+            idToken: result.accessToken!.tokenString,
+            rawNonce: rawNonce,
+          );
+        } else {
+          credential =
+              FacebookAuthProvider.credential(result.accessToken!.tokenString);
+        }
 
         // sign in to firebase
         final UserCredential userCredential =

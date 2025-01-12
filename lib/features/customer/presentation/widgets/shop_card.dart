@@ -13,6 +13,7 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: const Key('shop_card'),
       onTap: () { Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => ShopDetailsPage(shop: shop),

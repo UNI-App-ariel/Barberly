@@ -9,9 +9,11 @@ Future<void> initDependencies() async {
   _iniOwner();
 
   // initialize Firebase
-  if (Firebase.apps.isEmpty) {
+  if (Firebase.apps.isEmpty &&
+      !kIsWeb &&
+      !const bool.fromEnvironment('flutter.test')) {
     await Firebase.initializeApp(
-        // options: DefaultFirebaseOptions.currentPlatform,
+        //     // options: DefaultFirebaseOptions.currentPlatform,
         );
   }
 

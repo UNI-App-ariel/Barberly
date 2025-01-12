@@ -119,6 +119,7 @@ class AppointmentSuccessSheet extends StatelessWidget {
                 ),
                 const Spacer(),
                 MyButton(
+                  key: const Key('done_button'),
                   width: MediaQuery.of(context).size.width,
                   child: Text(
                     'Done',

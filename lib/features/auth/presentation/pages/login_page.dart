@@ -88,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     // text fields
                     MyTextField(
+                      key: const Key('email_field'),
                       controller: _emailController,
                       hintText: 'Email',
                       keyboardType: TextInputType.emailAddress,
@@ -105,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 10),
                     MyTextField(
+                      key: const Key('password_field'),
                       controller: _passwordController,
                       hintText: 'Password',
                       obscureText: true,
@@ -132,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     // login button
                     GestureDetector(
+                      key: const Key('login_button'),
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           BlocProvider.of<AuthBloc>(context).add(

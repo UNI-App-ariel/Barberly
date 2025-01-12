@@ -53,10 +53,17 @@ dependencies:
   image_picker: ^1.1.2
   modal_bottom_sheet: ^3.0.0
   flutter_facebook_auth: ^7.1.1
+  crypto: ^3.0.6
+  mockito: ^5.0.0
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
+  build_runner: 
+  firebase_core_platform_interface:
+  firebase_auth_platform_interface: 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -30,20 +30,20 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.646462327215-gb4qqi1lerjuor87nveiqsk8mlh4fegu</string>
-				<string>fb1147549996866433</string>
+				<string>fb1041002624451107</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>1147549996866433</string>
+	<string>1041002624451107</string>
 	<key>FacebookDisplayName</key>
 	<string>Barberly</string>
 	<key>FacebookClientToken</key>
-	<string>d1980fc7e96b0ad157d0ac1207f0cf40</string>
+	<string>a40ab3824601c9609e09d8f922e09a22</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
-		<string>fb-messenger-api</string>
+		<string>fb-messenger-share-api</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>

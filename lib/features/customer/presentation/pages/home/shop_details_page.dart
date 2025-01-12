@@ -193,6 +193,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                     ),
                     const SizedBox(height: 16),
                     MyButton(
+                      key: const Key('book_appointment_button'),
                       borderRadius: 30,
                       width: MediaQuery.of(context).size.width,
                       height: 50,

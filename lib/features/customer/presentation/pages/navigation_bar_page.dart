@@ -77,6 +77,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
                 text: 'Favorites',
               ),
               GButton(
+                key: const Key('appointments_tab'),
                 icon: CupertinoIcons.calendar_today,
                 iconColor: Theme.of(context).colorScheme.inverseSurface,
                 iconSize: 20,
