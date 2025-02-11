@@ -66,6 +66,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             MyUtils.showErrorSnackBar(context, state.message);
           } else if (state is AppUserUpdated) {
             MyUtils.showSnackBar(context, 'Profile updated successfully');
+            Navigator.pop(context);
             setState(() {
               user = context.read<AppUserBloc>().currentUser;
               _isChanged = false;

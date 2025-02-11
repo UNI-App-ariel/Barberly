@@ -48,18 +48,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _signInWithFacebookUseCase = signInWithFacebookUseCase,
         _logOutUseCase = logOutUseCase,
         super(AuthInitial()) {
-    on<AuthEvent>((event, emit) {
-      // emit(AuthLoading());
-    });
+    // listen to auth events
+    on<AuthEvent>((event, emit) {});
 
-    on<CheckAuth>(_onCheckAuth); // check if user is authenticated
-    on<SignInWithEmailAndPassword>(
-        _onSignInWithEmailAndPassword); // sign in with email and password
-    on<SignUpWithEmailAndPassword>(
-        _onSignUpWithEmailAndPassword); // sign up with email and password
-    on<AuthLogOut>(_onLogOut); // log out
-    on<SignInWithGoogle>(_onSignInWithGoogle); // sign in with google
-    on<SignInWithFacebook>(_onSignInWithFacebook); // sign in with facebook
+    // check if user is authenticated
+    on<CheckAuth>(_onCheckAuth);
+
+    // sign in with email and password
+    on<SignInWithEmailAndPassword>(_onSignInWithEmailAndPassword);
+
+    // sign up with email and password
+    on<SignUpWithEmailAndPassword>(_onSignUpWithEmailAndPassword);
+
+    // log out
+    on<AuthLogOut>(_onLogOut);
+
+    // sign in with google
+    on<SignInWithGoogle>(_onSignInWithGoogle);
+
+    // sign in with facebook
+    on<SignInWithFacebook>(_onSignInWithFacebook);
   }
 
   Future<void> _onCheckAuth(CheckAuth event, Emitter<AuthState> emit) async {
@@ -191,6 +199,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
     );
   }
-
-
 }

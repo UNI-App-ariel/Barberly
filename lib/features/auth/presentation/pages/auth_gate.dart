@@ -43,7 +43,7 @@ class AuthGate extends StatelessWidget {
               } else if (state is AppUserLoaded) {
                 return _buildPage(state);
               }
-              return const Loader();
+              return const Scaffold(body: Center(child: Loader()));
             },
           );
         } else {

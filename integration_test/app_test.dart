@@ -35,8 +35,7 @@ void main() {
   group(
     'Login Test',
     () {
-      testWidgets('User can log in and navigate to home screen',
-          (WidgetTester tester) async {
+      testWidgets('Verify successful login flow', (WidgetTester tester) async {
         debugPrint('running test...');
         // Start the app
         app.main();
@@ -59,7 +58,8 @@ void main() {
         expect(find.byType(HomePage), findsOneWidget);
       });
 
-      testWidgets('invalid email or password', (WidgetTester tester) async {
+      testWidgets('Verify unsuccessful login flow',
+          (WidgetTester tester) async {
         debugPrint('running test...');
 
         // Start the app
