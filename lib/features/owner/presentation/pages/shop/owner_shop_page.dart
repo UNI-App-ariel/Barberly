@@ -9,6 +9,7 @@ import 'package:uni_app/core/common/widgets/loader.dart';
 import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/utils/my_date_utils.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_gallary/owner_gallary_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 import 'package:uni_app/features/owner/presentation/pages/shop/edit_shop_detail_page.dart';
 
@@ -233,6 +234,55 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
     );
   }
 
+  _showImageDialog(String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.contain,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error, size: 50),
+              ),
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.red.withValues(alpha: 0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.delete),
+                  visualDensity: VisualDensity.compact,
+                  color: Colors.red,
+                  onPressed: () {
+                    if (shop != null) {
+                      context.read<OwnerGallaryBloc>().add(
+                            DeleteImageFromGalleryEvent(
+                                shopId: shop!.id, imageUrl: imageUrl),
+                          );
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   _buildTabPages(Barbershop shop) {
     if (selectedTabIndex == 0) {
       return Padding(
@@ -339,7 +389,38 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
             ),
           ));
     } else {
-      return const SizedBox.shrink();
+      return GridView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        shrinkWrap: true,
+        physics:
+            const NeverScrollableScrollPhysics(), // Prevent scrolling inside GridView
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          childAspectRatio: 1.0,
+        ),
+        itemCount: shop.gallery.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              // Show image in dialog
+              _showImageDialog(shop.gallery[index]);
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: shop.gallery[index],
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+          );
+        },
+      );
     }
   }
 }

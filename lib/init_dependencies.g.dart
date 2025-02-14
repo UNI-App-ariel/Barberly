@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uni_app/core/common/data/datasources/app_user_datasource.dart';
 import 'package:uni_app/core/common/data/datasources/appointments_data_source.dart';
 import 'package:uni_app/core/common/data/datasources/barbershop_data_source.dart';
@@ -55,6 +56,7 @@ import 'package:uni_app/features/owner/domain/usecases/delete_shop.dart';
 import 'package:uni_app/features/owner/domain/usecases/get_shop.dart';
 import 'package:uni_app/features/owner/domain/usecases/update_shop.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_gallary/owner_gallary_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 
 part 'init_dependencies.dart';
