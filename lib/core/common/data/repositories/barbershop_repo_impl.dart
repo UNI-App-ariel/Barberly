@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_app/core/common/data/datasources/barbershop_data_source.dart';
+import 'package:uni_app/core/common/data/models/availability_model.dart';
 import 'package:uni_app/core/common/data/models/barbershop_model.dart';
 import 'package:uni_app/core/common/domian/entities/appointment.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
@@ -123,5 +124,16 @@ class BarbershopRepoImpl implements BarbershopRepo {
       yield Left(Failure(e.message));
     }
 
+  }
+  
+  @override
+  Future<Either<Failure, void>> updateAvailability(Availability availability)async {
+    try {
+      final availabilityModel = AvailabilityModel.fromDomain(availability);
+      final result = await barbershopDataSource.updateAvailability(availabilityModel);
+      return Right(result);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 }

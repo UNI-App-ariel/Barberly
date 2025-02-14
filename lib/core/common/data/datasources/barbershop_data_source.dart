@@ -16,6 +16,7 @@ abstract interface class BarbershopDataSource {
   Future<void> unfavoriteBarbershop(String userId, String barbershopId);
   Stream<AvailabilityModel> getMergedAvailabilityStream(String shopId);
   Stream<List<AppointmentModel>> getAppointmentsStream(String shopId);
+  Future<void> updateAvailability(AvailabilityModel availability);
 }
 
 class BarbershopDataSourceImpl implements BarbershopDataSource {
@@ -164,7 +165,6 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
       AvailabilityModel availability) {
     Map<DateTime, List<TimeSlotModel>> mergedTimeSlots = {};
 
-
     DateTime now = DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0);
     // Iterate over the next `availabilityWindow` days
@@ -240,7 +240,21 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((doc) => AppointmentModel.fromMap(doc))
-              .toList());  
+              .toList());
+    } on FirebaseException catch (e) {
+      throw ServerException(e.toString());
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> updateAvailability(AvailabilityModel availability) async {
+    try {
+      await firestore
+          .collection('availability')
+          .doc(availability.id)
+          .update(availability.toMap());
     } on FirebaseException catch (e) {
       throw ServerException(e.toString());
     } catch (e) {

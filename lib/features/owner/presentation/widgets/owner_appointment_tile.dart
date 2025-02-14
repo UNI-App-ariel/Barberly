@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uni_app/core/common/domian/entities/appointment.dart';
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/utils/my_date_utils.dart';
+import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 
 class OwnerAppointmentTile extends StatefulWidget {
@@ -31,7 +34,7 @@ class _OwnerAppointmentTileState extends State<OwnerAppointmentTile> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.only(left: 16, top: 0, right: 0, bottom: 16),
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -48,16 +51,19 @@ class _OwnerAppointmentTileState extends State<OwnerAppointmentTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Profile Avatar
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: Center(
-              child: Text(
-                widget.appointment.customerName.substring(0, 2).toUpperCase(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: Center(
+                child: Text(
+                  widget.appointment.customerName.substring(0, 2).toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -86,37 +92,29 @@ class _OwnerAppointmentTileState extends State<OwnerAppointmentTile> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Text(
-                        widget.appointment.status,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                      child: IconButton(
+                        visualDensity: VisualDensity.compact,
+                        onPressed: () {
+                          MyUtils.showConfirmationDialog(
+                            context: context,
+                            message:
+                                'Are you sure you want to cancel this appointment?',
+                            onConfirm: () => context
+                                .read<AppointmentBloc>()
+                                .add(
+                                  CancelAppointmentEvent(widget.appointment),
+                                ),
+                          );
+                        },
+                        icon: const FaIcon(
+                          FontAwesomeIcons.xmark,
+                          color: Colors.red,
+                          size: 20,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-
-                // Service Provider
-                Row(
-                  children: [
-                    Icon(
-                      Icons.store,
-                      size: 16,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      _barbershop?.name ?? 'Unknown',
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
 
                 // Date
                 Row(
