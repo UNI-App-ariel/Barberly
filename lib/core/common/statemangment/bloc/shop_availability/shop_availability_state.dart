@@ -19,3 +19,5 @@ final class ShopAvailabilityError extends ShopAvailabilityState {
 
   ShopAvailabilityError(this.message);
 }
+
+final class ShopAvailabilityUpdated extends ShopAvailabilityState {}

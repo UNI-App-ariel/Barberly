@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/domian/entities/availability.dart';
-import 'package:uni_app/core/common/domian/usecases/stream_availability.dart';
+import 'package:uni_app/core/common/domian/usecases/availability/stream_availability.dart';
+import 'package:uni_app/core/common/domian/usecases/availability/update_availability.dart';
 
 part 'shop_availability_event.dart';
 part 'shop_availability_state.dart';
@@ -13,14 +14,20 @@ class ShopAvailabilityBloc
   StreamSubscription? _streamSubscription;
 
   final StreamAvailabilityUseCase _streamAvailabilityUseCase;
+  final UpdateAvailabilityUsecase _updateAvailabilityUsecase;
 
-  ShopAvailabilityBloc(
-      {required StreamAvailabilityUseCase streamAvailabilityUseCase})
-      : _streamAvailabilityUseCase = streamAvailabilityUseCase,
+  ShopAvailabilityBloc({
+    required StreamAvailabilityUseCase streamAvailabilityUseCase,
+    required UpdateAvailabilityUsecase updateAvailabilityUsecase,
+  })  : _streamAvailabilityUseCase = streamAvailabilityUseCase,
+        _updateAvailabilityUsecase = updateAvailabilityUsecase,
         super(ShopAvailabilityInitial()) {
     on<ShopAvailabilityEvent>((event, emit) {});
 
     on<StreamAvailabilityEvent>(_onStreamAvailability);
+
+    // update availability
+    on<UpdateAvailabilityEvent>(_onUpdateAvailability);
   }
 
   FutureOr<void> _onStreamAvailability(StreamAvailabilityEvent event,
@@ -46,6 +53,19 @@ class ShopAvailabilityBloc
     );
 
     await _streamSubscription?.asFuture();
+  }
+
+  FutureOr<void> _onUpdateAvailability(UpdateAvailabilityEvent event,
+      Emitter<ShopAvailabilityState> emit) async {
+    emit(ShopAvailabilityLoading());
+    final result = await _updateAvailabilityUsecase(event.availability);
+    result.fold(
+      (failure) {
+        emit(ShopAvailabilityError(failure.message));
+      },
+      (availability) {
+      },
+    );
   }
 
   // Helper function to parse and filter availability data
@@ -82,11 +102,9 @@ class ShopAvailabilityBloc
     return availability.copyWith(timeSlots: availabilityData);
   }
 
-
   @override
   Future<void> close() {
     _streamSubscription?.cancel();
     return super.close();
   }
-
 }

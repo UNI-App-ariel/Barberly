@@ -32,6 +32,28 @@ class MyDateUtils {
     return date.weekday == DateTime.sunday ? 1 : date.weekday + 1;
   }
 
+  // Get day name from int value. 1 is Sunday, 7 is Saturday.
+  static String getDayName(int day) {
+    switch (day) {
+      case 1:
+        return 'Sunday';
+      case 2:
+        return 'Monday';
+      case 3:
+        return 'Tuesday';
+      case 4:
+        return 'Wednesday';
+      case 5:
+        return 'Thursday';
+      case 6:
+        return 'Friday';
+      case 7:
+        return 'Saturday';
+      default:
+        return '';
+    }
+  }
+
   static int sundayN = 1;
   static int mondayN = 2;
   static int tuesdayN = 3;
@@ -40,6 +62,10 @@ class MyDateUtils {
   static int fridayN = 6;
   static int saturdayN = 7;
 
+
+  /// Get the canonical date of today
+  /// 
+  /// This method returns a new [DateTime] object with the same year, month and day as today's date.
   static DateTime getCanonicalToday() {
     return DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day);

@@ -14,4 +14,5 @@ abstract interface class BarbershopRepo {
   Future<Either<Failure,void>> unfavoriteBarbershop(String userId, String barbershopId);
   Stream<Either<Failure, Availability>> streamAvailabilty(String shopId);
   Stream<Either<Failure, List<Appointment>>> getAppointmentsStream(String shopId);
+  Future<Either<Failure,void>> updateAvailability(Availability availability);
 }

@@ -210,6 +210,10 @@ void _initCore() {
     () => StreamAvailabilityUseCase(serviceLocator()),
   );
 
+  serviceLocator.registerLazySingleton<UpdateAvailabilityUsecase>(
+    () => UpdateAvailabilityUsecase(repository: serviceLocator()),
+  );
+
   serviceLocator.registerLazySingleton<AppointmentsDataSource>(
     () => AppointmentsDataSourceImpl(
       firestore: serviceLocator(),
@@ -260,7 +264,10 @@ void _initCore() {
 
   // blocs
   serviceLocator.registerLazySingleton(
-    () => ShopAvailabilityBloc(streamAvailabilityUseCase: serviceLocator()),
+    () => ShopAvailabilityBloc(
+      streamAvailabilityUseCase: serviceLocator(),
+      updateAvailabilityUsecase: serviceLocator(),
+    ),
   );
 
   serviceLocator.registerLazySingleton(
