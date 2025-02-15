@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,13 +66,13 @@ class AppUserBloc extends Bloc<AppUserEvent, AppUserState> {
   void _onUpdateUserEvent(
       UpdateUserEvent event, Emitter<AppUserState> emit) async {
     emit(AppUserLoading());
-    final result = await updateAppUserUseCase(event.user);
+    final result = await updateAppUserUseCase(
+        UpdateAppUserParams(user: event.user, pfp: event.pfp));
     result.fold(
       (failure) => emit(AppUserError(failure.message)),
       (_) {
-        _currentUser = event.user;
         emit(AppUserUpdated());
-        emit(AppUserLoaded(event.user));
+        add(StreamUserEvent(event.user.id));
       },
     );
   }

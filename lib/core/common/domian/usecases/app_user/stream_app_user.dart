@@ -10,7 +10,7 @@ class StreamAppUserUseCase implements StreamUseCase<MyUser?, String> {
   StreamAppUserUseCase({required this.repo});
 
   @override
-  Stream<Either<Failure, MyUser?>> call(String params) {
-    return repo.getUserStream(params);
+  Stream<Either<Failure, MyUser?>> call(String params) async* {
+    yield* repo.getUserStream(params);
   }
 }

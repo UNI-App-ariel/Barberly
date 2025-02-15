@@ -13,8 +13,9 @@ class StreamUserEvent extends AppUserEvent {
 // update user
 class UpdateUserEvent extends AppUserEvent {
   final MyUser user;
+  final File? pfp;
 
-  UpdateUserEvent(this.user);
+  UpdateUserEvent({required this.user, this.pfp});
 }
 
 // logout

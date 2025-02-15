@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/auth/presentation/widgets/my_text_field.dart';
+import 'package:uni_app/features/profile/presentation/bloc/pfp/pfp_bloc.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -17,6 +20,8 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   bool _isChanged = false;
+  File? _pfp;
+
   // controllers
   final TextEditingController _nameController = TextEditingController();
 
@@ -40,7 +45,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _didChange() {
-    if (_nameController.text.trim() != user?.name) {
+    if (_nameController.text.trim() != user?.name || _pfp != null) {
       setState(() {
         _isChanged = true;
       });
@@ -77,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           if (state is AppUserLoaded) {
             return _buildContent();
           } else if (state is AppUserLoading) {
-            return const Loader();
+            return const Center(child: Loader());
           } else {
             return const SizedBox.shrink();
           }
@@ -92,7 +97,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
         onTap: () {
           if (user == null) return;
           final newUser = user!.copyWith(name: _nameController.text);
-          context.read<AppUserBloc>().add(UpdateUserEvent(newUser));
+
+          context
+              .read<AppUserBloc>()
+              .add(UpdateUserEvent(user: newUser, pfp: _pfp));
         },
         child: Container(
           margin: const EdgeInsets.all(8),
@@ -120,30 +128,45 @@ class _EditProfilePageState extends State<EditProfilePage> {
       child: Column(
         children: [
           // profile image
-          Hero(
-            tag: 'profile_image',
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: user != null && user!.photoUrl != null
-                  ? CachedNetworkImageProvider(user!.photoUrl!)
-                  : null,
-              child: user == null || user?.photoUrl == null
-                  ? const Icon(
-                      Icons.person,
-                      size: 50,
-                    )
-                  : null,
-            ),
+          BlocListener<PfpBloc, PfpState>(
+            listener: (context, state) {
+              if (state is PfpLoaded) {
+                setState(() {
+                  _pfp = state.image;
+                });
+
+                _didChange();
+              }
+            },
+            child: _buildPfp(_pfp),
           ),
 
           const SizedBox(height: 20),
+
           // edit image button
           MyButton(
             borderRadius: 30,
             backgroundColor: Theme.of(context).brightness == Brightness.dark
                 ? Colors.white
                 : Colors.black,
-            onPressed: () {},
+            onPressed: () {
+              MyUtils.showImagePicker(
+                context: context,
+                onPickImageFromGallery: () {
+                  context.read<PfpBloc>().add(PickImageFromGallery());
+                },
+                onPickImageFromCamera: () {
+                  context.read<PfpBloc>().add(PickImageFromCamera());
+                },
+                showRemoveButton: _pfp != null,
+                onRemoveImage: () {
+                  setState(() {
+                    _pfp = null;
+                  });
+                  _didChange();
+                },
+              );
+            },
             child: Text(
               'Edit Image',
               style: TextStyle(
@@ -176,6 +199,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
             hintText: 'Name',
           ),
         ],
+      ),
+    );
+  }
+
+  Hero _buildPfp(File? pfp) {
+    // image
+    dynamic image;
+    if (pfp != null) {
+      image = FileImage(pfp);
+    } else {
+      image = user != null && user!.photoUrl != null
+          ? CachedNetworkImageProvider(user!.photoUrl!)
+          : null;
+    }
+
+    // child
+    Widget? child;
+    if (user == null || user?.photoUrl == null && pfp == null) {
+      child = const Icon(
+        Icons.person,
+        size: 50,
+      );
+    } else {
+      child = null;
+    }
+
+    return Hero(
+      tag: 'profile_image',
+      transitionOnUserGestures: true,
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: image,
+        child: child,
       ),
     );
   }

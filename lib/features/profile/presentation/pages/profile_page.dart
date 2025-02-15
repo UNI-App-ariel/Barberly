@@ -36,6 +36,7 @@ class ProfilePage extends StatelessWidget {
                   },
                   child: Hero(
                     tag: 'profile_image',
+                    transitionOnUserGestures: true,
                     child: CircleAvatar(
                       radius: 50,
                       backgroundImage: user != null && user.photoUrl != null

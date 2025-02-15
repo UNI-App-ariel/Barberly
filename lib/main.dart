@@ -12,6 +12,7 @@ import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/customer/presentation/bloc/favorite_shops/favorite_shops_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
+import 'package:uni_app/features/profile/presentation/bloc/pfp/pfp_bloc.dart';
 import 'package:uni_app/init_dependencies.g.dart';
 import 'package:uni_app/my_app.dart';
 
@@ -45,6 +46,7 @@ void main() async {
             create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
         BlocProvider(
             create: (context) => serviceLocator<BookedAppointmentsBloc>()),
+            BlocProvider(create: (context) => serviceLocator<PfpBloc>()),
       ],
       child: const MyApp(),
     ),

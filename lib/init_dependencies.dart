@@ -28,6 +28,10 @@ Future<void> initDependencies() async {
   // initialize Firebase storage
   final storage = FirebaseStorage.instance;
   serviceLocator.registerLazySingleton(() => storage);
+
+  // initialize image picker
+  final imagePicker = ImagePicker();
+  serviceLocator.registerLazySingleton(() => imagePicker);
 }
 
 void _iniOwner() {
@@ -195,6 +199,7 @@ void _initCore() {
   serviceLocator.registerLazySingleton<AppUserDatasource>(
     () => AppUserDatasourceImpl(
       firestore: serviceLocator(),
+      storage: serviceLocator(),
     ),
   );
 
@@ -287,6 +292,12 @@ void _initCore() {
   serviceLocator.registerLazySingleton(
     () => BookedAppointmentsBloc(
       getAppointmentsUseCase: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => PfpBloc(
+      imagePicker: serviceLocator(),
     ),
   );
 }
