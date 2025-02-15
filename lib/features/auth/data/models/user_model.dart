@@ -52,4 +52,29 @@ class MyUserModel extends MyUser {
       accountType: user.accountType,
     );
   }
+
+
+  // copy with
+  @override
+  MyUserModel copyWith({
+    String? id,
+    String? email,
+    String? name,
+    String? shopId,
+    String? photoUrl,
+    List<String>? favoriteShops,
+    String? role,
+    String? accountType,
+  }) {
+    return MyUserModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      shopId: shopId ?? this.shopId,
+      photoUrl: photoUrl ?? this.photoUrl,
+      favoriteShops: favoriteShops ?? this.favoriteShops,
+      role: role ?? this.role,
+      accountType: accountType ?? this.accountType,
+    );
+  }
 }

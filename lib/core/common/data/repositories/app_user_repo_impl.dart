@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_app/core/common/data/datasources/app_user_datasource.dart';
 import 'package:uni_app/core/common/domian/repositories/app_user_repo.dart';
@@ -12,21 +14,25 @@ class AppUserRepoImpl implements AppUserRepo {
   AppUserRepoImpl({required this.datasource});
 
   @override
-  Stream<Either<Failure, MyUserModel?>> getUserStream(String userId) {
+  Stream<Either<Failure, MyUserModel?>> getUserStream(String userId) async* {
     try {
-      return datasource.getUserStream(userId).map((event) => right(event));
+      final stream = datasource.getUserStream(userId);
+
+      await for (final user in stream) {
+        yield Right(user);
+      }
     } on ServerException catch (e) {
-      return Stream.value(left(Failure(e.message)));
+      yield Left(Failure(e.message));
     } catch (e) {
-      return Stream.value(left(Failure(e.toString())));
+      yield Left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, void>> updateUser(MyUser user) async {
+  Future<Either<Failure, void>> updateUser(MyUser user, File? pfp) async {
     try {
 
-      await datasource.updateUser(MyUserModel.fromEntity(user));
+      await datasource.updateUser(MyUserModel.fromEntity(user,), pfp);
       return right(null);
     } on ServerException catch (e) {
       return left(Failure(e.message));
