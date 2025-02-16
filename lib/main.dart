@@ -8,6 +8,7 @@ import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booke
 import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/utils/bloc_observer.dart';
+import 'package:uni_app/core/utils/notifications.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/customer/presentation/bloc/favorite_shops/favorite_shops_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
@@ -29,6 +30,9 @@ void main() async {
   // set system ui mode
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+  // init onesignal
+  OneSignalService().init();
+
   // run app
   runApp(
     MultiBlocProvider(
@@ -46,7 +50,7 @@ void main() async {
             create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
         BlocProvider(
             create: (context) => serviceLocator<BookedAppointmentsBloc>()),
-            BlocProvider(create: (context) => serviceLocator<PfpBloc>()),
+        BlocProvider(create: (context) => serviceLocator<PfpBloc>()),
       ],
       child: const MyApp(),
     ),

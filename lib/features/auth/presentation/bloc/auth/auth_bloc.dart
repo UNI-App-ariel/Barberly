@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/usecase/usecase.dart';
+import 'package:uni_app/core/utils/notifications.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/auth/domain/usecases/get_current_user.dart';
 import 'package:uni_app/features/auth/domain/usecases/logout.dart';
@@ -154,6 +155,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _currentUser = null;
         emit(Unauthenticated());
         appUserBloc.add(LogoutEvent());
+        OneSignalService().logout();
       },
     );
   }

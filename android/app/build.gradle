@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.arieluni.barberly"
-    compileSdk = flutter.compileSdkVersion
+    compileSdkVersion = 33
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
