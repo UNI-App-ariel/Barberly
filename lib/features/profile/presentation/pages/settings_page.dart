@@ -35,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: 'Dark Mode',
                 leading: const Icon(
                   FontAwesomeIcons.solidMoon,
-                  size: 20,
+                  size: 18,
                   color: Colors.indigo,
                 ),
                 trailing: Switch.adaptive(

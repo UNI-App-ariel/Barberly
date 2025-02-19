@@ -271,7 +271,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+        color: Theme.of(context).colorScheme.secondary.withValues(alpha:  0.2),
         shape: BoxShape.circle,
       ),
       child: const FaIcon(
@@ -287,7 +287,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
       icon: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.secondary.withValues(alpha:  0.2),
           shape: BoxShape.circle,
         ),
         child: FaIcon(
@@ -330,13 +330,6 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
             isSelected: selectedChipIndex == 1,
             onTap: () => setState(() => selectedChipIndex = 1),
           ),
-          // TODO: Implement RateSheet
-          // const SizedBox(width: 10),
-          // MyChip(
-          //   label: 'Rate',
-          //   isSelected: selectedChipIndex == 2,
-          //   onTap: () => setState(() => selectedChipIndex = 2),
-          // ),
         ],
       ),
     );
@@ -407,7 +400,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
   }
 
   Widget buildGallerySheet(Barbershop shop) {
-    if (shop.gallery == null || shop.gallery!.isEmpty) {
+    if (shop.gallery.isEmpty) {
       return const Center(
         child: Text(
           "No images available",
@@ -432,7 +425,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
         return GestureDetector(
           onTap: () {
             // Show image in dialog
-            _showFullScreenImage(context, shop.gallery![index]);
+            _showFullScreenImage(context, shop.gallery[index]);
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),

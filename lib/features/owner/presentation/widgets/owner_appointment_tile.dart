@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uni_app/core/common/domian/entities/appointment.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/utils/my_date_utils.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
-import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 
 class OwnerAppointmentTile extends StatefulWidget {
   final Appointment appointment;
@@ -21,14 +19,6 @@ class OwnerAppointmentTile extends StatefulWidget {
 }
 
 class _OwnerAppointmentTileState extends State<OwnerAppointmentTile> {
-  late Barbershop? _barbershop;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _barbershop = context.read<OwnerShopBloc>().shop;
-  }
 
   @override
   Widget build(BuildContext context) {

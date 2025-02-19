@@ -103,7 +103,7 @@ class MyUtils {
                         color: Theme.of(context)
                             .colorScheme
                             .inverseSurface
-                            .withOpacity(0.5),
+                            .withValues(alpha:  0.5),
                         indent: 16,
                         endIndent: 16,
                         height: 0,

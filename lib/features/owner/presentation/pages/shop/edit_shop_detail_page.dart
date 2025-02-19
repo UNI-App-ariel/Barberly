@@ -280,7 +280,7 @@ class _EditShopDetailPageState extends State<EditShopDetailPage> {
                       title: 'Take Photo from Camera',
                       leading: const Icon(CupertinoIcons.camera,
                           size: 20, color: Colors.blue),
-                      leadingBackgroundColor: Colors.blue.withOpacity(0.1),
+                      leadingBackgroundColor: Colors.blue.withValues(alpha:  0.1),
                       onTap: () {
                         context
                             .read<OwnerShopBloc>()
@@ -295,7 +295,7 @@ class _EditShopDetailPageState extends State<EditShopDetailPage> {
                         size: 20,
                         color: Colors.red,
                       ),
-                      leadingBackgroundColor: Colors.red.withOpacity(0.1),
+                      leadingBackgroundColor: Colors.red.withValues(alpha:  0.1),
                       onTap: () {
                         if (_pickedImage != null) {
                           setState(() {
@@ -444,7 +444,7 @@ class _EditShopDetailPageState extends State<EditShopDetailPage> {
                             leading: const Icon(CupertinoIcons.camera,
                                 size: 20, color: Colors.blue),
                             leadingBackgroundColor:
-                                Colors.blue.withOpacity(0.1),
+                                Colors.blue.withValues(alpha:  0.1),
                             onTap: () {
                               context
                                   .read<OwnerGallaryBloc>()
