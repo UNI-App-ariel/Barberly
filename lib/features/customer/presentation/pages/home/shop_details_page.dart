@@ -361,10 +361,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
           },
         );
       case 1:
-      // return GallerySheet(
-      //   images: widget.shop.galleryImages,
-      //   shopId: widget.shop.id,
-      // );
+        return buildGallerySheet(widget.shop);
       case 2:
       // return const RateSheet();
       default:
@@ -407,5 +404,75 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
       default:
         return Theme.of(context).colorScheme.primary;
     }
+  }
+
+  Widget buildGallerySheet(Barbershop shop) {
+    if (shop.gallery == null || shop.gallery!.isEmpty) {
+      return const Center(
+        child: Text(
+          "No images available",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+      );
+    }
+
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      shrinkWrap: true,
+      physics:
+          const NeverScrollableScrollPhysics(), // Prevent scrolling inside GridView
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 1.0,
+      ),
+      itemCount: shop.gallery.length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            // Show image in dialog
+            _showFullScreenImage(context, shop.gallery![index]);
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: shop.gallery[index],
+              fit: BoxFit.cover,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showFullScreenImage(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.black,
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.contain,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+                size: 50,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
