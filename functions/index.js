@@ -103,6 +103,43 @@ const notifyShopOwnerOnAppointment = onDocumentCreated(
       } catch (error) {
         logger.error(`Error sending notification to shop owner: ${error}`);
       }
+
+
+      // set a reminder notification for the customer
+      try {
+        // calculate the reminder time (45 minutes before the appointment)
+        const appointmentTime = new Date(appointment.date.toMillis());
+        const reminderTime = new Date(
+            appointmentTime.getTime() - 45 * 60 * 1000,
+        );
+
+        // payload for the reminder notification
+        const payload = {
+          app_id: ONESIGNAL_APP_ID,
+          include_aliases: {
+            external_id: [customerId],
+          },
+          target_channel: "push",
+          headings: {
+            en: "📅 Appointment Reminder",
+          },
+          contents: {
+            en: `Reminder: You have an appointment on ${appointmentDate}`,
+          },
+          data: {
+            type: "reminder",
+            id: appointmentId,
+            shopId: shopId,
+          },
+          send_after: reminderTime.toISOString(),
+        };
+
+        // send reminder notification
+        const reminderResponse = await sendNotification(payload);
+        logger.info(`Reminder notification sent: ${reminderResponse.id}`);
+      } catch (error) {
+        logger.error(`Error sending notification to customer: ${error}`);
+      }
     },
 );
 

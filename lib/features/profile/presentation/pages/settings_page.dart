@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';
+import 'package:uni_app/features/profile/presentation/pages/notifications_settings_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -45,6 +46,26 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                   activeColor: Theme.of(context).colorScheme.primary,
                 ),
+              ),
+
+              // notifications
+              MySettingsTile(
+                title: 'Notifications',
+                leading: const Icon(
+                  FontAwesomeIcons.solidBell,
+                  size: 18,
+                  color: Colors.red,
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 18,
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                ),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const NotificationsSettingsPage())),
               ),
             ],
           ),

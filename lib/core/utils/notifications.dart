@@ -13,7 +13,6 @@ class OneSignalService {
     OneSignal.initialize('b3337413-4dc0-4c0b-8da2-b2238b0b79fc');
 
     OneSignal.Notifications.requestPermission(true);
-
   }
 
   // login
@@ -25,4 +24,6 @@ class OneSignalService {
   Future<void> logout() async {
     OneSignal.logout();
   }
+
+
 }
