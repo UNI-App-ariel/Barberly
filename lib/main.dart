@@ -12,6 +12,7 @@ import 'package:uni_app/core/utils/notifications.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/customer/presentation/bloc/favorite_shops/favorite_shops_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_gallary/owner_gallary_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 import 'package:uni_app/features/profile/presentation/bloc/pfp/pfp_bloc.dart';
 import 'package:uni_app/init_dependencies.g.dart';
@@ -46,6 +47,7 @@ void main() async {
             create: (context) => serviceLocator<ShopAvailabilityBloc>()),
         BlocProvider(create: (context) => serviceLocator<AppointmentBloc>()),
         BlocProvider(create: (context) => serviceLocator<OwnerShopBloc>()),
+        BlocProvider(create: (context) => serviceLocator<OwnerGallaryBloc>()),
         BlocProvider(
             create: (context) => serviceLocator<OwnerAppointmentsBloc>()),
         BlocProvider(

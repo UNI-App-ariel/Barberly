@@ -4,13 +4,13 @@ import 'package:uni_app/core/errors/failures.dart';
 import 'package:uni_app/core/usecase/usecase.dart';
 import 'package:uni_app/features/owner/domain/repositories/owner_shop_repo.dart';
 
-class GetOwnerShopUseCase implements UseCase<Barbershop, String> {
+class GetOwnerShopUseCase implements StreamUseCase<Barbershop, String> {
   final OwnerShopRepo repository;
 
   GetOwnerShopUseCase(this.repository);
 
   @override
-  Future<Either<Failure, Barbershop>> call(String params) async {
-    return await repository.getOwnerShop(params);
+  Stream<Either<Failure, Barbershop>> call(String params) async* {
+    yield* repository.getOwnerShop(params);
   }
 }

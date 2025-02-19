@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
 
 class Barbershop {
   final String id;
@@ -7,11 +6,11 @@ class Barbershop {
   final String? address;
   final String phoneNumber;
   final String? imageUrl;
+  final List<String> gallery;
   final double rating;
   final int reviewCount;
   final List<String> services;
   final List<String> barbers;
-  final File? imgaeFile;
 
   Barbershop({
     required this.id,
@@ -23,7 +22,7 @@ class Barbershop {
     required this.reviewCount,
     required this.services,
     required this.barbers,
-    this.imgaeFile,
+    this.gallery = const [],
   });
 
   Barbershop copyWith({
@@ -32,12 +31,12 @@ class Barbershop {
     String? address,
     String? phoneNumber,
     String? imageUrl,
+    List<String>? gallery,
     bool resetImageUrl = false,
     double? rating,
     int? reviewCount,
     List<String>? services,
     List<String>? barbers,
-    File? imgaeFile,
   }) {
     return Barbershop(
       id: id ?? this.id,
@@ -49,7 +48,7 @@ class Barbershop {
       reviewCount: reviewCount ?? this.reviewCount,
       services: services ?? this.services,
       barbers: barbers ?? this.barbers,
-      imgaeFile: imgaeFile ?? this.imgaeFile,
+      gallery: gallery ?? this.gallery,
     );
   }
 }

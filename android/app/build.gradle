@@ -7,8 +7,9 @@ plugins {
 }
 
 android {
-    namespace = "com.arieluni.barberly"
+    namespace = "com.unise.barberly"
     compileSdkVersion = 33
+
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -22,7 +23,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.arieluni.barberly"
+        applicationId = "com.unise.barberly"
         minSdkVersion 23
         targetSdkVersion 34
         targetSdk = flutter.targetSdkVersion

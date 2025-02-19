@@ -14,6 +14,7 @@ final class OwnerShopLoaded extends OwnerShopState {
   OwnerShopLoaded(this.shop, );
 }
 
+
 final class OwnerShopError extends OwnerShopState {
   final String message;
 

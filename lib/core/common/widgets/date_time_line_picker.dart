@@ -134,7 +134,7 @@ class _DateTimelinePickerState extends State<DateTimelinePicker> {
                               ? Theme.of(context)
                                   .colorScheme
                                   .onPrimary
-                                  .withOpacity(0.5)
+                                  .withValues(alpha:  0.5)
                               : widget.foregroundColor ??
                                   Theme.of(context).colorScheme.onSurface,
                           fontWeight: FontWeight.w600,

@@ -140,6 +140,7 @@ void main() {
       rating: 4.5,
       services: [],
       barbers: [],
+      gallery: [],
     );
 
     test('should successfully add a barbershop', () async {
