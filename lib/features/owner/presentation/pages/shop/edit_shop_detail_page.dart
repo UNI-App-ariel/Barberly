@@ -151,6 +151,7 @@ class _EditShopDetailPageState extends State<EditShopDetailPage> {
                     _buildPhoneField(),
                     const SizedBox(height: 20),
                     _buildAddPhotos(),
+                    const SizedBox(height: 80),
                   ],
                 ),
               ),
