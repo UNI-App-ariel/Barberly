@@ -361,10 +361,10 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
           },
         );
       case 1:
-      // return GallerySheet(
-      //   images: widget.shop.galleryImages,
-      //   shopId: widget.shop.id,
-      // );
+        // text that says no images
+        return const Center(
+          child: Text('No images'),
+        );
       case 2:
       // return const RateSheet();
       default:

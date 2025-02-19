@@ -139,22 +139,6 @@ class ProfilePage extends StatelessWidget {
                       },
                     ),
 
-                    // dark mode
-                    MySettingsTile(
-                      title: 'Dark Mode',
-                      leading: const FaIcon(
-                        FontAwesomeIcons.solidMoon,
-                        size: 18,
-                      ),
-                      trailing: Switch.adaptive(
-                        value:
-                            context.watch<ThemeCubit>().state == ThemeMode.dark,
-                        onChanged: (value) {
-                          context.read<ThemeCubit>().toggleTheme();
-                        },
-                      ),
-                    ),
-
                     // logout
                     MySettingsTile(
                       title: 'Logout',
