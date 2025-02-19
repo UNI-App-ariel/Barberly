@@ -1,4 +1,3 @@
-
 import 'package:uni_app/core/common/domian/entities/barbershop.dart';
 
 final class BarbershopModel extends Barbershop {
@@ -12,9 +11,8 @@ final class BarbershopModel extends Barbershop {
     required super.reviewCount,
     required super.services,
     required super.barbers,
-    super.imgaeFile,
+    required super.gallery,
   });
-
 
   // from map
   factory BarbershopModel.fromMap(Map<String, dynamic> map) {
@@ -28,6 +26,7 @@ final class BarbershopModel extends Barbershop {
       reviewCount: map['reviewCount'],
       services: List<String>.from(map['services']),
       barbers: List<String>.from(map['barbers']),
+      gallery: List<String>.from(map['gallery'] ?? []),
     );
   }
 
@@ -43,6 +42,7 @@ final class BarbershopModel extends Barbershop {
       'reviewCount': reviewCount,
       'services': services,
       'barbers': barbers,
+      'gallery': gallery,
     };
   }
 
@@ -58,6 +58,7 @@ final class BarbershopModel extends Barbershop {
       reviewCount: entity.reviewCount,
       services: entity.services,
       barbers: entity.barbers,
+      gallery: entity.gallery,
     );
   }
 
@@ -73,9 +74,7 @@ final class BarbershopModel extends Barbershop {
       reviewCount: reviewCount,
       services: services,
       barbers: barbers,
+      gallery: gallery,
     );
   }
-
-  
-
 }

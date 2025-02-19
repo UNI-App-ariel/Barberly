@@ -57,6 +57,7 @@ import 'package:uni_app/features/owner/domain/usecases/delete_shop.dart';
 import 'package:uni_app/features/owner/domain/usecases/get_shop.dart';
 import 'package:uni_app/features/owner/domain/usecases/update_shop.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
+import 'package:uni_app/features/owner/presentation/bloc/owner_gallary/owner_gallary_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
 import 'package:uni_app/features/profile/presentation/bloc/pfp/pfp_bloc.dart';
 

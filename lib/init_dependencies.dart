@@ -69,13 +69,19 @@ void _iniOwner() {
   );
 
   serviceLocator.registerLazySingleton(
+    () => DeleteImageFromGalleryUseCase(
+      serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
     () => GetOwnerAppointmentsStreamsUseCase(
       barbershopRepo: serviceLocator(),
     ),
   );
 
   // bloc
-  serviceLocator.registerFactory(
+  serviceLocator.registerLazySingleton(
     () => OwnerShopBloc(
       getShopUseCase: serviceLocator(),
       updateShopUseCase: serviceLocator(),
@@ -83,7 +89,14 @@ void _iniOwner() {
     ),
   );
 
-  serviceLocator.registerFactory(
+  serviceLocator.registerLazySingleton(
+    () => OwnerGallaryBloc(
+      gallaryPicker: serviceLocator(),
+      deleteImageFromGallery: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
     () => OwnerAppointmentsBloc(
       getOwnerAppointmentsUseCase: serviceLocator(),
     ),

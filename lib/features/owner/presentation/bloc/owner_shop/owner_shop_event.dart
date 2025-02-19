@@ -11,8 +11,10 @@ class GetShopEvent extends OwnerShopEvent {
 
 class UpdateShopEvent extends OwnerShopEvent {
   final Barbershop shop;
+  final File? pickedImage;
+  final List<File>? galleryImages;
 
-  UpdateShopEvent(this.shop);
+  UpdateShopEvent(this.shop, {this.pickedImage, this.galleryImages});
 }
 
 class DeleteShopEvent extends OwnerShopEvent {
@@ -23,6 +25,7 @@ class DeleteShopEvent extends OwnerShopEvent {
 
 // pick shop image
 class PickShopImageEvent extends OwnerShopEvent {
+  final bool isCamera; // If true, take a picture. If false, pick from gallery.
+
+  PickShopImageEvent({this.isCamera = false});
 }
-
-
