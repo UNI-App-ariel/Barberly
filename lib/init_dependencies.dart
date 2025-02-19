@@ -212,6 +212,7 @@ void _initCore() {
   serviceLocator.registerLazySingleton<AppUserDatasource>(
     () => AppUserDatasourceImpl(
       firestore: serviceLocator(),
+      storage: serviceLocator(),
     ),
   );
 
@@ -225,6 +226,10 @@ void _initCore() {
   // usecases
   serviceLocator.registerLazySingleton<StreamAvailabilityUseCase>(
     () => StreamAvailabilityUseCase(serviceLocator()),
+  );
+
+  serviceLocator.registerLazySingleton<UpdateAvailabilityUsecase>(
+    () => UpdateAvailabilityUsecase(repository: serviceLocator()),
   );
 
   serviceLocator.registerLazySingleton<AppointmentsDataSource>(
@@ -277,7 +282,10 @@ void _initCore() {
 
   // blocs
   serviceLocator.registerLazySingleton(
-    () => ShopAvailabilityBloc(streamAvailabilityUseCase: serviceLocator()),
+    () => ShopAvailabilityBloc(
+      streamAvailabilityUseCase: serviceLocator(),
+      updateAvailabilityUsecase: serviceLocator(),
+    ),
   );
 
   serviceLocator.registerLazySingleton(
@@ -297,6 +305,12 @@ void _initCore() {
   serviceLocator.registerLazySingleton(
     () => BookedAppointmentsBloc(
       getAppointmentsUseCase: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => PfpBloc(
+      imagePicker: serviceLocator(),
     ),
   );
 }

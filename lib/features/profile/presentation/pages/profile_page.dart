@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
-import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';
@@ -36,6 +35,7 @@ class ProfilePage extends StatelessWidget {
                   },
                   child: Hero(
                     tag: 'profile_image',
+                    transitionOnUserGestures: true,
                     child: CircleAvatar(
                       radius: 50,
                       backgroundImage: user != null && user.photoUrl != null
@@ -136,22 +136,6 @@ class ProfilePage extends StatelessWidget {
                           ),
                         );
                       },
-                    ),
-
-                    // dark mode
-                    MySettingsTile(
-                      title: 'Dark Mode',
-                      leading: const FaIcon(
-                        FontAwesomeIcons.solidMoon,
-                        size: 18,
-                      ),
-                      trailing: Switch.adaptive(
-                        value:
-                            context.watch<ThemeCubit>().state == ThemeMode.dark,
-                        onChanged: (value) {
-                          context.read<ThemeCubit>().toggleTheme();
-                        },
-                      ),
                     ),
 
                     // logout

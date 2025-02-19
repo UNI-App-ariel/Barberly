@@ -20,13 +20,14 @@ import 'package:uni_app/core/common/domian/usecases/app_user/update_app_user.dar
 import 'package:uni_app/core/common/domian/usecases/appointment/book_appointment.dart';
 import 'package:uni_app/core/common/domian/usecases/appointment/cancel_appointment.dart';
 import 'package:uni_app/core/common/domian/usecases/appointment/update_appointment.dart';
+import 'package:uni_app/core/common/domian/usecases/availability/update_availability.dart';
 import 'package:uni_app/core/common/domian/usecases/delete_barber_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/favorite_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/get_all_barber_shops.dart';
 import 'package:uni_app/core/common/domian/usecases/appointment/get_appointments.dart';
 import 'package:uni_app/core/common/domian/usecases/get_barber_shop.dart';
 import 'package:uni_app/core/common/domian/usecases/get_owner_appointments_streams.dart';
-import 'package:uni_app/core/common/domian/usecases/stream_availability.dart';
+import 'package:uni_app/core/common/domian/usecases/availability/stream_availability.dart';
 import 'package:uni_app/core/common/domian/usecases/update_barber_shop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
@@ -58,5 +59,6 @@ import 'package:uni_app/features/owner/domain/usecases/update_shop.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_appointments/owner_appointments_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_gallary/owner_gallary_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
+import 'package:uni_app/features/profile/presentation/bloc/pfp/pfp_bloc.dart';
 
 part 'init_dependencies.dart';

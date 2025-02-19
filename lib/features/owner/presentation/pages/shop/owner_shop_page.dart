@@ -11,6 +11,7 @@ import 'package:uni_app/core/utils/my_date_utils.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_gallary/owner_gallary_bloc.dart';
 import 'package:uni_app/features/owner/presentation/bloc/owner_shop/owner_shop_bloc.dart';
+import 'package:uni_app/features/owner/presentation/pages/shop/edit_availability_page.dart';
 import 'package:uni_app/features/owner/presentation/pages/shop/edit_shop_detail_page.dart';
 
 class OwnerShopPage extends StatefulWidget {
@@ -80,6 +81,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
             [
               _buildShopDetails(shop),
               _buildEditShopButton(shop),
+              _buildEditAvailabilityButton(shop),
               _buildTabs(shop),
               _buildTabPages(shop),
             ],
@@ -154,7 +156,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
 
   _buildEditShopButton(Barbershop shop) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
       child: MyButton(
         borderRadius: 15,
         backgroundColor: Colors.blue,
@@ -179,7 +181,7 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
 
   _buildTabs(Barbershop shop) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
       child: Row(
         children: [
           Expanded(
@@ -422,5 +424,30 @@ class _OwnerShopPageState extends State<OwnerShopPage> {
         },
       );
     }
+  }
+
+  _buildEditAvailabilityButton(Barbershop shop) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+      child: MyButton(
+        borderRadius: 15,
+        backgroundColor: Colors.blue,
+        onPressed: () {
+          // Navigate to edit profile page
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>  EditShopAvailabilityPage(shop: shop),
+            ),
+          );
+        },
+        child: const Text(
+          'Edit Availability',
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }

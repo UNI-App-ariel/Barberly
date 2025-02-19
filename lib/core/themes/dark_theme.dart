@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final darkTheme = ThemeData.dark().copyWith(
@@ -18,6 +19,16 @@ final darkTheme = ThemeData.dark().copyWith(
     scrolledUnderElevation: 0,
     iconTheme: IconThemeData(
       color: Colors.white,
+    ),
+  ),
+
+  cupertinoOverrideTheme: const CupertinoThemeData(
+    primaryColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.black,
+    textTheme: CupertinoTextThemeData(
+      textStyle: TextStyle(
+        color: Colors.white,
+      ),
     ),
   ),
 );

@@ -6,7 +6,8 @@ class Availability {
       defaultTimeSlots; // For default weekly availability (Sun-Sat)
   final Map<DateTime, List<TimeSlot>>
       customTimeSlots; // For custom date-based availability
-  final Map<DateTime, List<TimeSlot>> timeSlots; // Merged result
+  final Map<DateTime, List<TimeSlot>> timeSlots; 
+
 
   Availability({
     required this.id,
