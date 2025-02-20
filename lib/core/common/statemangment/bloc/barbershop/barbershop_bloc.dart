@@ -84,6 +84,7 @@ class BarbershopBloc extends Bloc<BarbershopEvent, BarbershopState> {
     result.fold(
       (failure) => emit(BarbershopError(failure.message)),
       (_) {
+        emit(BarbershopAdded());
         add(GetAllBarberShopsEvent());
       },
     );
@@ -96,6 +97,7 @@ class BarbershopBloc extends Bloc<BarbershopEvent, BarbershopState> {
     result.fold(
       (failure) => emit(BarbershopError(failure.message)),
       (_) {
+        emit(BarbershopDeleted());
         add(GetAllBarberShopsEvent());
       },
     );

@@ -27,7 +27,10 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
   @override
   Future<void> addBarbershop(BarbershopModel barbershop) async {
     try {
-      await firestore.collection('barbershops').add(barbershop.toMap());
+      await firestore
+          .collection('barbershops')
+          .doc(barbershop.id)
+          .set(barbershop.toMap());
     } on FirebaseException catch (e) {
       throw ServerException(e.message ?? e.toString());
     } catch (e) {

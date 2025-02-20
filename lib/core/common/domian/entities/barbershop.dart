@@ -11,6 +11,7 @@ class Barbershop {
   final int reviewCount;
   final List<String> services;
   final List<String> barbers;
+  final String ownerId;
 
   Barbershop({
     required this.id,
@@ -23,6 +24,7 @@ class Barbershop {
     required this.services,
     required this.barbers,
     this.gallery = const [],
+    required this.ownerId,
   });
 
   Barbershop copyWith({
@@ -37,6 +39,7 @@ class Barbershop {
     int? reviewCount,
     List<String>? services,
     List<String>? barbers,
+    String? ownerId,
   }) {
     return Barbershop(
       id: id ?? this.id,
@@ -49,6 +52,7 @@ class Barbershop {
       services: services ?? this.services,
       barbers: barbers ?? this.barbers,
       gallery: gallery ?? this.gallery,
+      ownerId: ownerId ?? this.ownerId,
     );
   }
 }
