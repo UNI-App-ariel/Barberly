@@ -12,6 +12,7 @@ class Barbershop {
   final List<String> services;
   final List<String> barbers;
   final String ownerId;
+  final bool isActive;
 
   Barbershop({
     required this.id,
@@ -25,6 +26,7 @@ class Barbershop {
     required this.barbers,
     this.gallery = const [],
     required this.ownerId,
+    this.isActive = true,
   });
 
   Barbershop copyWith({
@@ -40,6 +42,7 @@ class Barbershop {
     List<String>? services,
     List<String>? barbers,
     String? ownerId,
+    bool? isActive,
   }) {
     return Barbershop(
       id: id ?? this.id,
@@ -53,6 +56,7 @@ class Barbershop {
       barbers: barbers ?? this.barbers,
       gallery: gallery ?? this.gallery,
       ownerId: ownerId ?? this.ownerId,
+      isActive: isActive ?? this.isActive,
     );
   }
 }

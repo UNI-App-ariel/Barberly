@@ -44,7 +44,7 @@ class _NavigationBarPageState extends State<AdminNavigationBarPage> {
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 60),
           child: GNav(
             selectedIndex: _currentIndex,
             onTabChange: (index) {

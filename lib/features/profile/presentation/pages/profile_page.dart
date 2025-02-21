@@ -39,7 +39,10 @@ class ProfilePage extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 50,
                       backgroundImage: user != null && user.photoUrl != null
-                          ? CachedNetworkImageProvider(user.photoUrl!)
+                          ? CachedNetworkImageProvider(user.photoUrl!,
+                              errorListener: (e) {
+                              debugPrint('Error loading image: $e');
+                            })
                           : null,
                       child: user == null || user.photoUrl == null
                           ? const Icon(
@@ -70,27 +73,30 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // edit profile button
-                MyButton(
-                  borderRadius: 30,
-                  backgroundColor:
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                  onPressed: () {
-                    // Navigate to edit profile page
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const EditProfilePage(),
+                Visibility(
+                  visible: user != null && user.accountType == 'email',
+                  child: MyButton(
+                    borderRadius: 30,
+                    backgroundColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                    onPressed: () {
+                      // Navigate to edit profile page
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfilePage(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Edit Profile',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Edit Profile',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white,
                     ),
                   ),
                 ),

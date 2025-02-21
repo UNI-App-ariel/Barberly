@@ -144,36 +144,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
           const SizedBox(height: 20),
 
           // edit image button
-          MyButton(
-            borderRadius: 30,
-            backgroundColor: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
-            onPressed: () {
-              MyUtils.showImagePicker(
-                context: context,
-                onPickImageFromGallery: () {
-                  context.read<PfpBloc>().add(PickImageFromGallery());
-                },
-                onPickImageFromCamera: () {
-                  context.read<PfpBloc>().add(PickImageFromCamera());
-                },
-                showRemoveButton: _pfp != null,
-                onRemoveImage: () {
-                  setState(() {
-                    _pfp = null;
-                  });
-                  _didChange();
-                },
-              );
-            },
-            child: Text(
-              'Edit Image',
-              style: TextStyle(
-                fontSize: 12,
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.black
-                    : Colors.white,
+          Visibility(
+            visible: user != null && user?.accountType == 'email',
+            child: MyButton(
+              borderRadius: 30,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              onPressed: () {
+                MyUtils.showImagePicker(
+                  context: context,
+                  onPickImageFromGallery: () {
+                    context.read<PfpBloc>().add(PickImageFromGallery());
+                  },
+                  onPickImageFromCamera: () {
+                    context.read<PfpBloc>().add(PickImageFromCamera());
+                  },
+                  showRemoveButton: _pfp != null,
+                  onRemoveImage: () {
+                    setState(() {
+                      _pfp = null;
+                    });
+                    _didChange();
+                  },
+                );
+              },
+              child: Text(
+                'Edit Image',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.black
+                      : Colors.white,
+                ),
               ),
             ),
           ),

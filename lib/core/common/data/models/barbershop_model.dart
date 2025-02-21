@@ -13,6 +13,7 @@ final class BarbershopModel extends Barbershop {
     required super.barbers,
     required super.gallery,
     required super.ownerId,
+    required super.isActive,
   });
 
   // from map
@@ -29,6 +30,7 @@ final class BarbershopModel extends Barbershop {
       barbers: List<String>.from(map['barbers']),
       gallery: List<String>.from(map['gallery'] ?? []),
       ownerId: map['ownerId'],
+      isActive: map['isActive'] ?? true,
     );
   }
 
@@ -46,6 +48,7 @@ final class BarbershopModel extends Barbershop {
       'barbers': barbers,
       'gallery': gallery,
       'ownerId': ownerId,
+      'isActive': isActive,
     };
   }
 
@@ -63,6 +66,7 @@ final class BarbershopModel extends Barbershop {
       barbers: entity.barbers,
       gallery: entity.gallery,
       ownerId: entity.ownerId,
+      isActive: entity.isActive,
     );
   }
 
@@ -80,6 +84,7 @@ final class BarbershopModel extends Barbershop {
       barbers: barbers,
       gallery: gallery,
       ownerId: ownerId,
+      isActive: isActive,
     );
   }
 }

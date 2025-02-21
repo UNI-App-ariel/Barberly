@@ -76,6 +76,26 @@ class AdminShopTile extends StatelessWidget {
               barbershop.name,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
+
+            // status
+            Row(
+              children: [
+                // status icon
+                Icon(
+                  barbershop.isActive ? Icons.check_circle : Icons.cancel,
+                  size: 16,
+                  color: barbershop.isActive ? Colors.green : Colors.red,
+                ),
+                const SizedBox(width: 4),
+
+                // status
+                Text(
+                  barbershop.isActive ? 'Active' : 'Inactive',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+
             const Spacer(),
 
             // address
@@ -153,6 +173,36 @@ class AdminShopTile extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
+
+                    // activate/deactivate shop
+                    MySettingsTile(
+                      title: barbershop.isActive
+                          ? 'Deactivate shop'
+                          : 'Activate shop',
+                      leading: const FaIcon(
+                        FontAwesomeIcons.powerOff,
+                        size: 18,
+                        color: Colors.white,
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      titleColor:
+                          barbershop.isActive ? Colors.red : Colors.green,
+                      leadingBackgroundColor:
+                          barbershop.isActive ? Colors.red : Colors.green,
+                      onTap: () {
+                        // pop the modal
+                        Navigator.pop(context);
+
+                        // activate/deactivate shop
+                        context.read<BarbershopBloc>().add(
+                            UpdateBarbershopEvent(barbershop.copyWith(
+                                isActive: !barbershop.isActive)));
+                      },
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    // delete shop
                     MySettingsTile(
                       title: 'Delete shop',
                       leading: const FaIcon(
@@ -179,6 +229,8 @@ class AdminShopTile extends StatelessWidget {
                         );
                       },
                     ),
+
+                    //
                   ],
                 ),
               ),

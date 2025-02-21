@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<BarbershopBloc>().add(GetAllBarberShopsEvent());
+    context.read<BarbershopBloc>().add(GetAllBarberShopsEvent(filterOutInactive: true));
   }
 
   @override
