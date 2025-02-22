@@ -25,7 +25,9 @@ class EditShopAvailabilityPage extends StatelessWidget {
           } else if (state is ShopAvailabilityLoaded) {
             return _buildAvailabilityList(context, state.availability);
           }
-          return const SizedBox.shrink();
+          return Center(
+            child: Text('No availability found for ${shop.name}'),
+          );
         },
       ),
     );

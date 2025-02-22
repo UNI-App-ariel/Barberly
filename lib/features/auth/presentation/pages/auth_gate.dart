@@ -18,6 +18,9 @@ class AuthGate extends StatelessWidget {
       listener: (context, state) {
         if (state is AuthError) {
           MyUtils.showErrorSnackBar(context, state.message);
+        } else if (state is AppUserNotFound) {
+          // logout
+          context.read<AuthBloc>().add(AuthLogOut());
         }
       },
       builder: (context, state) {
@@ -59,12 +62,9 @@ class AuthGate extends StatelessWidget {
       return const NavigationBarPage();
     } else if (state.user.role == 'owner') {
       return const OwnerNavigationBar();
-    } 
-    else if (state.user.role == 'admin') {
+    } else if (state.user.role == 'admin') {
       return const AdminNavigationBarPage();
-    }
-    
-    else {
+    } else {
       return const NavigationBarPage();
     }
   }
