@@ -4,7 +4,11 @@ part of 'barbershop_bloc.dart';
 sealed class BarbershopEvent {}
 
 
-class GetAllBarberShopsEvent extends BarbershopEvent {}
+class GetAllBarberShopsEvent extends BarbershopEvent {
+  final bool? filterOutInactive;
+
+  GetAllBarberShopsEvent({this.filterOutInactive});
+}
 
 class GetBarbershopEvent extends BarbershopEvent {
   final String id;

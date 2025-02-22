@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/widgets/loader.dart';
 import 'package:uni_app/core/utils/my_utils.dart';
+import 'package:uni_app/features/admin/presentation/pages/admin_navigation_bar_page.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/login_or_signup.dart';
 import 'package:uni_app/features/customer/presentation/pages/navigation_bar_page.dart';
@@ -58,7 +59,12 @@ class AuthGate extends StatelessWidget {
       return const NavigationBarPage();
     } else if (state.user.role == 'owner') {
       return const OwnerNavigationBar();
-    } else {
+    } 
+    else if (state.user.role == 'admin') {
+      return const AdminNavigationBarPage();
+    }
+    
+    else {
       return const NavigationBarPage();
     }
   }

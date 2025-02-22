@@ -84,6 +84,7 @@ class BarbershopBloc extends Bloc<BarbershopEvent, BarbershopState> {
     result.fold(
       (failure) => emit(BarbershopError(failure.message)),
       (_) {
+        emit(BarbershopAdded());
         add(GetAllBarberShopsEvent());
       },
     );
@@ -96,6 +97,7 @@ class BarbershopBloc extends Bloc<BarbershopEvent, BarbershopState> {
     result.fold(
       (failure) => emit(BarbershopError(failure.message)),
       (_) {
+        emit(BarbershopDeleted());
         add(GetAllBarberShopsEvent());
       },
     );
@@ -120,8 +122,8 @@ class BarbershopBloc extends Bloc<BarbershopEvent, BarbershopState> {
     result.fold((failure) => emit(BarbershopError(failure.message)),
         (barbershops) {
       _barbershops = barbershops;
-
-      emit(BarbershopLoaded(barbershops));
+      _filterOutInactive(event.filterOutInactive);
+      emit(BarbershopLoaded(_barbershops));
     });
   }
 
@@ -149,5 +151,11 @@ class BarbershopBloc extends Bloc<BarbershopEvent, BarbershopState> {
         add(GetAllBarberShopsEvent());
       },
     );
+  }
+  
+  void _filterOutInactive(bool? filterOutInactive) {
+    if (filterOutInactive == true) {
+      _barbershops = _barbershops.where((shop) => shop.isActive).toList();
+    }
   }
 }

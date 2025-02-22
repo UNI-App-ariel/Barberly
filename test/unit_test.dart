@@ -141,6 +141,8 @@ void main() {
       services: [],
       barbers: [],
       gallery: [],
+      ownerId: 'testOwnerId',
+      isActive: true,
     );
 
     test('should successfully add a barbershop', () async {
