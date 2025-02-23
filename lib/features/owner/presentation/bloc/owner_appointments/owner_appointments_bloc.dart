@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/get_owner_appointments_streams.dart';
+import 'package:uni_app/core/common/domain/entities/appointment.dart';
+import 'package:uni_app/core/common/domain/usecases/get_owner_appointments_streams.dart';
 
 part 'owner_appointments_event.dart';
 part 'owner_appointments_state.dart';

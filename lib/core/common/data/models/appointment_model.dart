@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
+import 'package:uni_app/core/common/domain/entities/appointment.dart';
 
 class AppointmentModel extends Appointment {
   const AppointmentModel({

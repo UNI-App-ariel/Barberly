@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:uni_app/core/common/domian/entities/availability.dart';
+import 'package:uni_app/core/common/domain/entities/availability.dart';
 
 class AvailabilityModel extends Availability {
   AvailabilityModel({

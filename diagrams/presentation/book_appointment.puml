@@ -1,0 +1,83 @@
+@startuml book_appointment
+class User {
+    + String id
+    + String email
+    + String name
+    + String? shopId
+    + String? photoUrl
+    + List<String> favoriteShops
+    + String role
+    + String accountType
+}
+
+class BarberShop {
+  + String id
+  + String name
+  + String? address
+  + String phoneNumber
+  + String? imageUrl
+  + List<String> gallery
+  + double rating
+  + int reviewCount
+  + List<String> services
+  + List<String> barbers
+  + String ownerId
+  + bool isActive
+}
+
+class Appointment {
+  + String id
+  + String shopId
+  + String userId
+  + String customerName
+  + String customerEmail
+  + String? customerImageURL
+  + String serviceId
+  + DateTime date
+  + DateTime startTime
+  + DateTime endTime
+  + String status
+  + DateTime createdAt
+  + Barbershop? shop
+}
+
+class Availability {
+  + String id
+  + int availabilityWindow
+  + Map<int, List<TimeSlot>> defaultTimeSlots
+  + Map<DateTime, List<TimeSlot>> timeSlots
+}
+
+class TimeSlot {
+    + DateTime startTime
+    + DateTime endTime
+    + bool isBooked
+}
+
+class AppointmentsRepo {
+    +bookAppointment(appointment: Appointment): void
+    +cancelAppointment(appointmentId: String): void
+    +updateAppointment(appointment: Appointment): void
+    +fetchAppointments(userId: String): List<Appointment>
+}
+
+class AppointmentsDataSource {
+    +bookAppointment(appointment: Appointment): void
+    +cancelAppointment(appointmentId: String): void
+    +updateAppointment(appointment: Appointment): void
+    +fetchAppointments(userId: String): List<Appointment>
+}
+
+' Relationships
+User --> Appointment : "books"
+User --> BarberShop : "favorites *"
+BarberShop --> Appointment : "has *"
+BarberShop --> Availability : "has"
+Availability --> TimeSlot : "contains *"
+Appointment --> TimeSlot : "uses *"
+Appointment --> BarberShop : "belongs to"
+AppointmentsRepo --> AppointmentsDataSource : "uses"
+AppointmentsRepo --> Appointment : "manages *"
+AppointmentsDataSource --> Appointment : "stores *"
+
+@enduml

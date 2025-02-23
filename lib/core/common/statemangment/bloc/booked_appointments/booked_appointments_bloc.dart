@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/appointment/get_appointments.dart';
+import 'package:uni_app/core/common/domain/entities/appointment.dart';
+import 'package:uni_app/core/common/domain/usecases/appointment/get_appointments.dart';
 
 part 'booked_appointments_event.dart';
 part 'booked_appointments_state.dart';

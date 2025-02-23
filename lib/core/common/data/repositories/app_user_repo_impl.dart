@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_app/core/common/data/datasources/app_user_datasource.dart';
-import 'package:uni_app/core/common/domian/repositories/app_user_repo.dart';
+import 'package:uni_app/core/common/domain/repositories/app_user_repo.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/core/errors/failures.dart';
 import 'package:uni_app/features/auth/data/models/user_model.dart';

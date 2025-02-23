@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/features/customer/presentation/pages/home/shop_details_page.dart';
 
 class ShopCard extends StatelessWidget {

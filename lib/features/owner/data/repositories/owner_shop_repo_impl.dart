@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_app/core/common/data/models/barbershop_model.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/core/errors/failures.dart';
 import 'package:uni_app/features/owner/data/datasources/owner_shop_datasource.dart';

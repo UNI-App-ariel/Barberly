@@ -102,7 +102,7 @@ void main() {
         expect(find.text('Login'), findsOneWidget);
 
         // Enter email and password
-        await tester.enterText(find.byKey(const Key('email_field')), 'a@a.com');
+        await tester.enterText(find.byKey(const Key('email_field')), 'lewisballard@lb.com');
         await tester.enterText(
             find.byKey(const Key('password_field')), '123456');
 

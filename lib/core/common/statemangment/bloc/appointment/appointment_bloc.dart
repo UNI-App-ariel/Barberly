@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/appointment/book_appointment.dart';
-import 'package:uni_app/core/common/domian/usecases/appointment/cancel_appointment.dart';
+import 'package:uni_app/core/common/domain/entities/appointment.dart';
+import 'package:uni_app/core/common/domain/usecases/appointment/book_appointment.dart';
+import 'package:uni_app/core/common/domain/usecases/appointment/cancel_appointment.dart';
 
 part 'appointment_event.dart';
 part 'appointment_state.dart';

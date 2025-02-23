@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/availability.dart';
-import 'package:uni_app/core/common/domian/usecases/availability/stream_availability.dart';
-import 'package:uni_app/core/common/domian/usecases/availability/update_availability.dart';
+import 'package:uni_app/core/common/domain/entities/availability.dart';
+import 'package:uni_app/core/common/domain/usecases/availability/stream_availability.dart';
+import 'package:uni_app/core/common/domain/usecases/availability/update_availability.dart';
 
 part 'shop_availability_event.dart';
 part 'shop_availability_state.dart';

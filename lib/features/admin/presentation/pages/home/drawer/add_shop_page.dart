@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
 import 'package:uni_app/core/common/widgets/my_button.dart';
 import 'package:uni_app/core/utils/my_utils.dart';

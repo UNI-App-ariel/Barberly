@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:uni_app/core/common/domian/entities/availability.dart';
+import 'package:uni_app/core/common/domain/entities/availability.dart';
 
 class TimeSlotPicker extends StatelessWidget {
   final List<TimeSlot> timeSlots;

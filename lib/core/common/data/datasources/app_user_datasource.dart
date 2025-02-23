@@ -18,17 +18,18 @@ class AppUserDatasourceImpl implements AppUserDatasource {
   AppUserDatasourceImpl({required this.firestore, required this.storage});
 
   @override
-  Stream<MyUserModel?> getUserStream(String userId) async* {
+  Stream<MyUserModel?> getUserStream(String userId)  {
     try {
       final stream = firestore.collection('users').doc(userId).snapshots();
 
-      await for (final snap in stream) {
-        if (snap.exists) {
-          yield MyUserModel.fromMap(snap.data()!);
+
+      return stream.map((event) {
+        if (event.exists) {
+          return MyUserModel.fromMap(event.data()!);
         } else {
-          yield null;
+          return null;
         }
-      }
+      });
     } on FirebaseException catch (e) {
       throw ServerException('${e.message} - getUserStream');
     } catch (e) {

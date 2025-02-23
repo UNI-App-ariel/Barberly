@@ -1,8 +1,8 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:uni_app/core/common/data/datasources/appointments_data_source.dart';
 import 'package:uni_app/core/common/data/models/appointment_model.dart';
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
-import 'package:uni_app/core/common/domian/repositories/appointmet_repo.dart';
+import 'package:uni_app/core/common/domain/entities/appointment.dart';
+import 'package:uni_app/core/common/domain/repositories/appointmet_repo.dart';
 import 'package:uni_app/core/errors/failures.dart';
 
 class AppointmentsRepoIml implements AppointmentsRepo {

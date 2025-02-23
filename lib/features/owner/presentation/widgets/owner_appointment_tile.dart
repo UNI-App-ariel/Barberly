@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:uni_app/core/common/domian/entities/appointment.dart';
+import 'package:uni_app/core/common/domain/entities/appointment.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/utils/my_date_utils.dart';
 import 'package:uni_app/core/utils/my_utils.dart';

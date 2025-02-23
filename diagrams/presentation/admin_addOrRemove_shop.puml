@@ -1,0 +1,33 @@
+@startuml admin_manage_shops
+
+
+class BarberShop {
+    + String id
+    + String name
+    + String? address
+    + String phoneNumber
+    + String? imageUrl
+    + List<String> gallery
+    + double rating
+    + int reviewCount
+    + List<String> services
+    + String ownerId
+    + bool isActive
+}
+
+class BarbershopRepo {
+    + addShop(shop: BarberShop): void
+    + removeShop(shopId: String): void
+}
+
+class BarbershopDataSource {
+    + addShop(shop: BarberShop): void
+    + removeShop(shopId: String): void
+}
+
+' Relationships
+BarbershopRepo --> BarberShop : "uses"
+BarbershopDataSource --> BarberShop : "stores *"
+BarbershopRepo --> BarbershopDataSource : "uses"
+
+@enduml

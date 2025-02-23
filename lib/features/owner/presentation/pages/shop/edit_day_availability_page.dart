@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/availability.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/availability.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/core/common/statemangment/bloc/shop_availability/shop_availability_bloc.dart';
 import 'package:uni_app/core/utils/my_date_utils.dart';
 import 'package:uni_app/core/utils/my_utils.dart';

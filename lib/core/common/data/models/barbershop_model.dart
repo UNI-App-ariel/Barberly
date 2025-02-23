@@ -1,4 +1,4 @@
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 
 final class BarbershopModel extends Barbershop {
   BarbershopModel({

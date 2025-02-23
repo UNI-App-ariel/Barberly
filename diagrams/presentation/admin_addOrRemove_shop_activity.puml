@@ -1,0 +1,25 @@
+@startuml admin_addOrRemove_shop_activity
+start
+
+:Admin logs in;
+
+:Admin views all shops;
+
+if (Admin wants to add a shop?) then (yes)
+    :Admin fills in shop details;
+    :Admin submits the shop information;
+    :System adds the shop to the database;
+    :System confirms addition;
+else (no)
+    if (Admin wants to remove a shop?) then (yes)
+        :Admin selects a shop to remove;
+        :Admin confirms removal;
+        :System removes the shop from the database;
+        :System confirms removal;
+    else (no)
+        :Admin exits;
+    endif
+endif
+
+stop
+@enduml

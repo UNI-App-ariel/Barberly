@@ -8,7 +8,7 @@ import 'package:uni_app/core/common/statemangment/bloc/booked_appointments/booke
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 import 'package:uni_app/features/customer/presentation/pages/home/home_page.dart';
 import 'package:uni_app/features/customer/presentation/pages/favorites/favorites_page.dart';
-import 'package:uni_app/features/customer/presentation/pages/appointemets/appointments_page.dart';
+import 'package:uni_app/features/customer/presentation/pages/appointments/appointments_page.dart';
 import 'package:uni_app/features/profile/presentation/pages/profile_page.dart';
 
 class NavigationBarPage extends StatefulWidget {

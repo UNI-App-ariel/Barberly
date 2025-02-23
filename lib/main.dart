@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/data/models/availability_model.dart';
-import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
@@ -21,7 +20,7 @@ import 'package:uni_app/features/profile/presentation/bloc/pfp/pfp_bloc.dart';
 import 'package:uni_app/init_dependencies.g.dart';
 import 'package:uni_app/my_app.dart';
 
-void main() async {
+Future<void> main() async {
   // init flutter
   WidgetsFlutterBinding.ensureInitialized();
 

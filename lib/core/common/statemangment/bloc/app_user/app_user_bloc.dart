@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/usecases/app_user/stream_app_user.dart';
-import 'package:uni_app/core/common/domian/usecases/app_user/update_app_user.dart';
+import 'package:uni_app/core/common/domain/usecases/app_user/stream_app_user.dart';
+import 'package:uni_app/core/common/domain/usecases/app_user/update_app_user.dart';
 import 'package:uni_app/core/utils/notifications.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 

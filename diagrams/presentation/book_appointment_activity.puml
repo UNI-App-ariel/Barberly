@@ -1,0 +1,23 @@
+@startuml book_appointment_activity
+start
+
+:User selects a Shop;
+
+
+:User views available time slots;
+
+repeat
+    :User selects a date and time slot;
+    if (Is time slot available?) then (yes)
+        :User confirms booking;
+        :System saves appointment details;
+        :System sends confirmation notification;
+    else (no)
+        :Display message: "Time slot unavailable.";
+    endif
+repeat while (User wants to select another slot?)
+
+:User can view appointment details;
+
+stop
+@enduml

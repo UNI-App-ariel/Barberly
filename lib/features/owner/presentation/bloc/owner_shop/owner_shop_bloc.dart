@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/features/owner/domain/usecases/delete_shop.dart';
 import 'package:uni_app/features/owner/domain/usecases/get_shop.dart';
 import 'package:uni_app/features/owner/domain/usecases/update_shop.dart';

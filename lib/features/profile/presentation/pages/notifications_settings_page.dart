@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
-import 'package:uni_app/core/utils/notifications.dart';
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 
 class NotificationsSettingsPage extends StatefulWidget {

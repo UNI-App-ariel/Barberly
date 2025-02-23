@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/core/common/widgets/loader.dart';
 import 'package:uni_app/core/common/widgets/my_list_tile.dart';
 import 'package:uni_app/core/common/widgets/settings_list_container.dart';

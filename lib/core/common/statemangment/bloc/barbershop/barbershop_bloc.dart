@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
-import 'package:uni_app/core/common/domian/usecases/add_barber_shop.dart';
-import 'package:uni_app/core/common/domian/usecases/delete_barber_shop.dart';
-import 'package:uni_app/core/common/domian/usecases/favorite_shop.dart';
-import 'package:uni_app/core/common/domian/usecases/get_all_barber_shops.dart';
-import 'package:uni_app/core/common/domian/usecases/update_barber_shop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/usecases/add_barber_shop.dart';
+import 'package:uni_app/core/common/domain/usecases/delete_barber_shop.dart';
+import 'package:uni_app/core/common/domain/usecases/favorite_shop.dart';
+import 'package:uni_app/core/common/domain/usecases/get_all_barber_shops.dart';
+import 'package:uni_app/core/common/domain/usecases/update_barber_shop.dart';
 
 part 'barbershop_event.dart';
 part 'barbershop_state.dart';
