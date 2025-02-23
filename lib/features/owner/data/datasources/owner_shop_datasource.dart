@@ -42,7 +42,7 @@ class OwnerShopDatasourceImpl implements OwnerShopDatasource {
     try {
       String? profileImageUrl;
 
-      // If a new profile picture is selected, upload it and get the URL
+      // when a profile image has been selected, upload it and get the URL
       if (pickedImage != null) {
         // Check if the shop already has an existing image
         if (ownerShop.imageUrl != null && ownerShop.imageUrl!.isNotEmpty) {
