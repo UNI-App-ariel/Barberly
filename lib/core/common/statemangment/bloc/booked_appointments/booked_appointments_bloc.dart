@@ -35,7 +35,7 @@ class BookedAppointmentsBloc
           emit(BookedAppointmentsError(error.message));
         },
         (appointments) {
-          final sortedAppointments = _sortAppointments(appointments);
+          final sortedAppointments = _sortAndFilterAppointments(appointments);
           emit(BookedAppointmentsLoaded(sortedAppointments));
         },
       );
@@ -46,8 +46,14 @@ class BookedAppointmentsBloc
     await _bookedAppointmentsStream?.asFuture();
   }
 
-  List<Appointment> _sortAppointments(List<Appointment> appointments) {
+  List<Appointment> _sortAndFilterAppointments(List<Appointment> appointments) {
+    // sort appointments by date
     appointments.sort((a, b) => a.date.compareTo(b.date));
+
+    // filter out appointments that are in the past
+    appointments
+        .removeWhere((element) => element.date.isBefore(DateTime.now()));
+
     return appointments;
   }
 }

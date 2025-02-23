@@ -34,10 +34,17 @@ class CustomerAppointmentTile extends StatelessWidget {
         children: [
           // barbershop image
           Container(
-            width: 90,
-            height: 90,
+            width: 110,
+            height: 110,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 4,
+                  offset: Offset(4, 0),
+                ),
+              ],
               image: barbershop != null && barbershop.imageUrl != null
                   ? DecorationImage(
                       image: CachedNetworkImageProvider(barbershop.imageUrl!),
@@ -57,15 +64,18 @@ class CustomerAppointmentTile extends StatelessWidget {
           const SizedBox(width: 8),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 4),
-            height: 90,
+            height: 110,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // barbershop name
                 Text(
                   barbershop?.name ?? '',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
-                const Spacer(),
+                const SizedBox(height: 2),
+
+                // appointment date
                 Row(
                   children: [
                     Icon(
@@ -80,6 +90,8 @@ class CustomerAppointmentTile extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                // appointment time
                 Row(
                   children: [
                     Icon(
@@ -90,6 +102,22 @@ class CustomerAppointmentTile extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       '${MyDateUtils.toTime(appointment.startTime)} - ${MyDateUtils.toTime(appointment.endTime)}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+
+                // shop address
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.locationDot,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      barbershop?.address ?? '',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

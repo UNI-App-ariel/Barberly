@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uni_app/core/common/data/models/availability_model.dart';
+import 'package:uni_app/core/common/domian/entities/availability.dart';
 import 'package:uni_app/core/common/statemangment/bloc/app_user/app_user_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/appointment/appointment_bloc.dart';
 import 'package:uni_app/core/common/statemangment/bloc/barbershop/barbershop_bloc.dart';
@@ -34,6 +37,9 @@ void main() async {
   // init onesignal
   OneSignalService().init();
 
+  // add data to firebase
+  // await addDateToFirebase();
+
   // run app
   runApp(
     MultiBlocProvider(
@@ -57,4 +63,89 @@ void main() async {
       child: const MyApp(),
     ),
   );
+}
+
+addDateToFirebase() {
+  // for every shop add availability
+
+  final firestore = FirebaseFirestore.instance;
+
+  final now = DateTime.now();
+
+  firestore.collection('barbershops').get().then((value) {
+    for (var element in value.docs) {
+      firestore.collection('availability').doc(element.id).set(
+            AvailabilityModel(
+              id: element.id,
+              availabilityWindow: 7,
+              defaultTimeSlots: {
+                1: [
+                  for (var i = 0; i < 10; i++) ...[
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 0),
+                      endTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                    ),
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                      endTime: DateTime(now.year, 0, 0, 10 + i + 1, 0),
+                    ),
+                  ],
+                ],
+                2: [
+                  for (var i = 0; i < 10; i++) ...[
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 0),
+                      endTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                    ),
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                      endTime: DateTime(now.year, 0, 0, 10 + i + 1, 0),
+                    ),
+                  ],
+                ],
+                3: [
+                  for (var i = 0; i < 10; i++) ...[
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 0),
+                      endTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                    ),
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                      endTime: DateTime(now.year, 0, 0, 10 + i + 1, 0),
+                    ),
+                  ],
+                ],
+                4: [
+                  for (var i = 0; i < 10; i++) ...[
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 0),
+                      endTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                    ),
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                      endTime: DateTime(now.year, 0, 0, 10 + i + 1, 0),
+                    ),
+                  ],
+                ],
+                5: [
+                  for (var i = 0; i < 10; i++) ...[
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 0),
+                      endTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                    ),
+                    TimeSlotModel(
+                      startTime: DateTime(now.year, 0, 0, 10 + i, 30),
+                      endTime: DateTime(now.year, 0, 0, 10 + i + 1, 0),
+                    ),
+                  ],
+                ],
+                6: [],
+                7: [],
+              },
+              customTimeSlots: {},
+              timeSlots: {},
+            ).toMap(),
+          );
+    }
+  });
 }

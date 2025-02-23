@@ -24,7 +24,7 @@ final class BarbershopModel extends Barbershop {
       address: map['address'],
       phoneNumber: map['phoneNumber'],
       imageUrl: map['imageUrl'],
-      rating: map['rating'],
+      rating: map['rating'] is int ? (map['rating'] as int).toDouble() : map['rating'],
       reviewCount: map['reviewCount'],
       services: List<String>.from(map['services']),
       barbers: List<String>.from(map['barbers']),

@@ -74,6 +74,10 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
                   _buildFavoriteButton(
                       user?.favoriteShops.contains(widget.shop.id) ?? false),
                 ],
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(100),
+                  child: _buildShopDetails(widget.shop),
+                ),
               ),
               SliverToBoxAdapter(
                 child: BlocConsumer<AppointmentBloc, AppointmentState>(
@@ -243,35 +247,33 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
   }
 
   Widget _buildImage() {
-    if (widget.shop.imageUrl == null) {
-      return Center(
-        child: Icon(
-          Icons.store,
-          size: 50,
-          color: Theme.of(context).colorScheme.tertiary,
-        ),
-      );
-    } else {
-      return CachedNetworkImage(
-        imageUrl: widget.shop.imageUrl!,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => const Icon(
-          Icons.image,
-          size: 50,
-        ),
-        errorWidget: (context, url, error) => const Icon(
-          Icons.error,
-          size: 50,
-        ),
-      );
-    }
+    return widget.shop.imageUrl == null
+        ? Center(
+            child: Icon(
+              Icons.store,
+              size: 50,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+          )
+        : CachedNetworkImage(
+            imageUrl: widget.shop.imageUrl!,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => const Icon(
+              Icons.image,
+              size: 50,
+            ),
+            errorWidget: (context, url, error) => const Icon(
+              Icons.error,
+              size: 50,
+            ),
+          );
   }
 
   Widget _buildBackButton(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withValues(alpha:  0.2),
+        color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
         shape: BoxShape.circle,
       ),
       child: const FaIcon(
@@ -287,7 +289,7 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
       icon: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary.withValues(alpha:  0.2),
+          color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
           shape: BoxShape.circle,
         ),
         child: FaIcon(
@@ -466,6 +468,93 @@ class _ShopDetailsPageState extends State<ShopDetailsPage> {
           ),
         );
       },
+    );
+  }
+
+  _buildShopDetails(Barbershop shop) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Shop name
+          Text(
+            shop.name,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+          ),
+
+          // Shop address
+          Row(
+            children: [
+              Container(
+                width: 16,
+                alignment: Alignment.center,
+                child: FaIcon(
+                  FontAwesomeIcons.locationDot,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 14,
+                ),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                shop.address ?? 'No address',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 2),
+
+          // Shop rating
+          Row(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: const FaIcon(
+                  FontAwesomeIcons.solidStar,
+                  color: Colors.amber,
+                  size: 14,
+                ),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                shop.rating.toString(),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 2),
+          // Shop Phone number
+          Row(
+            children: [
+              Container(
+                width: 16,
+                alignment: Alignment.center,
+                child: const FaIcon(
+                  FontAwesomeIcons.phone,
+                  color: Colors.green,
+                  size: 14,
+                ),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                shop.phoneNumber,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
