@@ -1,0 +1,41 @@
+
+@startuml class_diagram4
+skinparam classAttributeIconSize 0
+
+
+class Availability {
+    + id: String
+    + availabilityWindow: int 
+    + deafaultTimtSlots: Map<int, List<TimeSlot>>
+    + customTimeSlots: Map<int, List<TimeSlot>>
+}
+class AvailabilityModel {
+    + id: String
+    + availabilityWindow: int 
+    + deafaultTimtSlots: Map<int, List<TimeSlotModel>>
+    + customTimeSlots: Map<int, List<TimeSlotModel>>
+    + fromMap(Map<String, dynamic> map): AvailabilityModel
+    + toMap(): Map<String, dynamic>
+}
+
+
+class TimeSlot {
+    + startTime: DateTime
+    + endTime: DateTime
+    + isBooked: bool
+}
+class TimeSlotModel {
+    + startTime: DateTime
+    + endTime: DateTime
+    + isBooked: bool
+    + fromMap(Map<String, dynamic> map): TimeSlotModel
+    + toMap(): Map<String, dynamic>
+}
+
+' Availability and TimeSlot
+AvailabilityModel --|> Availability
+Availability *-- TimeSlot
+AvailabilityModel *-- TimeSlotModel
+
+
+@enduml

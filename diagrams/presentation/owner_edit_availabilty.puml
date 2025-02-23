@@ -1,0 +1,49 @@
+@startuml edit_availability
+class ShopOwner {
+    + String id
+    + String name
+    + String phoneNumber
+    + String email
+    + List<BarberShop> shops
+    + editAvailability(shopId: String, availability: Availability): void
+}
+
+class BarberShop {
+    + String id
+    + String name
+    + String ownerId
+    + Availability availability
+}
+
+class Availability {
+  + String id
+  + int availabilityWindow
+  + Map<int, List<TimeSlot>> defaultTimeSlots
+  + Map<DateTime, List<TimeSlot>> timeSlots
+}
+
+class TimeSlot {
+    + DateTime startTime
+    + DateTime endTime
+    + bool isBooked
+}
+
+class BarbershopRepo {
+    + updateAvailability(availability: Availability): void
+    + fetchAvailability(shopId: String): Availability
+}
+
+class BarbershopDataSource {
+    + updateAvailability(availability: Availability): void
+    + fetchAvailability(shopId: String): Availability
+}
+
+' Relationships
+ShopOwner --> BarberShop : "manages *"
+BarberShop --> Availability : "has"
+Availability --> TimeSlot : "contains *"
+BarbershopRepo --> Availability : "uses"
+BarbershopDataSource --> Availability : "stores *"
+BarbershopRepo --> BarbershopDataSource : "uses"
+
+@enduml

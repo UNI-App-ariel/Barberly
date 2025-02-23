@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>646462327215-gb4qqi1lerjuor87nveiqsk8mlh4fegu.apps.googleusercontent.com</string>
+	<string>646462327215-hes5gijd8k80nu1cceku07st38e9u247.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.646462327215-gb4qqi1lerjuor87nveiqsk8mlh4fegu</string>
+	<string>com.googleusercontent.apps.646462327215-hes5gijd8k80nu1cceku07st38e9u247</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>646462327215-o1jra5vou628m0iltnmfaoqj1is4ojn4.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBPBEEKvWui9uljKjCJt7JyEjF8eH-c84o</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.arieluni.barberly</string>
+	<string>com.unise.barberly</string>
 	<key>PROJECT_ID</key>
 	<string>barberly-281a4</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:646462327215:ios:848c660a0f99a8d9d8475a</string>
+	<string>1:646462327215:ios:eb12c41d19459d15d8475a</string>
 </dict>
 </plist>

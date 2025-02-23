@@ -9,6 +9,7 @@ final lightTheme = ThemeData.light().copyWith(
     onPrimary: Colors.white,
     secondary: Colors.grey.shade200,
     tertiary: Colors.grey.shade400,
+    inverseSurface: Colors.grey,
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xFFf8f8f8),

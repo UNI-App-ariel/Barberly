@@ -64,4 +64,14 @@ class AuthRepoImpl implements AuthRepo {
       return Left(Failure(e.message));
     }
   }
+  
+  @override
+  Future<Either<Failure, MyUser?>> signInWithFacebook()async {
+    try {
+      final user = await _authDatasource.signInWithFacebook();
+      return Right(user);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    }
+  }
 }

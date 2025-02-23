@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/core/errors/failures.dart';
 import 'package:uni_app/features/customer/data/datasources/favorites_datasource.dart';

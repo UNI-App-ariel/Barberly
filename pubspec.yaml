@@ -46,10 +46,27 @@ dependencies:
   firebase_storage: ^12.3.6
   shared_preferences: ^2.3.3
   google_nav_bar: ^5.0.7
+  cached_network_image: ^3.4.1
+  intl: ^0.20.1
+  rxdart: ^0.28.0
+  uuid: ^4.5.1
+  image_picker: ^1.1.2
+  modal_bottom_sheet: ^3.0.0
+  flutter_facebook_auth: ^7.1.1
+  crypto: ^3.0.6
+  mockito: ^5.0.0
+  image: ^4.5.2
+  path_provider: ^2.1.5
+  onesignal_flutter: ^5.2.9
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
+  build_runner: 
+  firebase_core_platform_interface:
+  firebase_auth_platform_interface: 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

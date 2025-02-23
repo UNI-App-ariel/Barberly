@@ -18,3 +18,7 @@ final class BarbershopError extends BarbershopState {
 
   BarbershopError(this.message);
 }
+
+final class BarbershopAdded extends BarbershopState {}
+
+final class BarbershopDeleted extends BarbershopState {}

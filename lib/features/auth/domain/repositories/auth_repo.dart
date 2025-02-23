@@ -10,4 +10,5 @@ abstract interface class AuthRepo {
   Future<Either<Failure, void>> logOut();
   Future<Either<Failure, MyUser?>> getCurrentUser();
   Future<Either<Failure, MyUser?>> signInWithGoogle();
+  Future<Either<Failure, MyUser?>> signInWithFacebook();
 }

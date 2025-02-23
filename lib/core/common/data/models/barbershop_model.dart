@@ -1,4 +1,4 @@
-import 'package:uni_app/core/common/domian/entities/barbershop.dart';
+import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 
 final class BarbershopModel extends Barbershop {
   BarbershopModel({
@@ -11,8 +11,10 @@ final class BarbershopModel extends Barbershop {
     required super.reviewCount,
     required super.services,
     required super.barbers,
+    required super.gallery,
+    required super.ownerId,
+    required super.isActive,
   });
-
 
   // from map
   factory BarbershopModel.fromMap(Map<String, dynamic> map) {
@@ -22,10 +24,13 @@ final class BarbershopModel extends Barbershop {
       address: map['address'],
       phoneNumber: map['phoneNumber'],
       imageUrl: map['imageUrl'],
-      rating: map['rating'],
+      rating: map['rating'] is int ? (map['rating'] as int).toDouble() : map['rating'],
       reviewCount: map['reviewCount'],
       services: List<String>.from(map['services']),
       barbers: List<String>.from(map['barbers']),
+      gallery: List<String>.from(map['gallery'] ?? []),
+      ownerId: map['ownerId'],
+      isActive: map['isActive'] ?? true,
     );
   }
 
@@ -41,6 +46,9 @@ final class BarbershopModel extends Barbershop {
       'reviewCount': reviewCount,
       'services': services,
       'barbers': barbers,
+      'gallery': gallery,
+      'ownerId': ownerId,
+      'isActive': isActive,
     };
   }
 
@@ -56,6 +64,9 @@ final class BarbershopModel extends Barbershop {
       reviewCount: entity.reviewCount,
       services: entity.services,
       barbers: entity.barbers,
+      gallery: entity.gallery,
+      ownerId: entity.ownerId,
+      isActive: entity.isActive,
     );
   }
 
@@ -71,7 +82,9 @@ final class BarbershopModel extends Barbershop {
       reviewCount: reviewCount,
       services: services,
       barbers: barbers,
+      gallery: gallery,
+      ownerId: ownerId,
+      isActive: isActive,
     );
   }
-
 }

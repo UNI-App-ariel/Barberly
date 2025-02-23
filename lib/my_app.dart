@@ -3,10 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uni_app/core/common/statemangment/cubit/theme_cubit.dart';
 import 'package:uni_app/core/themes/dark_theme.dart';
 import 'package:uni_app/core/themes/light_theme.dart';
+import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/auth_gate.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<AuthBloc>().add(CheckAuth());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (context, themeMode) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'UniApp',
+          title: 'Barberly',
           theme: lightTheme, // Light theme
           darkTheme: darkTheme, // Dark theme
           themeMode: themeMode, // Controlled by ThemeCubit

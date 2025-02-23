@@ -1,0 +1,107 @@
+
+@startuml filtered_class_diagram
+skinparam classAttributeIconSize 0
+
+class AppUserDatasource {
+    + getUser(id: String): MyUserModel
+    + updateUser(user: MyUserModel): void
+
+}
+class AppUserDatasourceImpl {
+    + firestore: FirebaseFirestore
+    + getUser(id: String): MyUserModel
+    + updateUser(user: MyUserModel): void
+}
+
+class AppUserRepo {
+    + getUser(id: String): MyUserModel
+    + updateUser(user: MyUserModel): void
+}
+class AppUserRepoImpl {
+    + datasource: AppUserDatasource
+    + getUser(id: String): MyUserModel
+    + updateUser(user: MyUserModel): void
+}
+
+
+
+class AuthDatasource {
+    + loginWithEmail(email: String, password: String): MyUserModel
+    + signUpWithEmail(email: String, password: String): MyUserModel
+    + logout(): void
+    + getCurrentUser(): MyUserModel
+    + signInWithGoogle(): MyUserModel
+    + signInWithFacebook(): MyUserModel
+}
+class AuthDatasourceImpl {
+    + auth: FirebaseAuth
+    + firestore: FirebaseFirestore 
+    + loginWithEmail(email: String, password: String): MyUserModel
+    + signUpWithEmail(email: String, password: String): MyUserModel
+    + logout(): void
+    + getCurrentUser(): MyUserModel
+    + signInWithGoogle(): MyUserModel
+    + signInWithFacebook(): MyUserModel
+}
+
+class AuthRepo {
+    + loginWithEmail(email: String, password: String): MyUserModel
+    + signUpWithEmail(email: String, password: String): MyUserModel
+    + logout(): void
+    + getCurrentUser(): MyUserModel
+    + signInWithGoogle(): MyUserModel
+    + signInWithFacebook(): MyUserModel
+}
+class AuthRepoImpl {
+    + datasource: AuthDatasource
+    + loginWithEmail(email: String, password: String): MyUserModel
+    + signUpWithEmail(email: String, password: String): MyUserModel
+    + logout(): void
+    + getCurrentUser(): MyUserModel
+    + signInWithGoogle(): MyUserModel
+    + signInWithFacebook(): MyUserModel
+}
+
+
+
+
+class MyUser {
+    + id: String
+    + email: String
+    + name: String
+    + imageURL: String
+    + shopId: String
+    + favoriteShops: List<String>
+    + role: String
+}
+class MyUserModel {
+    + id: String
+    + email: String
+    + name: String
+    + imageURL: String
+    + shopId: String
+    + favoriteShops: List<String>
+    + role: String
+    + fromMap(Map<String, dynamic> map): MyUserModel
+    + toMap(): Map<String, dynamic>
+}
+
+' Datasource and Repository Relationships
+AppUserDatasourceImpl ..|> AppUserDatasource
+AppUserRepoImpl ..|> AppUserRepo
+AppUserRepoImpl o-- AppUserDatasourceImpl
+
+
+
+' Auth Relationships
+AuthDatasourceImpl ..|> AuthDatasource
+AuthRepoImpl ..|> AuthRepo
+AuthRepoImpl o-- AuthDatasourceImpl
+
+
+
+
+
+' User Relationships
+MyUserModel --|> MyUser
+@enduml

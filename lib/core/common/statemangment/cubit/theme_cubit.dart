@@ -29,7 +29,8 @@ class ThemeCubit extends Cubit<ThemeMode> {
   // Load theme mode from SharedPreferences
   Future<void> _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    final themeMode = prefs.getString(_themeKey) ?? 'system'; // Default to system theme
+    final themeMode =
+        prefs.getString(_themeKey) ?? 'system'; // Default to system theme
 
     switch (themeMode) {
       case 'dark':
@@ -39,7 +40,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         emit(ThemeMode.light);
         break;
       default:
-        emit(ThemeMode.system);
+        emit(ThemeMode.light);
         break;
     }
   }

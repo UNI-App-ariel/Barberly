@@ -1,0 +1,18 @@
+@startuml owner_edit_availability_activity
+start
+
+:Shop Owner logs in;
+
+:Shop Owner selects "Edit Availability";
+
+:Shop Owner selects a day;
+
+:Shop Owner selects start time and end time;
+
+:Shop Owner confirms changes;
+
+:System saves updated availability;
+
+
+stop
+@enduml
