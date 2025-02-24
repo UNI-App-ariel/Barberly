@@ -1,19 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
+/// Represents a barbershop with its details and associated services.
 class Barbershop {
-  final String id;
-  final String name;
-  final String? address;
-  final String phoneNumber;
-  final String? imageUrl;
-  final List<String> gallery;
-  final double rating;
-  final int reviewCount;
-  final List<String> services;
-  final List<String> barbers;
-  final String ownerId;
-  final bool isActive;
+  final String id; // Unique identifier for the barbershop
+  final String name; // Name of the barbershop
+  final String? address; // Address of the barbershop (optional)
+  final String phoneNumber; // Contact phone number of the barbershop
+  final String? imageUrl; // URL for the barbershop's image (optional)
+  final List<String> gallery; // List of image URLs for the gallery
+  final double rating; // Rating of the barbershop
+  final int reviewCount; // Number of reviews received by the barbershop
+  final List<String> services; // List of services offered by the barbershop
+  final List<String> barbers; // List of barbers working at the barbershop
+  final String ownerId; // ID of the owner of the barbershop
+  final bool isActive; // Status indicating if the barbershop is active
 
+  /// Creates a new [Barbershop] instance.
   Barbershop({
     required this.id,
     required this.name,
@@ -29,6 +29,9 @@ class Barbershop {
     this.isActive = true,
   });
 
+  /// Creates a copy of the current [Barbershop] instance with optional new values.
+  ///
+  /// The [resetImageUrl] flag determines whether to reset the image URL to null.
   Barbershop copyWith({
     String? id,
     String? name,

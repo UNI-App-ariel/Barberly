@@ -9,11 +9,27 @@ import 'package:uni_app/core/common/domain/repositories/barbershop_repo.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/core/errors/failures.dart';
 
+/// BarbershopRepoImpl is the implementation of BarbershopRepo.
+///
+/// It uses BarbershopDataSource to interact with the data source
+/// and map data to domain entities.
+///
+/// Parameters:
+/// - [barbershopDataSource] is the data source instance.
 class BarbershopRepoImpl implements BarbershopRepo {
   final BarbershopDataSource barbershopDataSource;
 
   BarbershopRepoImpl({required this.barbershopDataSource});
 
+  /// Adds a new barbershop to the data source.
+  ///
+  /// Parameters:
+  /// - [barbershop] is the barbershop to add.
+  ///
+  /// Returns:
+  /// - `Either<Failure, void>` is an `Either`
+  ///   - `Right` contains `null`
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, void>> addBarbershop(Barbershop barbershop) async {
     try {
@@ -25,6 +41,15 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Deletes a barbershop from the data source.
+  ///
+  /// Parameters:
+  /// - [id] is the `id` of the barbershop to delete.
+  ///
+  /// Returns:
+  /// - `Either<Failure, void>` is an `Either`
+  ///   - `Right` contains `null`
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, void>> deleteBarbershop(String id) async {
     try {
@@ -35,6 +60,15 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Retrieves a barbershop by its ID.
+  ///
+  /// Parameters:
+  /// - [id] is the `id` of the barbershop to retrieve.
+  ///
+  /// Returns:
+  /// - `Either<Failure, Barbershop>` is an `Either`
+  ///   - `Right` contains the barbershop
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, Barbershop>> getBarbershop(String id) async {
     try {
@@ -45,6 +79,12 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Retrieves a list of all barbershops.
+  ///
+  /// Returns:
+  /// - `Either<Failure, List<Barbershop>>` is an `Either`
+  ///   - `Right` contains the list of barbershops
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, List<Barbershop>>> getBarbershops() async {
     try {
@@ -55,6 +95,15 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Updates an existing barbershop in the data source.
+  ///
+  /// Parameters:
+  /// - [barbershop] is the barbershop to update.
+  ///
+  /// Returns:
+  /// - `Either<Failure, void>` is an `Either`
+  ///   - `Right` contains `null`
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, void>> updateBarbershop(Barbershop barbershop) async {
     try {
@@ -66,6 +115,16 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Favorites a barbershop for a user.
+  ///
+  /// Parameters:
+  /// - [userId] is the `id` of the user.
+  /// - [barbershopId] is the `id` of the barbershop to favorite.
+  ///
+  /// Returns:
+  /// - `Either<Failure, void>` is an `Either`
+  ///   - `Right` contains `null`
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, void>> favoriteBarbershop(
       String userId, String barbershopId) async {
@@ -78,6 +137,16 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Unfavorites a barbershop for a user.
+  ///
+  /// Parameters:
+  /// - [userId] is the `id` of the user.
+  /// - [barbershopId] is the `id` of the barbershop to unfavorite.
+  ///
+  /// Returns:
+  /// - `Either<Failure, void>` is an `Either`
+  ///   - `Right` contains `null`
+  ///   - `Left` contains the failure.
   @override
   Future<Either<Failure, void>> unfavoriteBarbershop(
       String userId, String barbershopId) async {
@@ -90,15 +159,19 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Streams the availability for a given barbershop.
+  ///
+  /// Parameters:
+  /// - [shopId] is the `id` of the barbershop.
+  ///
+  /// Returns:
+  /// - `Stream<Either<Failure, Availability>>` is a stream of `Either`
+  ///   - `Right` contains the availability data
+  ///   - `Left` contains the failure.
   @override
   Stream<Either<Failure, Availability>> streamAvailabilty(
       String shopId) async* {
     try {
-      // if (!await networkInfo.isConnected) {
-      //   yield Left(Failure('No internet connection'));
-      //   return;
-      // }
-
       final stream = barbershopDataSource.getMergedAvailabilityStream(shopId);
       await for (final availabilityModel in stream) {
         yield Right(availabilityModel);
@@ -108,14 +181,19 @@ class BarbershopRepoImpl implements BarbershopRepo {
     }
   }
 
+  /// Streams the appointments for a given barbershop.
+  ///
+  /// Parameters:
+  /// - [shopId] is the `id` of the barbershop.
+  ///
+  /// Returns:
+  /// - `Stream<Either<Failure, List<Appointment>>>` is a stream of `Either`
+  ///   - `Right` contains the list of appointments
+  ///   - `Left` contains the failure.
   @override
-  Stream<Either<Failure, List<Appointment>>> getAppointmentsStream(String shopId) async*{
+  Stream<Either<Failure, List<Appointment>>> getAppointmentsStream(
+      String shopId) async* {
     try {
-      // if (!await networkInfo.isConnected) {
-      //   yield Left(Failure('No internet connection'));
-      //   return;
-      // }
-
       final stream = barbershopDataSource.getAppointmentsStream(shopId);
       await for (final appointmentModel in stream) {
         yield Right(appointmentModel);
@@ -123,14 +201,24 @@ class BarbershopRepoImpl implements BarbershopRepo {
     } on ServerException catch (e) {
       yield Left(Failure(e.message));
     }
-
   }
-  
+
+  /// Updates the availability of a barbershop.
+  ///
+  /// Parameters:
+  /// - [availability] is the new availability data to update.
+  ///
+  /// Returns:
+  /// - `Either<Failure, void>` is an `Either`
+  ///   - `Right` contains `null`
+  ///   - `Left` contains the failure.
   @override
-  Future<Either<Failure, void>> updateAvailability(Availability availability)async {
+  Future<Either<Failure, void>> updateAvailability(
+      Availability availability) async {
     try {
-      final availabilityModel = AvailabilityModel.fromDomain(availability);
-      final result = await barbershopDataSource.updateAvailability(availabilityModel);
+      final availabilityModel = AvailabilityModel.fromEntity(availability);
+      final result =
+          await barbershopDataSource.updateAvailability(availabilityModel);
       return Right(result);
     } catch (e) {
       return Left(Failure(e.toString()));

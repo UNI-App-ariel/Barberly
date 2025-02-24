@@ -3,6 +3,11 @@ import 'package:intl/intl.dart';
 
 import 'package:uni_app/core/common/domain/entities/appointment.dart';
 
+
+/// AppointmentModel extends Appointment
+/// 
+/// This class is used to convert Firestore document to AppointmentModel
+/// and vice versa.
 class AppointmentModel extends Appointment {
   const AppointmentModel({
     required super.id,
@@ -19,7 +24,9 @@ class AppointmentModel extends Appointment {
     required super.createdAt,
   });
 
-  // Factory method to convert Firestore document to AppointmentModel
+  /// Method to convert Firestore document to AppointmentModel
+  /// 
+  /// This method takes a [DocumentSnapshot] and returns an `AppointmentModel`
   factory AppointmentModel.fromMap(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return AppointmentModel(
@@ -44,7 +51,10 @@ class AppointmentModel extends Appointment {
     );
   }
 
-  // Method to convert AppointmentModel to Firestore-compatible map
+  /// Method to convert AppointmentModel to Firestore document
+  /// 
+  /// This method returns a `Map<String, dynamic>` which can be used to
+  /// add/update a document in Firestore.
   Map<String, dynamic> toMap() {
     return {
       'shop_id': shopId,
@@ -63,7 +73,9 @@ class AppointmentModel extends Appointment {
     };
   }
 
-  // Method to convert AppointmentModel to Appointment
+  /// Method to convert AppointmentModel to Appointment
+  /// 
+  /// This method returns an `Appointment` object.
   Appointment toEntity() {
     return Appointment(
       id: id,
@@ -81,7 +93,9 @@ class AppointmentModel extends Appointment {
     );
   }
 
-  // Method to convert Appointment to AppointmentModel
+  /// Method to convert Appointment to AppointmentModel
+  /// 
+  /// This method takes an `Appointment` object and returns an `AppointmentModel`.
   factory AppointmentModel.fromEntity(Appointment appointment) {
     return AppointmentModel(
       id: appointment.id,

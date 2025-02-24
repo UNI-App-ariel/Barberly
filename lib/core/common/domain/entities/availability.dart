@@ -1,13 +1,13 @@
-
+/// Represents the availability of a shop, including default and custom time slots.
 class Availability {
-  final String id;
-  final int availabilityWindow;
+  final String id; // Unique identifier for the availability
+  final int
+      availabilityWindow; // Number of days for which the availability is set
   final Map<int, List<TimeSlot>>
-      defaultTimeSlots; // For default weekly availability (Sun-Sat)
+      defaultTimeSlots; // Default weekly availability (Sun-Sat)
   final Map<DateTime, List<TimeSlot>>
-      customTimeSlots; // For custom date-based availability
-  final Map<DateTime, List<TimeSlot>> timeSlots; 
-
+      customTimeSlots; // Custom date-based availability
+  final Map<DateTime, List<TimeSlot>> timeSlots; // Current availability slots
 
   Availability({
     required this.id,
@@ -17,25 +17,26 @@ class Availability {
     required this.timeSlots,
   });
 
-  // Empty constructor
+  /// Creates an empty Availability instance with default values.
   factory Availability.empty(String id) {
     return Availability(
       id: id,
       availabilityWindow: 7,
       defaultTimeSlots: {
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: [],
-        6: [],
-        7: [],
+        1: [], // Sunday
+        2: [], // Monday
+        3: [], // Tuesday
+        4: [], // Wednesday
+        5: [], // Thursday
+        6: [], // Friday
+        7: [], // Saturday
       },
       customTimeSlots: {},
       timeSlots: {},
     );
   }
 
+  /// Creates a copy of the current Availability instance with optional new values.
   Availability copyWith({
     String? id,
     int? availabilityWindow,
@@ -53,10 +54,11 @@ class Availability {
   }
 }
 
+/// Represents a time slot for an appointment with a start and end time.
 class TimeSlot {
-  final DateTime startTime;
-  final DateTime endTime;
-  bool isBooked;
+  final DateTime startTime; // Start time of the time slot
+  final DateTime endTime; // End time of the time slot
+  bool isBooked; // Indicates if the time slot is booked
 
   TimeSlot({
     required this.startTime,
@@ -64,26 +66,27 @@ class TimeSlot {
     this.isBooked = false,
   });
 
-
+  /// Compares this TimeSlot with another TimeSlot for sorting purposes.
   int compareTo(TimeSlot b) {
     if (startTime.hour < b.startTime.hour) {
-      return -1;
+      return -1; // This TimeSlot is earlier
     } else if (startTime.hour > b.startTime.hour) {
-      return 1;
+      return 1; // This TimeSlot is later
     } else {
+      // Compare minutes if hours are the same
       if (startTime.minute < b.startTime.minute) {
-        return -1;
+        return -1; // This TimeSlot is earlier
       } else if (startTime.minute > b.startTime.minute) {
-        return 1;
+        return 1; // This TimeSlot is later
       } else {
-        return 0;
+        return 0; // They are equal
       }
     }
   }
 
-  // override toString
+  // Override toString for better debugging output
   @override
   String toString() {
-    return 'TimeSlot($startTime)';
+    return 'TimeSlot($startTime - $endTime, isBooked: $isBooked)';
   }
 }

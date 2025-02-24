@@ -6,6 +6,9 @@ import 'package:uni_app/core/themes/light_theme.dart';
 import 'package:uni_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:uni_app/features/auth/presentation/pages/auth_gate.dart';
 
+/// MyApp is the root widget of the app
+/// It is a stateful widget because it needs to check the auth state
+/// before showing the app
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 

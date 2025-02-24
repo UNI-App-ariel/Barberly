@@ -1,5 +1,7 @@
 import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 
+/// BarbershopModel extends Barbershop and implements the serialization methods
+/// to convert the model to and from Firestore documents.
 final class BarbershopModel extends Barbershop {
   BarbershopModel({
     required super.id,
@@ -16,7 +18,9 @@ final class BarbershopModel extends Barbershop {
     required super.isActive,
   });
 
-  // from map
+  /// Method to convert Firestore document to BarbershopModel
+  /// 
+  /// This method takes a [Map<String, dynamic>] and returns a `BarbershopModel`
   factory BarbershopModel.fromMap(Map<String, dynamic> map) {
     return BarbershopModel(
       id: map['id'],
@@ -34,7 +38,9 @@ final class BarbershopModel extends Barbershop {
     );
   }
 
-  // to map
+  /// Method to convert BarbershopModel to Firestore document
+  /// 
+  /// This method returns a [Map<String, dynamic>] from a `BarbershopModel`
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -52,7 +58,9 @@ final class BarbershopModel extends Barbershop {
     };
   }
 
-  // from entity
+  /// Convert Barbershop to BarbershopModel
+  /// 
+  /// This method takes a [Barbershop] object and returns a `BarbershopModel`
   factory BarbershopModel.fromEntity(Barbershop entity) {
     return BarbershopModel(
       id: entity.id,
@@ -70,7 +78,9 @@ final class BarbershopModel extends Barbershop {
     );
   }
 
-  // to entity
+  /// Convert BarbershopModel to Barbershop
+  /// 
+  /// This method returns a [Barbershop] object from a `BarbershopModel`
   Barbershop toEntity() {
     return Barbershop(
       id: id,

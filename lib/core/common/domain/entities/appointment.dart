@@ -1,19 +1,23 @@
 import 'package:uni_app/core/common/domain/entities/barbershop.dart';
 
+/// Appointment represents a booking for a service at a barbershop.
+///
+/// It contains all the necessary information about the appointment,
+/// including the associated barbershop, customer details, and timing.
 class Appointment {
-  final String id;
-  final String shopId;
-  final String userId;
-  final String customerName;
-  final String customerEmail;
-  final String? customerImageURL;
-  final String serviceId;
-  final DateTime date;
-  final DateTime startTime;
-  final DateTime endTime;
-  final String status;
-  final DateTime createdAt;
-  final Barbershop? shop;
+  final String id; // Unique identifier for the appointment
+  final String shopId; // Identifier for the associated barbershop
+  final String userId; // Identifier for the user who booked the appointment
+  final String customerName; // Name of the customer
+  final String customerEmail; // Email of the customer
+  final String? customerImageURL; // Optional image URL of the customer
+  final String serviceId; // Identifier for the service being booked
+  final DateTime date; // Date of the appointment
+  final DateTime startTime; // Start time of the appointment
+  final DateTime endTime; // End time of the appointment
+  final String status; // Status of the appointment (e.g., confirmed, cancelled)
+  final DateTime createdAt; // Timestamp of when the appointment was created
+  final Barbershop? shop; // Optional associated barbershop information
 
   const Appointment({
     required this.id,
@@ -31,7 +35,27 @@ class Appointment {
     this.shop,
   });
 
-  // copyWith method
+  /// Creates a copy of the current Appointment instance with optional new values.
+  ///
+  /// This is useful for updating specific fields without modifying the original instance.
+  ///
+  /// Parameters:
+  /// - [id]: New id value
+  /// - [shopId]: New shopId value
+  /// - [userId]: New userId value
+  /// - [customerName]: New customerName value
+  /// - [customerEmail]: New customerEmail value
+  /// - [customerImageURL]: New customerImageURL value
+  /// - [serviceId]: New serviceId value
+  /// - [date]: New date value
+  /// - [startTime]: New startTime value
+  /// - [endTime]: New endTime value
+  /// - [status]: New status value
+  /// - [createdAt]: New createdAt value
+  /// - [shop]: New shop value
+  ///
+  /// Returns:
+  /// - A new Appointment instance with updated values.
   Appointment copyWith({
     String? id,
     String? shopId,

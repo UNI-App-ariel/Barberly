@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:uni_app/core/common/domain/entities/availability.dart';
 
+/// AvailabilityModel extends Availability and implements the serialization methods
+/// to convert the model to and from Firestore documents.
 class AvailabilityModel extends Availability {
   AvailabilityModel({
     required super.id,
@@ -10,7 +12,9 @@ class AvailabilityModel extends Availability {
     super.availabilityWindow = 7,
   });
 
-  // Factory to create AvailabilityModel from Firestore document
+  /// Method to convert Firestore document to AvailabilityModel
+  ///
+  /// This method takes a [Map<String, dynamic>] and returns an `AvailabilityModel`
   factory AvailabilityModel.fromMap(Map<String, dynamic> map) {
     return AvailabilityModel(
       id: map['id'] ?? '', // Default empty string if 'id' is null
@@ -65,7 +69,10 @@ class AvailabilityModel extends Availability {
     );
   }
 
-  // Convert AvailabilityModel to Map for Firestore serialization
+  /// Method to convert AvailabilityModel to Firestore document
+  ///
+  /// This method returns a `Map<String, dynamic>` which can be used to
+  /// add/update a document in Firestore.
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -91,21 +98,23 @@ class AvailabilityModel extends Availability {
     };
   }
 
-  // Convert Availability to AvailabilityModel
-  static AvailabilityModel fromDomain(Availability availability) {
+  /// Convert Availability to AvailabilityModel
+  ///
+  /// This method takes an [Availability] object and returns an `AvailabilityModel`
+  static AvailabilityModel fromEntity(Availability availability) {
     return AvailabilityModel(
       id: availability.id,
       availabilityWindow: availability.availabilityWindow,
       defaultTimeSlots: availability.defaultTimeSlots.map(
         (key, slots) => MapEntry(
           key,
-          slots.map((slot) => TimeSlotModel.fromDomain(slot)).toList(),
+          slots.map((slot) => TimeSlotModel.fromEntity(slot)).toList(),
         ),
       ),
       customTimeSlots: availability.customTimeSlots.map(
         (key, slots) => MapEntry(
           key,
-          slots.map((slot) => TimeSlotModel.fromDomain(slot)).toList(),
+          slots.map((slot) => TimeSlotModel.fromEntity(slot)).toList(),
         ),
       ),
       timeSlots: availability.timeSlots,
@@ -113,6 +122,8 @@ class AvailabilityModel extends Availability {
   }
 }
 
+/// TimeSlotModel extends TimeSlot and implements the serialization methods
+/// to convert the model to and from Firestore documents.
 class TimeSlotModel extends TimeSlot {
   TimeSlotModel({
     required super.startTime,
@@ -120,7 +131,9 @@ class TimeSlotModel extends TimeSlot {
     super.isBooked,
   });
 
-  // Factory to create a TimeSlotModel from a map
+  /// Method to convert Firestore document to TimeSlotModel
+  ///
+  /// This method takes a [Map<String, dynamic>] and returns a `TimeSlotModel`
   factory TimeSlotModel.fromMap(Map<String, dynamic> data) {
     return TimeSlotModel(
       startTime: DateFormat('HH:mm').parse(data['start_time'] ??
@@ -131,7 +144,10 @@ class TimeSlotModel extends TimeSlot {
     );
   }
 
-  // Converts the TimeSlotModel to a map for serialization
+  /// Method to convert TimeSlotModel to Firestore document
+  ///
+  /// This method returns a `Map<String, dynamic>` which can be used to
+  /// add/update a document in Firestore.
   Map<String, dynamic> toMap() {
     return {
       'start_time': DateFormat('HH:mm').format(startTime),
@@ -140,8 +156,10 @@ class TimeSlotModel extends TimeSlot {
     };
   }
 
-  // Convert TimeSlot to TimeSlotModel
-  static TimeSlotModel fromDomain(TimeSlot slot) {
+  /// Convert TimeSlot to TimeSlotModel
+  /// 
+  /// This method takes a [TimeSlot] object and returns a `TimeSlotModel`
+  static TimeSlotModel fromEntity(TimeSlot slot) {
     return TimeSlotModel(
       startTime: slot.startTime,
       endTime: slot.endTime,

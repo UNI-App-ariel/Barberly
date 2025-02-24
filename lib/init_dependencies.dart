@@ -2,6 +2,10 @@ part of 'init_dependencies.g.dart';
 
 final serviceLocator = GetIt.instance;
 
+/// Method to initialize all the dependencies
+/// This method should be called in the main method
+/// before the runApp() method
+/// This method initializes all the dependencies required for the app to run
 Future<void> initDependencies() async {
   _initCore();
   _initAuth();

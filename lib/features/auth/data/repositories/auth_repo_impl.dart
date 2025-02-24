@@ -10,6 +10,9 @@ class AuthRepoImpl implements AuthRepo {
 
   AuthRepoImpl(this._authDatasource);
 
+  /// Retrieves the current user from the authentication datasource.
+  ///
+  /// Returns an [Either] containing a [Failure] on error or the current [MyUser] instance.
   @override
   Future<Either<Failure, MyUser?>> getCurrentUser() async {
     try {
@@ -20,6 +23,9 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  /// Logs in a user with the provided email and password.
+  ///
+  /// Returns an [Either] containing a [Failure] on error or the logged-in [MyUser] instance.
   @override
   Future<Either<Failure, MyUser?>> loginWithEmail(
       String email, String password) async {
@@ -31,6 +37,9 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  /// Logs out the current user.
+  ///
+  /// Returns an [Either] containing a [Failure] on error or null if successful.
   @override
   Future<Either<Failure, void>> logOut() async {
     try {
@@ -41,6 +50,9 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  /// Signs up a new user with the provided name, email, and password.
+  ///
+  /// Returns an [Either] containing a [Failure] on error or the signed-up [MyUser] instance.
   @override
   Future<Either<Failure, MyUser?>> signUpWithEmail(
     String name,
@@ -54,7 +66,10 @@ class AuthRepoImpl implements AuthRepo {
       return Left(Failure(e.message));
     }
   }
-  
+
+  /// Signs in a user with Google authentication.
+  ///
+  /// Returns an [Either] containing a [Failure] on error or the signed-in [MyUser] instance.
   @override
   Future<Either<Failure, MyUser?>> signInWithGoogle() async {
     try {
@@ -64,9 +79,12 @@ class AuthRepoImpl implements AuthRepo {
       return Left(Failure(e.message));
     }
   }
-  
+
+  /// Signs in a user with Facebook authentication.
+  ///
+  /// Returns an [Either] containing a [Failure] on error or the signed-in [MyUser] instance.
   @override
-  Future<Either<Failure, MyUser?>> signInWithFacebook()async {
+  Future<Either<Failure, MyUser?>> signInWithFacebook() async {
     try {
       final user = await _authDatasource.signInWithFacebook();
       return Right(user);

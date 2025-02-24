@@ -12,6 +12,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/features/auth/data/models/user_model.dart';
 
+/// An interface for authentication data source operations.
 abstract interface class AuthDatasource {
   Future<MyUserModel?> loginWithEmail(String email, String password);
   Future<MyUserModel?> signUpWithEmail(
@@ -22,6 +23,7 @@ abstract interface class AuthDatasource {
   Future<MyUserModel?> signInWithFacebook();
 }
 
+/// Implementation of the AuthDatasource interface for Firebase authentication.
 class AuthDatasourceImpl implements AuthDatasource {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
@@ -31,6 +33,11 @@ class AuthDatasourceImpl implements AuthDatasource {
     required this.firestore,
   });
 
+  /// Retrieves the currently authenticated user from Firebase.
+  ///
+  /// If the user exists in Firestore, it returns the user as a [MyUserModel].
+  /// If the user does not exist in Firestore, it returns a minimal [MyUserModel]
+  /// with only the user ID and email.
   @override
   Future<MyUserModel?> getCurrentUser() async {
     try {
@@ -53,13 +60,17 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
   }
 
+  /// Logs in a user with their email and password.
+  ///
+  /// If successful, it retrieves the user document from Firestore and returns it
+  /// as a [MyUserModel]. If the user does not exist in Firestore, it returns
+  /// a minimal [MyUserModel] with the user ID and email.
   @override
   Future<MyUserModel?> loginWithEmail(String email, String password) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      // get user from firestore
       final userDoc = await firestore
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -78,6 +89,9 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
   }
 
+  /// Logs out the currently authenticated user from Firebase.
+  ///
+  /// This method does not return any data.
   @override
   Future<void> logout() async {
     try {
@@ -87,6 +101,10 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
   }
 
+  /// Signs up a new user with their name, email, and password.
+  ///
+  /// After successful registration, it saves the user details to Firestore
+  /// and returns the newly created [MyUserModel].
   @override
   Future<MyUserModel?> signUpWithEmail(
       String name, String email, String password) async {
@@ -101,7 +119,6 @@ class AuthDatasourceImpl implements AuthDatasource {
         accountType: 'email',
       );
 
-      // save user to firestore
       await firestore.collection('users').doc(user.id).set(user.toMap());
 
       return user;
@@ -110,38 +127,36 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
   }
 
+  /// Signs in a user with their Google account.
+  ///
+  /// If successful, it retrieves the user document from Firestore and returns
+  /// it as a [MyUserModel]. If the user does not exist, it saves the user
+  /// details to Firestore and returns a new [MyUserModel].
   @override
   Future<MyUserModel?> signInWithGoogle() async {
     try {
-      // begin sign in with google
       final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
-      // check if user cancelled the sign in
       if (gUser == null) {
         return null;
       }
 
-      // obtain the auth details from the request
       final GoogleSignInAuthentication gAuth = await gUser.authentication;
 
-      // create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: gAuth.accessToken,
         idToken: gAuth.idToken,
       );
 
-      // sign in to firebase
       final UserCredential userCredential =
           await auth.signInWithCredential(credential);
 
-      // get user from firestore
       final userDoc = await firestore
           .collection('users')
           .doc(userCredential.user!.uid)
           .get();
 
       if (userDoc.exists) {
-        // update user info
         await userDoc.reference.update({
           'name': userCredential.user!.displayName,
           'photoUrl': userCredential.user!.photoURL,
@@ -149,7 +164,6 @@ class AuthDatasourceImpl implements AuthDatasource {
 
         return MyUserModel.fromMap(userDoc.data()!);
       } else {
-        // save user to firestore
         await firestore.collection('users').doc(userCredential.user!.uid).set(
               MyUserModel(
                 id: userCredential.user!.uid,
@@ -172,6 +186,10 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
   }
 
+  /// Generates a random nonce string of a given length.
+  ///
+  /// The default length is 32 characters. This nonce can be used for security
+  /// purposes during authentication processes.
   String generateNonce([int length = 32]) {
     const charset =
         '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
@@ -180,13 +198,20 @@ class AuthDatasourceImpl implements AuthDatasource {
         .join();
   }
 
-  // Function to generate the SHA256 hash of the raw nonce
+  /// Generates the SHA256 hash of the provided raw nonce.
+  ///
+  /// This hash can be used to enhance security during authentication processes.
   String hashNonce(String rawNonce) {
-    final bytes = utf8.encode(rawNonce); // Convert the raw nonce to bytes
-    final digest = sha256.convert(bytes); // Compute SHA256 hash
-    return digest.toString(); // Return the hash as a string
+    final bytes = utf8.encode(rawNonce);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
   }
 
+  /// Signs in a user with their Facebook account.
+  ///
+  /// If successful, it retrieves the user document from Firestore and returns
+  /// it as a [MyUserModel]. If the user does not exist, it saves the user
+  /// details to Firestore and returns a new [MyUserModel].
   @override
   Future<MyUserModel?> signInWithFacebook() async {
     try {
@@ -213,25 +238,21 @@ class AuthDatasourceImpl implements AuthDatasource {
               FacebookAuthProvider.credential(result.accessToken!.tokenString);
         }
 
-        // sign in to firebase
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
 
-        // get user from firestore
         final userDoc = await firestore
             .collection('users')
             .doc(userCredential.user!.uid)
             .get();
 
         if (userDoc.exists) {
-          // update user info
           await userDoc.reference.update({
             'name': userCredential.user!.displayName,
             'photoUrl': userCredential.user!.photoURL,
           });
           return MyUserModel.fromMap(userDoc.data()!);
         } else {
-          // save user to firestore
           await firestore.collection('users').doc(userCredential.user!.uid).set(
                 MyUserModel(
                   id: userCredential.user!.uid,

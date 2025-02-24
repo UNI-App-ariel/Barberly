@@ -11,12 +11,13 @@ import 'package:uni_app/features/auth/domain/entities/user.dart';
 part 'app_user_event.dart';
 part 'app_user_state.dart';
 
+/// BLoC for managing application user state.
 class AppUserBloc extends Bloc<AppUserEvent, AppUserState> {
   MyUser? _currentUser;
 
   MyUser? get currentUser => _currentUser;
 
-  // usecase
+  // Use cases for streaming and updating user data
   final StreamAppUserUseCase streamAppUserUseCase;
   final UpdateAppUserUseCase updateAppUserUseCase;
 
@@ -26,15 +27,16 @@ class AppUserBloc extends Bloc<AppUserEvent, AppUserState> {
     required this.streamAppUserUseCase,
     required this.updateAppUserUseCase,
   }) : super(AppUserInitial()) {
+    // Handling different events
     on<AppUserEvent>((event, emit) {});
 
-    // stream user
+    // Stream user event
     on<StreamUserEvent>(_onStreamUserEvent);
 
-    // update user
+    // Update user event
     on<UpdateUserEvent>(_onUpdateUserEvent);
 
-    // logout
+    // Logout event
     on<LogoutEvent>((event, emit) {
       _userStreamSubscription?.cancel();
       _currentUser = null;
@@ -42,29 +44,37 @@ class AppUserBloc extends Bloc<AppUserEvent, AppUserState> {
     });
   }
 
+  /// Streams the user based on the provided user ID.
   void _onStreamUserEvent(
       StreamUserEvent event, Emitter<AppUserState> emit) async {
-    _userStreamSubscription?.cancel();
+    _userStreamSubscription?.cancel(); // Cancel any existing subscription
     _userStreamSubscription = streamAppUserUseCase(event.userId).listen(
       (user) {
-        user.fold((failure) => emit(AppUserError(failure.message)), (user) {
-          if (user == null) {
-            emit(AppUserNotFound());
-          } else {
-            _currentUser = user;
-            OneSignalService().login(user.id);
-            emit(AppUserLoaded(user));
-          }
-        });
+        user.fold(
+          (failure) => emit(AppUserError(failure.message)),
+          (user) {
+            if (user == null) {
+              emit(AppUserNotFound());
+            } else {
+              _currentUser = user;
+              OneSignalService().login(user.id);
+              emit(AppUserLoaded(user));
+            }
+          },
+        );
       },
       onError: (e) {
+        // Log the error for debugging
+        debugPrint('User stream error: $e');
         emit(AppUserError(e.toString()));
       },
     );
 
-    await _userStreamSubscription?.asFuture();
+    await _userStreamSubscription
+        ?.asFuture(); // Wait for the subscription to complete
   }
 
+  /// Updates the user information.
   void _onUpdateUserEvent(
       UpdateUserEvent event, Emitter<AppUserState> emit) async {
     emit(AppUserLoading());
@@ -74,8 +84,15 @@ class AppUserBloc extends Bloc<AppUserEvent, AppUserState> {
       (failure) => emit(AppUserError(failure.message)),
       (_) {
         emit(AppUserUpdated());
-        add(StreamUserEvent(event.user.id));
+        add(StreamUserEvent(event.user.id)); // Stream updated user
       },
     );
+  }
+
+  /// Clean up resources when the BLoC is closed.
+  @override
+  Future<void> close() {
+    _userStreamSubscription?.cancel();
+    return super.close();
   }
 }

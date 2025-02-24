@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A Cubit that manages the application's theme mode (light, dark, or system).
 class ThemeCubit extends Cubit<ThemeMode> {
   static const String _themeKey = 'themeMode';
 
+  /// Initializes the ThemeCubit and loads the saved theme mode from SharedPreferences.
   ThemeCubit() : super(ThemeMode.system) {
     _loadTheme();
   }
 
-  // Toggle theme based on the current state, cycling through light, dark, and system
+  /// Toggles the theme based on the current state, cycling through light and dark modes.
+  ///
+  /// If the current theme is dark, it switches to light. If it is light, it switches to dark.
+  /// The theme mode is then saved in SharedPreferences.
   void toggleTheme() async {
     if (state == ThemeMode.dark) {
       emit(ThemeMode.light);
@@ -20,13 +25,17 @@ class ThemeCubit extends Cubit<ThemeMode> {
     }
   }
 
-  // Save theme mode in SharedPreferences
+  /// Saves the specified theme mode in SharedPreferences.
+  ///
+  /// [themeMode] must be either 'light', 'dark', or 'system'.
   Future<void> _saveTheme(String themeMode) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_themeKey, themeMode);
   }
 
-  // Load theme mode from SharedPreferences
+  /// Loads the theme mode from SharedPreferences and emits the corresponding state.
+  ///
+  /// If no saved theme mode is found, it defaults to 'system'.
   Future<void> _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
     final themeMode =
@@ -40,12 +49,14 @@ class ThemeCubit extends Cubit<ThemeMode> {
         emit(ThemeMode.light);
         break;
       default:
-        emit(ThemeMode.light);
+        emit(ThemeMode.system);
         break;
     }
   }
 
-  // Set a specific theme mode manually
+  /// Sets a specific theme mode manually and saves it in SharedPreferences.
+  ///
+  /// [mode] must be either ThemeMode.dark, ThemeMode.light, or ThemeMode.system.
   void setTheme(ThemeMode mode) async {
     emit(mode);
     switch (mode) {
@@ -61,11 +72,14 @@ class ThemeCubit extends Cubit<ThemeMode> {
     }
   }
 
-  // Get the current theme mode
+  /// Returns the current theme mode.
   ThemeMode getTheme() {
     return state;
   }
 
+  /// Checks if the current theme mode is set to system.
+  ///
+  /// Returns true if the theme is set to system, otherwise false.
   bool isSystemTheme() {
     return state == ThemeMode.system;
   }

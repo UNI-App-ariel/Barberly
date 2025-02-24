@@ -6,16 +6,126 @@ import 'package:uni_app/core/common/data/models/barbershop_model.dart';
 import 'package:uni_app/core/errors/exceptions.dart';
 import 'package:uni_app/core/utils/my_date_utils.dart';
 
+/// Abstract class for BarbershopDataSource
+/// This class defines the methods that will be used to interact with the data source
 abstract interface class BarbershopDataSource {
+  /// Method to get all barbershops
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while fetching barbershops
+  ///
+  /// Returns:
+  /// - a `Future<List<BarbershopModel>>`
   Future<List<BarbershopModel>> getBarbershops();
+
+  /// Method to get a barbershop by its `id`
+  ///
+  /// Parameters:
+  /// - [id]: the `id` of the barbershop to be fetched
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while fetching the barbershop
+  ///
+  /// Returns:
+  /// - a `Future<BarbershopModel>`
   Future<BarbershopModel> getBarbershop(String id);
+
+  /// Method to add a new barbershop
+  ///
+  /// Parameters:
+  /// - [barbershop]: the barbershop to be added
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while adding the barbershop
+  ///
+  /// Returns:
+  /// - a `Future<void>`
   Future<void> addBarbershop(BarbershopModel barbershop);
+
+  /// Method to update a barbershop
+  ///
+  /// Parameters:
+  /// - [barbershop]: the barbershop to be updated
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while updating the barbershop
+  ///
+  /// Returns:
+  /// - a `Future<void>`
   Future<void> updateBarbershop(BarbershopModel barbershop);
+
+  /// Method to delete a barbershop
+  ///
+  /// Parameters:
+  /// - [id]: the `id` of the barbershop to be deleted
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while deleting the barbershop
+  ///
+  /// Returns:
+  /// - a `Future<void>`
   Future<void> deleteBarbershop(String id);
+
+  /// Method to favorite a barbershop
+  ///
+  /// Parameters:
+  /// - [userId]: the `id` of the user who is favoriting the barbershop
+  /// - [barbershopId]: the `id` of the barbershop to be favorited
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while favoriting the barbershop
+  ///
+  /// Returns:
+  /// - a `Future<void>`
   Future<void> favoriteBarbershop(String userId, String barbershopId);
+
+  /// Method to unfavorite a barbershop
+  ///
+  /// Parameters:
+  /// - [userId]: the `id` of the user who is unfavoriting the barbershop
+  /// - [barbershopId]: the `id` of the barbershop to be unfavorited
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while unfavoriting the barbershop
+  ///
+  /// Returns:
+  /// - a `Future<void>`
   Future<void> unfavoriteBarbershop(String userId, String barbershopId);
+
+  /// Method to get a merged availability stream
+  ///
+  /// Parameters:
+  /// - [shopId]: the `id` of the barbershop whose availability is to be fetched
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while fetching the availability
+  ///
+  /// Returns:
+  /// - a `Stream<AvailabilityModel>`
   Stream<AvailabilityModel> getMergedAvailabilityStream(String shopId);
+
+  /// Method to get a stream of appointments
+  ///
+  /// Parameters:
+  /// - [shopId]: the `id` of the barbershop whose appointments are to be fetched
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while fetching appointments
+  ///
+  /// Returns:
+  /// - a `Stream<List<AppointmentModel>>`
   Stream<List<AppointmentModel>> getAppointmentsStream(String shopId);
+
+  /// Method to update availability
+  ///
+  /// Parameters:
+  /// - [availability]: the availability to be updated
+  ///
+  /// Throws:
+  /// - [ServerException]: if an error occurs while updating the availability
+  ///
+  /// Returns:
+  /// - a `Future<void>`
   Future<void> updateAvailability(AvailabilityModel availability);
 }
 
@@ -179,7 +289,7 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
         // Safely access customTimeSlots
         mergedTimeSlots[currentDate] = availability
             .customTimeSlots[currentDate]!
-            .map((slot) => TimeSlotModel.fromDomain(
+            .map((slot) => TimeSlotModel.fromEntity(
                 slot)) // Convert TimeSlot to TimeSlotModel
             .toList();
       } else {
@@ -192,7 +302,7 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
             // && availability.defaultTimeSlots[weekday]!.isNotEmpty
             ) {
           mergedTimeSlots[currentDate] = availability.defaultTimeSlots[weekday]!
-              .map((slot) => TimeSlotModel.fromDomain(
+              .map((slot) => TimeSlotModel.fromEntity(
                   slot)) // Convert TimeSlot to TimeSlotModel
               .toList();
         }
@@ -204,7 +314,7 @@ class BarbershopDataSourceImpl implements BarbershopDataSource {
       return availability;
     }
 
-    return AvailabilityModel.fromDomain(
+    return AvailabilityModel.fromEntity(
         availability.copyWith(timeSlots: mergedTimeSlots));
   }
 

@@ -7,18 +7,20 @@ import 'package:uni_app/core/common/domain/usecases/appointment/cancel_appointme
 part 'appointment_event.dart';
 part 'appointment_state.dart';
 
+/// Bloc responsible for managing appointment-related events and states.
 class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
-  CancelAppointmentUseCase cancelAppointmentUseCase;
-  BookAppointmentUseCase bookAppointmentUseCase;
+  final CancelAppointmentUseCase cancelAppointmentUseCase;
+  final BookAppointmentUseCase bookAppointmentUseCase;
 
+  /// Creates an instance of [AppointmentBloc].
+  ///
+  /// Requires [cancelAppointmentUseCase] and [bookAppointmentUseCase]
+  /// to perform operations related to canceling and booking appointments.
   AppointmentBloc({
     required this.cancelAppointmentUseCase,
     required this.bookAppointmentUseCase,
   }) : super(AppointmentInitial()) {
-    on<AppointmentEvent>((event, emit) {
-
-    });
-
+    // Handle booking appointment event
     on<BookAppointmentEvent>((event, emit) async {
       emit(AppointmentLoading());
       final result = await bookAppointmentUseCase(event.appointment);
@@ -28,12 +30,13 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       );
     });
 
+    // Handle canceling appointment event
     on<CancelAppointmentEvent>((event, emit) async {
       emit(AppointmentLoading());
       final result = await cancelAppointmentUseCase(event.appointment.id);
       result.fold(
         (failure) => emit(AppointmentFailure(failure.message)),
-        (_) => emit(AppointmentInitial()),
+        (_) => emit(AppointmentInitial()), // or emit a success state
       );
     });
   }

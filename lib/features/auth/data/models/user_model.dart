@@ -1,5 +1,7 @@
 import 'package:uni_app/features/auth/domain/entities/user.dart';
 
+/// User model extends User entity
+/// User model is used to convert data from map to object and vice versa
 class MyUserModel extends MyUser {
   MyUserModel({
     required super.id,
